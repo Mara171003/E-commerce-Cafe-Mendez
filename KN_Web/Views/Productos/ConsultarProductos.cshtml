@@ -1,0 +1,75 @@
+﻿@model List<KN_Web.BaseDatos.tProducto>
+
+@{
+    ViewBag.Title = "ConsultarUsuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br>
+<h4>Consulta de productos</h4>
+<hr>
+<br>
+
+<div class="row">
+    <div class="col-12">
+
+        @if (ViewBag.msj != null)
+        {
+            <div class="alert alert-info" role="alert" style="text-align:center">
+                @ViewBag.msj
+            </div>
+        }
+
+        <div>
+            <a class="btn btn-outline-primary" href="@Url.Action("RegistrarProducto","Productos")"> <i class="fa fa-plus"></i>  Registrar </a>
+        </div>
+
+        <br/>
+
+        <table id="tablaProductos" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Descripción</th>
+                    <th>Inventario</th>
+                    <th>Precio</th>
+                    <th>Imagen</th>
+                    <th>Categoría</th>
+                    <th>Cambiar Información</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IdProducto</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.Inventario</td>
+                        <td>@item.Precio</td>
+                        <td><img class="card-img-top" src="@item.Imagen" style="width: 125px; height:80px; margin-top:20px"></td>
+                        <td>@item.tCategoria.Descripcion</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-primary" href="@Url.Action("ActualizarProducto","Productos", new { Consecutivo = item.IdProducto })">
+                                <i class="fa fa-tag"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script src="~/root/plugins/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#tablaProductos").DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'
+            },
+            columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4, 5] }]
+        });
+    })
+
+</script>

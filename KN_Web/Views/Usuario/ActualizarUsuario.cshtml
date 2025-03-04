@@ -1,0 +1,86 @@
+﻿@model KN_Web.BaseDatos.tUsuario
+
+@{
+    ViewBag.Title = "ActualizarUsuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br>
+<h4>Datos del usuario</h4>
+<hr>
+<br>
+
+<div class="row">
+    <div class="col-3">
+    </div>
+    <div class="col-6">
+
+        @if (ViewBag.msj != null)
+        {
+            <div class="alert alert-info" role="alert" style="text-align:center">
+                @ViewBag.msj
+            </div>
+        }
+
+        @using (Html.BeginForm("ActualizarUsuario", "Usuario"))
+        {
+            @Html.HiddenFor(m => m.Consecutivo)
+            
+            @Html.Label("Identificación")
+            <div class="input-group mb-3">
+                @Html.TextBoxFor(m => m.Identificacion, new
+                {
+                    @type = "text",
+                    @class = "form-control",
+                    @placeholder = "Identificación",
+                    onkeyup = "ConsultarIdentificacion();"
+                })
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                    </div>
+                </div>
+            </div>
+
+            @Html.Label("Nombre")
+            <div class="input-group mb-3">
+                @Html.TextBoxFor(m => m.Nombre, new { @type = "text", @class = "form-control", @placeholder = "Nombre", @readOnly = true })
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-user"></span>
+                    </div>
+                </div>
+            </div>
+
+            @Html.Label("Correo")
+            <div class="input-group mb-3">
+                @Html.TextBoxFor(m => m.Correo, new { @type = "email", @class = "form-control", @placeholder = "Correo Electrónico" })
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-envelope"></span>
+                    </div>
+                </div>
+            </div>
+
+            @Html.Label("Perfil")
+            <div class="input-group mb-3">
+                @Html.DropDownListFor(m => m.IdRol, ViewBag.Roles as List<SelectListItem>, new { @class = "form-control" })
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <span class="fas fa-lock"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <button type="submit" class="btn btn-primary btn-block" style="width:100%">Procesar</button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+<script src="~/root/funciones/Usuario.js"></script>

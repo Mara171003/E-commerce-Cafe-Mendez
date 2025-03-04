@@ -1,0 +1,72 @@
+﻿@model List<KN_Web.BaseDatos.ConsultarDetalleFactura_Result>
+
+@{
+    ViewBag.Title = "ConsultarDetalleFacturas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br>
+<h4>Factura # @Model.FirstOrDefault().IdMaestro</h4>
+<hr>
+<br>
+
+<div class="row">
+    <div class="col-12">
+
+        @if (ViewBag.msj != null)
+        {
+            <div class="alert alert-info" role="alert" style="text-align:center">
+                @ViewBag.msj
+            </div>
+        }
+
+        <table id="tablaCompras" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th># Línea</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unit</th>
+                    <th>SubTotal</th>
+                    <th>Impuestos</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{ 
+                    int contador = 1;
+                }
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@contador</td>
+                        <td>@item.IdProducto - @item.Descripcion</td>
+                        <td>@item.Cantidad</td>
+                        <td>@item.PrecioUnitario.ToString("N2")</td>
+                        <td>@item.SubTotal.ToString("N2")</td>
+                        <td>@item.Impuesto.ToString("N2")</td>
+                        <td>@item.Total.ToString("N2")</td>
+                    </tr>
+
+                    contador += 1;
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script src="~/root/plugins/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#tablaCompras").DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'
+            },
+            columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4, 5, 6] }]
+        });
+    })
+
+</script>

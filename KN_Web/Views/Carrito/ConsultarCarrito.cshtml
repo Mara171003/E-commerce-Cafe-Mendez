@@ -1,0 +1,119 @@
+﻿@model KN_Web.Entidades.CarritoGeneral
+
+@{
+    ViewBag.Title = "ConsultarUsuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br>
+<h4>Mi Carrito</h4>
+<hr>
+<br>
+
+<div class="row">
+    <div class="col-12">
+
+        @if (ViewBag.msj != null)
+        {
+            <div class="alert alert-info" role="alert" style="text-align:center">
+                @ViewBag.msj
+            </div>
+        }
+
+        <table id="tablaCarrito" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>Cantidad</th>
+                    <th>SubTotal</th>
+                    <th>Impuesto</th>
+                    <th>Total</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DatosCarrito)
+                {
+                    <tr>
+                        <td>@item.Descripcion</td>
+                        <td>@item.Precio.ToString("N2")</td>
+                        <td>@item.Cantidad</td>
+                        <td>@item.SubTotal.Value.ToString("N2")</td>
+                        <td>@item.Impuesto.Value.ToString("N2")</td>
+                        <td>@item.Total.Value.ToString("N2")</td>
+
+                        <td style="text-align:center">
+                            <button type="button" class="btn btn-primary AbrirModal" data-toggle="modal" data-target="#ModalCarrito"
+                                    data-id="@item.IdProducto" data-name="@item.Descripcion">
+                                <i class="fa fa-share-square"></i>
+                            </button>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <br /><br />
+
+        <div class="row">
+            <div class="col-3">
+                <p style="font-size:14pt; margin-top:2%">El monto a cancelar es de: ¢<b>@decimal.Parse(Session["Total"].ToString()).ToString("N2")</b></p>
+            </div>
+            <div>
+                @if (Session["Total"].ToString() != "0")
+                {
+                    using(Html.BeginForm("PagarCarrito","Carrito"))
+                    { 
+                       <button type="submit" class="btn btn-outline-primary" style="width:200px">Pagar</button>
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="ModalCarrito" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("EliminarProductoCarrito", "Carrito"))
+            {
+                <div class="modal-body">
+                    @Html.Hidden("IdProducto", "")
+                    ¿Desea remover de su carrito el producto <label id="Nombre"></label>?
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Procesar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/root/plugins/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#tablaCarrito").DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'
+            },
+            columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4, 5] }]
+        });
+    })
+
+    $(document).on("click", ".AbrirModal", function () {
+        $("#IdProducto").val($(this).attr('data-id'));
+        $("#Nombre").text($(this).attr('data-name'));
+    });
+
+</script>

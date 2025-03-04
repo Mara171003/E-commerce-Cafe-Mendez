@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "ConsultarDatos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+        </div>
+        <div class="card-body">
+            <div class="chart-area">
+                <div class="chartjs-size-monitor">
+                <div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                
+                <canvas id="myAreaChart" width="541" height="320" style="display: block; width: 541px; height: 320px;" class="chartjs-render-monitor"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/root/plugins/jquery/jquery.min.js"></script>
+<script src="~/root/dist/js/Chart.js"></script>
+<script src="~/root/dist/js/chart-area-demo.js"></script>

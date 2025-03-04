@@ -1,0 +1,155 @@
+﻿@model List<KN_Web.BaseDatos.tProducto>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Home";
+}
+
+<!-- Barra de búsqueda con autocomplete -->
+@using (Html.BeginForm("Busqueda", "Login", FormMethod.Get))
+{
+    <div class="input-group">
+        <input type="text" id="searchBox" name="search" class="form-control" placeholder="Buscar producto..." />
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </span>
+    </div>
+}
+<br />
+
+<!-- Opciones de filtro: Se carga la lista de categorías desde ViewBag.Categorias -->
+@using (Html.BeginForm("Filtrar", "Login", FormMethod.Get, new { id = "formFiltro" }))
+{
+    <div class="form-group">
+        <label for="idCategoria">Filtrar por categoría:</label>
+        <select name="idCategoria" id="idCategoria" class="form-control" onchange="this.form.submit();">
+            <option value="0">Todas las categorías</option>
+            @foreach (var cat in ViewBag.Categorias as List<KN_Web.BaseDatos.tCategoria>)
+            {
+                <option value="@cat.IdCategoria">@cat.Descripcion</option>
+            }
+        </select>
+    </div>
+}
+<br />
+
+<!-- Listado de productos -->
+@foreach (var item in Model)
+{
+    <div class="col-lg-4 col-md-6 col-sm-12" style="margin-bottom:20px">
+        <div class="card">
+            <div style="text-align:center">
+                <img class="card-img-top" src="@item.Imagen" style="width: 200px; height:150px; margin-top:20px" alt="@item.Descripcion" />
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><h5 class="card-title">@item.Descripcion</h5></li>
+                    <li class="list-group-item">Categoría: @item.tCategoria.Descripcion</li>
+                    <li class="list-group-item">Inventario: @item.Inventario</li>
+                    <li class="list-group-item">Precio: ¢ @item.Precio.ToString("N2")</li>
+                </ul>
+
+                <!-- Botón de estrella para agregar a favoritos -->
+                <div class="row" style="margin-top:10px;">
+                    <div class="col-12 text-right">
+                        <a onclick="AgregarAFavorito(@item.IdProducto)" class="btn btn-outline-warning" title="Agregar a favoritos">
+                            <i class="fa fa-star"></i>
+                        </a>
+                    </div>
+                </div>
+
+                @if (item.Inventario > 0)
+                {
+                    <div class="card-body row" style="margin-top:10px;">
+                        <div class="col-2"></div>
+                        <div class="col-3">
+                            <input id="prd-@item.IdProducto" type="number" class="form-control" style="text-align:center" value="0" min="1" max="@item.Inventario" onkeypress="return ValidarNumeros(event)">
+                        </div>
+                        <div class="col-5">
+                            <a onclick="AgregarProducto(@item.IdProducto, @item.Inventario);" class="card-link btn btn-outline-primary">Añadir</a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="card-body row" style="margin-top:10px;">
+                        <div class="col-4"></div>
+                        <div class="col-4">
+                            <p class="card-link" style="font-size:12pt;color:red;font-weight:bold">Agotado</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "y-804SD1Jx2UKBVv6UmOQ"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+
+    function ValidarNumeros(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        return (charCode >= 48 && charCode <= 57);
+    }
+
+    function AgregarProducto(IdProducto, Inventario) {
+        let cantidadIngresada = $("#prd-" + IdProducto).val();
+
+        if (cantidadIngresada > Inventario) {
+            MostrarMensaje("Información", "Debe ingresar una cantidad inferior al inventario", "info");
+            return;
+        }
+
+        if (cantidadIngresada <= 0) {
+            MostrarMensaje("Información", "Debe ingresar una cantidad válida", "info");
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/Login/RegistrarCarrito',
+            dataType: 'json',
+            data: {
+                "IdProducto": IdProducto,
+                "Cantidad": cantidadIngresada
+            },
+            success: function (data) {
+                MostrarMensaje("Información", "Producto añadido correctamente", "success");
+            }
+        });
+    }
+
+    // Función para agregar un producto a favoritos mediante AJAX
+    function AgregarAFavorito(idProducto) {
+        $.ajax({
+            type: 'POST',
+            url: '/Favoritos/AgregarFavorito',
+            dataType: 'json',
+            data: { idProducto: idProducto },
+            success: function (data) {
+                MostrarMensaje("Información", "Producto agregado a favoritos", "success");
+            },
+            error: function (xhr, status, error) {
+                MostrarMensaje("Error", "No se pudo agregar a favoritos", "error");
+            }
+        });
+    }
+
+    function MostrarMensaje(titulo, mensaje, icono) {
+        Swal.fire({
+            title: titulo,
+            showDenyButton: false,
+            showCancelButton: false,
+            confirmButtonText: "Aceptar",
+            text: mensaje,
+            icon: icono
+        }).then((result) => {
+            // Si no estamos en la vista Busqueda, redirige a Home
+            if (result.isConfirmed && window.location.pathname.toLowerCase().indexOf("busqueda") === -1) {
+                window.location.href = '/Login/Home';
+            }
+        });
+    }
+</script>

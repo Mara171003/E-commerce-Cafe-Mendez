@@ -1,0 +1,67 @@
+﻿@model List<KN_Web.BaseDatos.ConsultarFacturas_Result>
+
+@{
+    ViewBag.Title = "ConsultarFacturas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br>
+<h4>Mis Compras</h4>
+<hr>
+<br>
+
+<div class="row">
+    <div class="col-12">
+
+        @if (ViewBag.msj != null)
+        {
+            <div class="alert alert-info" role="alert" style="text-align:center">
+                @ViewBag.msj
+            </div>
+        }
+
+        <table id="tablaCompras" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th># Factura</th>
+                    <th>Fecha</th>
+                    <th>SubTotal</th>
+                    <th>Impuestos</th>
+                    <th>Total</th>
+                    <th>Ver Detalle</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IdMaestro</td>
+                        <td>@item.FechaCompra.ToString("dd/MM/yyyy hh:mm:ss tt")</td>
+                        <td>@item.SubTotal.ToString("N2")</td>
+                        <td>@item.Impuesto.ToString("N2")</td>
+                        <td>@item.Total.ToString("N2")</td>
+                        <td style="text-align:center">
+                            <a class="btn btn-primary" href="@Url.Action("ConsultarDetalleFactura","Carrito", new { Consecutivo = item.IdMaestro })">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script src="~/root/plugins/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#tablaCompras").DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'
+            },
+            columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4] }]
+        });
+    })
+
+</script>

@@ -1,0 +1,64 @@
+﻿@model KN_Web.BaseDatos.tProducto
+
+@{
+    ViewBag.Title = "ActualizarProducto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br>
+<h4>Datos del producto</h4>
+<hr>
+<br>
+
+<div class="row">
+    <div class="col-3">
+    </div>
+    <div class="col-6">
+
+        @if (ViewBag.msj != null)
+        {
+            <div class="alert alert-info" role="alert" style="text-align:center">
+                @ViewBag.msj
+            </div>
+        }
+
+        @using (Html.BeginForm("ActualizarProducto", "Productos", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.IdProducto)
+
+            @Html.Label("Descripción")
+            <div class="input-group mb-3">
+                @Html.TextBoxFor(m => m.Descripcion, new { @type = "text", @class = "form-control", @placeholder = "Descripción" })
+            </div>
+
+            @Html.Label("Inventario")
+            <div class="input-group mb-3">
+                @Html.TextBoxFor(m => m.@Inventario, new { @type = "text", @class = "form-control", @placeholder = "Inventario" })
+            </div>
+
+            @Html.Label("Precio")
+            <div class="input-group mb-3">
+                @Html.TextBoxFor(m => m.Precio, new { @type = "text", @class = "form-control", @placeholder = "Precio" })
+            </div>
+
+            @Html.Label("Categoría")
+            <div class="input-group mb-3">
+                @Html.DropDownListFor(m => m.IdCategoria, ViewBag.Categorias as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+
+            @Html.Label("Imagen")
+            <div class="input-group mb-3">
+                <input type="file" id="ImagenProducto" name="ImagenProducto" class="form-control form-control-user">
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <button type="submit" class="btn btn-primary btn-block" style="width:100%">Procesar</button>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

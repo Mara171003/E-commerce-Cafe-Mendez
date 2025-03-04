@@ -1,0 +1,36 @@
+﻿@model List<KN_Web.BaseDatos.tProducto>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Resultados de Búsqueda";
+}
+
+<div class="container">
+    <h2>Resultados de búsqueda</h2>
+    <hr />
+    <!-- Barra de búsqueda -->
+    @using (Html.BeginForm("Busqueda", "Login", FormMethod.Get))
+    {
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Buscar producto..." />
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    }
+    <br />
+    <div class="row">
+        @if (Model != null && Model.Any())
+        {
+            @Html.Partial("_ProductosPartial", Model)
+        }
+        else
+        {
+            <p>No se encontraron productos que coincidan con la búsqueda.</p>
+            <br />
+            <a href="@Url.Action("Home", "Login")" class="btn btn-primary">Regresar</a>
+        }
+    </div>
+</div>
