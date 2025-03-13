@@ -25,7 +25,6 @@
                 <td>@item.Precio.ToString("N2")</td>
                 <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
                 <td>
-                    <!-- Botón para eliminar, que abre el modal de confirmación -->
                     <button type="button" class="btn btn-danger AbrirModal" data-toggle="modal" data-target="#ModalFavoritos"
                             data-id="@item.IdFavorito" data-name="@item.Descripcion">
                         Eliminar
@@ -36,7 +35,6 @@
     </tbody>
 </table>
 
-<!-- Modal de confirmación para eliminar un favorito -->
 <div class="modal fade" id="ModalFavoritos" tabindex="-1" role="dialog" aria-labelledby="modalLabelFavoritos" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -61,7 +59,6 @@
     </div>
 </div>
 
-<!-- Se incluye jQuery (o tu versión) para el manejo del modal -->
 <script src="~/root/plugins/jquery/jquery.min.js"></script>
 <script>$(document).on("click", ".AbrirModal", function () {
         $("#idFavorito").val($(this).attr("data-id"));
