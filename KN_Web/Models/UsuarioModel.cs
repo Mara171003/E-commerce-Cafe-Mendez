@@ -138,5 +138,38 @@ namespace KN_Web.Models
             return (rowsAffected > 0 ? true : false);
         }
 
+        public bool EliminarUsuario(int consecutivo)
+        {
+            var rowsAffected = 0;
+
+            using (var context = new MARTES_BDEntities1())
+            {
+                rowsAffected = context.EliminarUsuarios(consecutivo);
+            }
+
+            return (rowsAffected > 0);
+        }
+        public Usuario ConsultarUsuarioPorID(int consecutivo)
+        {
+            using (var contexto = new MARTES_BDEntities1())
+            {
+                var tUsuario = contexto.tUsuario.FirstOrDefault(u => u.Consecutivo == consecutivo && u.Estado == true);
+
+                if (tUsuario != null)
+                {
+                    return new Usuario
+                    {
+                        Consecutivo = tUsuario.Consecutivo,
+                        Identificacion = tUsuario.Identificacion,
+                        Nombre = tUsuario.Nombre,
+                        Correo = tUsuario.Correo,
+                        Estado = tUsuario.Estado,
+                        IdRol = tUsuario.IdRol,
+                    };
+                }
+
+                return null;
+            }
+        }
     }
 }

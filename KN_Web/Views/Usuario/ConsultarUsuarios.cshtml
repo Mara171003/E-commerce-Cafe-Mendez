@@ -1,25 +1,20 @@
 ﻿@model List<KN_Web.BaseDatos.tUsuario>
-
 @{
     ViewBag.Title = "ConsultarUsuarios";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <br>
 <h4>Consulta de usuarios</h4>
 <hr>
 <br>
-
 <div class="row">
     <div class="col-12">
-
         @if (ViewBag.msj != null)
         {
             <div class="alert alert-info" role="alert" style="text-align:center">
                 @ViewBag.msj
             </div>
         }
-
         <table id="tablaUsuarios" class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -29,6 +24,7 @@
                     <th>Estado</th>
                     <th>Cambiar Estado</th>
                     <th>Cambiar Información</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,14 +53,20 @@
                                 <i class="fa fa-user"></i>
                             </a>
                         </td>
+                        <td style="text-align:center">
+                            <button type="button" class="btn btn-danger AbrirModalEliminar" data-toggle="modal" data-target="#ModalEliminarUsuario"
+                                    data-id="@item.Consecutivo" data-name="@item.Nombre">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
-
     </div>
 </div>
 
+<!-- Modal para cambiar estado -->
 <div class="modal fade" id="ModalUsuarios" data-backdrop="static" data-keyboard="false" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -89,6 +91,34 @@
     </div>
 </div>
 
+<div class="modal fade" id="ModalEliminarUsuario" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="modalEliminarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEliminarLabel">Eliminar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("EliminarUsuario", "Usuario"))
+            {
+                <div class="modal-body">
+                    @Html.Hidden("consecutivo", "", new { id = "EliminarConsecutivo" })
+                    <div class="alert alert-warning">
+                        <p>¿Está seguro que desea eliminar permanentemente al usuario <strong><label id="NombreEliminar"></label></strong>?</p>
+                        <p>Esta acción no se puede deshacer.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
 <script src="~/root/plugins/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -105,4 +135,8 @@
         $("#Nombre").text($(this).attr('data-name'));
     });
 
+    $(document).on("click", ".AbrirModalEliminar", function () {
+        $("#EliminarConsecutivo").val($(this).attr('data-id'));
+        $("#NombreEliminar").text($(this).attr('data-name'));
+    });
 </script>

@@ -242,6 +242,9 @@
           <Parameter Name="Consecutivo" Type="int" Mode="In" />
           <Parameter Name="IdProducto" Type="int" Mode="In" />
         </Function>
+        <Function Name="EliminarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
         <Function Name="IniciarSesion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Correo" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
@@ -266,9 +269,6 @@
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="Correo" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="sp_FiltrarProductosPorCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdCategoria" Type="int" Mode="In" />
         </Function>
         <Function Name="ValidarExistencias" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Consecutivo" Type="int" Mode="In" />
@@ -326,259 +326,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MARTES_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="tCarrito">
-          <Key>
-            <PropertyRef Name="IdCarrito" />
-          </Key>
-          <Property Name="IdCarrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Consecutivo" Type="Int32" Nullable="false" />
-          <Property Name="IdProducto" Type="Int32" Nullable="false" />
-          <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="tProducto" Relationship="Self.FK_tCarrito_tProducto" FromRole="tCarrito" ToRole="tProducto" />
-          <NavigationProperty Name="tUsuario" Relationship="Self.FK_tCarrito_tUsuario" FromRole="tCarrito" ToRole="tUsuario" />
-        </EntityType>
-        <EntityType Name="tCategoria">
-          <Key>
-            <PropertyRef Name="IdCategoria" />
-          </Key>
-          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tProducto" Relationship="Self.FK_tProducto_tCategoria" FromRole="tCategoria" ToRole="tProducto" />
-        </EntityType>
-        <EntityType Name="tDetalle">
-          <Key>
-            <PropertyRef Name="IdDetale" />
-          </Key>
-          <Property Name="IdDetale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdMaestro" Type="Int32" Nullable="false" />
-          <Property Name="IdProducto" Type="Int32" Nullable="false" />
-          <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <Property Name="PrecioUnitario" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="SubTotal" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Impuesto" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <NavigationProperty Name="tMaestro" Relationship="Self.FK_tDetalle_tMaestro" FromRole="tDetalle" ToRole="tMaestro" />
-          <NavigationProperty Name="tProducto" Relationship="Self.FK_tDetalle_tProducto" FromRole="tDetalle" ToRole="tProducto" />
-        </EntityType>
-        <EntityType Name="tFavoritos">
-          <Key>
-            <PropertyRef Name="IdFavorito" />
-          </Key>
-          <Property Name="IdFavorito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Consecutivo" Type="Int32" Nullable="false" />
-          <Property Name="IdProducto" Type="Int32" Nullable="false" />
-          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="tProducto" Relationship="Self.FK_tFavoritos_tProducto" FromRole="tFavoritos" ToRole="tProducto" />
-          <NavigationProperty Name="tUsuario" Relationship="Self.FK_tFavoritos_tUsuario" FromRole="tFavoritos" ToRole="tUsuario" />
-        </EntityType>
-        <EntityType Name="tMaestro">
-          <Key>
-            <PropertyRef Name="IdMaestro" />
-          </Key>
-          <Property Name="IdMaestro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Consecutivo" Type="Int32" Nullable="false" />
-          <Property Name="FechaCompra" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SubTotal" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Impuesto" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <NavigationProperty Name="tDetalle" Relationship="Self.FK_tDetalle_tMaestro" FromRole="tMaestro" ToRole="tDetalle" />
-          <NavigationProperty Name="tUsuario" Relationship="Self.FK_tMaestro_tUsuario" FromRole="tMaestro" ToRole="tUsuario" />
-        </EntityType>
-        <EntityType Name="tProducto">
-          <Key>
-            <PropertyRef Name="IdProducto" />
-          </Key>
-          <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Inventario" Type="Int32" Nullable="false" />
-          <Property Name="Precio" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Imagen" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IdCategoria" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tCarrito" Relationship="Self.FK_tCarrito_tProducto" FromRole="tProducto" ToRole="tCarrito" />
-          <NavigationProperty Name="tCategoria" Relationship="Self.FK_tProducto_tCategoria" FromRole="tProducto" ToRole="tCategoria" />
-          <NavigationProperty Name="tDetalle" Relationship="Self.FK_tDetalle_tProducto" FromRole="tProducto" ToRole="tDetalle" />
-          <NavigationProperty Name="tFavoritos" Relationship="Self.FK_tFavoritos_tProducto" FromRole="tProducto" ToRole="tFavoritos" />
-        </EntityType>
-        <EntityType Name="tRol">
-          <Key>
-            <PropertyRef Name="IdRol" />
-          </Key>
-          <Property Name="IdRol" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NombreRol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="tUsuario" Relationship="Self.FK_tUsuario_tRol" FromRole="tRol" ToRole="tUsuario" />
-        </EntityType>
-        <EntityType Name="tUsuario">
-          <Key>
-            <PropertyRef Name="Consecutivo" />
-          </Key>
-          <Property Name="Consecutivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Identificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Contrasenna" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Estado" Type="Boolean" Nullable="false" />
-          <Property Name="IdRol" Type="Byte" Nullable="false" />
-          <Property Name="EsClaveTemporal" Type="Boolean" />
-          <Property Name="ClaveVencimiento" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tCarrito" Relationship="Self.FK_tCarrito_tUsuario" FromRole="tUsuario" ToRole="tCarrito" />
-          <NavigationProperty Name="tFavoritos" Relationship="Self.FK_tFavoritos_tUsuario" FromRole="tUsuario" ToRole="tFavoritos" />
-          <NavigationProperty Name="tMaestro" Relationship="Self.FK_tMaestro_tUsuario" FromRole="tUsuario" ToRole="tMaestro" />
-          <NavigationProperty Name="tRol" Relationship="Self.FK_tUsuario_tRol" FromRole="tUsuario" ToRole="tRol" />
-        </EntityType>
-        <Association Name="FK_tCarrito_tProducto">
-          <End Role="tProducto" Type="Self.tProducto" Multiplicity="1" />
-          <End Role="tCarrito" Type="Self.tCarrito" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tProducto">
-              <PropertyRef Name="IdProducto" />
-            </Principal>
-            <Dependent Role="tCarrito">
-              <PropertyRef Name="IdProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tCarrito_tUsuario">
-          <End Role="tUsuario" Type="Self.tUsuario" Multiplicity="1" />
-          <End Role="tCarrito" Type="Self.tCarrito" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tUsuario">
-              <PropertyRef Name="Consecutivo" />
-            </Principal>
-            <Dependent Role="tCarrito">
-              <PropertyRef Name="Consecutivo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tProducto_tCategoria">
-          <End Role="tCategoria" Type="Self.tCategoria" Multiplicity="1" />
-          <End Role="tProducto" Type="Self.tProducto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tCategoria">
-              <PropertyRef Name="IdCategoria" />
-            </Principal>
-            <Dependent Role="tProducto">
-              <PropertyRef Name="IdCategoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tDetalle_tMaestro">
-          <End Role="tMaestro" Type="Self.tMaestro" Multiplicity="1" />
-          <End Role="tDetalle" Type="Self.tDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tMaestro">
-              <PropertyRef Name="IdMaestro" />
-            </Principal>
-            <Dependent Role="tDetalle">
-              <PropertyRef Name="IdMaestro" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tDetalle_tProducto">
-          <End Role="tProducto" Type="Self.tProducto" Multiplicity="1" />
-          <End Role="tDetalle" Type="Self.tDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tProducto">
-              <PropertyRef Name="IdProducto" />
-            </Principal>
-            <Dependent Role="tDetalle">
-              <PropertyRef Name="IdProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tFavoritos_tProducto">
-          <End Role="tProducto" Type="Self.tProducto" Multiplicity="1" />
-          <End Role="tFavoritos" Type="Self.tFavoritos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tProducto">
-              <PropertyRef Name="IdProducto" />
-            </Principal>
-            <Dependent Role="tFavoritos">
-              <PropertyRef Name="IdProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tFavoritos_tUsuario">
-          <End Role="tUsuario" Type="Self.tUsuario" Multiplicity="1" />
-          <End Role="tFavoritos" Type="Self.tFavoritos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tUsuario">
-              <PropertyRef Name="Consecutivo" />
-            </Principal>
-            <Dependent Role="tFavoritos">
-              <PropertyRef Name="Consecutivo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tMaestro_tUsuario">
-          <End Role="tUsuario" Type="Self.tUsuario" Multiplicity="1" />
-          <End Role="tMaestro" Type="Self.tMaestro" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tUsuario">
-              <PropertyRef Name="Consecutivo" />
-            </Principal>
-            <Dependent Role="tMaestro">
-              <PropertyRef Name="Consecutivo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tUsuario_tRol">
-          <End Role="tRol" Type="Self.tRol" Multiplicity="1" />
-          <End Role="tUsuario" Type="Self.tUsuario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tRol">
-              <PropertyRef Name="IdRol" />
-            </Principal>
-            <Dependent Role="tUsuario">
-              <PropertyRef Name="IdRol" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="MARTES_BDEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tCarrito" EntityType="Self.tCarrito" />
-          <EntitySet Name="tCategoria" EntityType="Self.tCategoria" />
-          <EntitySet Name="tDetalle" EntityType="Self.tDetalle" />
-          <EntitySet Name="tFavoritos" EntityType="Self.tFavoritos" />
-          <EntitySet Name="tMaestro" EntityType="Self.tMaestro" />
-          <EntitySet Name="tProducto" EntityType="Self.tProducto" />
-          <EntitySet Name="tRol" EntityType="Self.tRol" />
-          <EntitySet Name="tUsuario" EntityType="Self.tUsuario" />
-          <AssociationSet Name="FK_tCarrito_tProducto" Association="Self.FK_tCarrito_tProducto">
-            <End Role="tProducto" EntitySet="tProducto" />
-            <End Role="tCarrito" EntitySet="tCarrito" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tCarrito_tUsuario" Association="Self.FK_tCarrito_tUsuario">
-            <End Role="tUsuario" EntitySet="tUsuario" />
-            <End Role="tCarrito" EntitySet="tCarrito" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tProducto_tCategoria" Association="Self.FK_tProducto_tCategoria">
-            <End Role="tCategoria" EntitySet="tCategoria" />
-            <End Role="tProducto" EntitySet="tProducto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tDetalle_tMaestro" Association="Self.FK_tDetalle_tMaestro">
-            <End Role="tMaestro" EntitySet="tMaestro" />
-            <End Role="tDetalle" EntitySet="tDetalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tDetalle_tProducto" Association="Self.FK_tDetalle_tProducto">
-            <End Role="tProducto" EntitySet="tProducto" />
-            <End Role="tDetalle" EntitySet="tDetalle" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tFavoritos_tProducto" Association="Self.FK_tFavoritos_tProducto">
-            <End Role="tProducto" EntitySet="tProducto" />
-            <End Role="tFavoritos" EntitySet="tFavoritos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tFavoritos_tUsuario" Association="Self.FK_tFavoritos_tUsuario">
-            <End Role="tUsuario" EntitySet="tUsuario" />
-            <End Role="tFavoritos" EntitySet="tFavoritos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tMaestro_tUsuario" Association="Self.FK_tMaestro_tUsuario">
-            <End Role="tUsuario" EntitySet="tUsuario" />
-            <End Role="tMaestro" EntitySet="tMaestro" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tUsuario_tRol" Association="Self.FK_tUsuario_tRol">
-            <End Role="tRol" EntitySet="tRol" />
-            <End Role="tUsuario" EntitySet="tUsuario" />
-          </AssociationSet>
           <FunctionImport Name="ActualizarImagenProducto">
             <Parameter Name="IdProducto" Mode="In" Type="Int32" />
             <Parameter Name="Imagen" Mode="In" Type="String" />
@@ -660,6 +408,53 @@
           <FunctionImport Name="sp_FiltrarProductosPorCategoria">
           <Parameter Name="IdCategoria" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="EliminarUsuarios">
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tCarrito" EntityType="MARTES_BDModel.tCarrito" />
+          <EntitySet Name="tCategoria" EntityType="MARTES_BDModel.tCategoria" />
+          <EntitySet Name="tDetalle" EntityType="MARTES_BDModel.tDetalle" />
+          <EntitySet Name="tFavoritos" EntityType="MARTES_BDModel.tFavoritos" />
+          <EntitySet Name="tMaestro" EntityType="MARTES_BDModel.tMaestro" />
+          <EntitySet Name="tProducto" EntityType="MARTES_BDModel.tProducto" />
+          <EntitySet Name="tRol" EntityType="MARTES_BDModel.tRol" />
+          <EntitySet Name="tUsuario" EntityType="MARTES_BDModel.tUsuario" />
+          <AssociationSet Name="FK_tCarrito_tProducto" Association="MARTES_BDModel.FK_tCarrito_tProducto">
+            <End Role="tProducto" EntitySet="tProducto" />
+            <End Role="tCarrito" EntitySet="tCarrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tCarrito_tUsuario" Association="MARTES_BDModel.FK_tCarrito_tUsuario">
+            <End Role="tUsuario" EntitySet="tUsuario" />
+            <End Role="tCarrito" EntitySet="tCarrito" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tProducto_tCategoria" Association="MARTES_BDModel.FK_tProducto_tCategoria">
+            <End Role="tCategoria" EntitySet="tCategoria" />
+            <End Role="tProducto" EntitySet="tProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tDetalle_tMaestro" Association="MARTES_BDModel.FK_tDetalle_tMaestro">
+            <End Role="tMaestro" EntitySet="tMaestro" />
+            <End Role="tDetalle" EntitySet="tDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tDetalle_tProducto" Association="MARTES_BDModel.FK_tDetalle_tProducto">
+            <End Role="tProducto" EntitySet="tProducto" />
+            <End Role="tDetalle" EntitySet="tDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tFavoritos_tProducto" Association="MARTES_BDModel.FK_tFavoritos_tProducto">
+            <End Role="tProducto" EntitySet="tProducto" />
+            <End Role="tFavoritos" EntitySet="tFavoritos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tFavoritos_tUsuario" Association="MARTES_BDModel.FK_tFavoritos_tUsuario">
+            <End Role="tUsuario" EntitySet="tUsuario" />
+            <End Role="tFavoritos" EntitySet="tFavoritos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tMaestro_tUsuario" Association="MARTES_BDModel.FK_tMaestro_tUsuario">
+            <End Role="tUsuario" EntitySet="tUsuario" />
+            <End Role="tMaestro" EntitySet="tMaestro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tUsuario_tRol" Association="MARTES_BDModel.FK_tUsuario_tRol">
+            <End Role="tRol" EntitySet="tRol" />
+            <End Role="tUsuario" EntitySet="tUsuario" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="ConsultarCarrito_Result">
           <Property Type="Int32" Name="IdCarrito" Nullable="false" />
@@ -735,102 +530,220 @@
           <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Correo" Nullable="false" MaxLength="100" />
         </ComplexType>
+        <EntityType Name="tCarrito">
+          <Key>
+            <PropertyRef Name="IdCarrito" />
+          </Key>
+          <Property Name="IdCarrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Consecutivo" Type="Int32" Nullable="false" />
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tProducto" Relationship="MARTES_BDModel.FK_tCarrito_tProducto" FromRole="tCarrito" ToRole="tProducto" />
+          <NavigationProperty Name="tUsuario" Relationship="MARTES_BDModel.FK_tCarrito_tUsuario" FromRole="tCarrito" ToRole="tUsuario" />
+        </EntityType>
+        <EntityType Name="tCategoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tProducto" Relationship="MARTES_BDModel.FK_tProducto_tCategoria" FromRole="tCategoria" ToRole="tProducto" />
+        </EntityType>
+        <EntityType Name="tDetalle">
+          <Key>
+            <PropertyRef Name="IdDetale" />
+          </Key>
+          <Property Name="IdDetale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMaestro" Type="Int32" Nullable="false" />
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="PrecioUnitario" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Impuesto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="tMaestro" Relationship="MARTES_BDModel.FK_tDetalle_tMaestro" FromRole="tDetalle" ToRole="tMaestro" />
+          <NavigationProperty Name="tProducto" Relationship="MARTES_BDModel.FK_tDetalle_tProducto" FromRole="tDetalle" ToRole="tProducto" />
+        </EntityType>
+        <EntityType Name="tFavoritos">
+          <Key>
+            <PropertyRef Name="IdFavorito" />
+          </Key>
+          <Property Name="IdFavorito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Consecutivo" Type="Int32" Nullable="false" />
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tProducto" Relationship="MARTES_BDModel.FK_tFavoritos_tProducto" FromRole="tFavoritos" ToRole="tProducto" />
+          <NavigationProperty Name="tUsuario" Relationship="MARTES_BDModel.FK_tFavoritos_tUsuario" FromRole="tFavoritos" ToRole="tUsuario" />
+        </EntityType>
+        <EntityType Name="tMaestro">
+          <Key>
+            <PropertyRef Name="IdMaestro" />
+          </Key>
+          <Property Name="IdMaestro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Consecutivo" Type="Int32" Nullable="false" />
+          <Property Name="FechaCompra" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Impuesto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="tDetalle" Relationship="MARTES_BDModel.FK_tDetalle_tMaestro" FromRole="tMaestro" ToRole="tDetalle" />
+          <NavigationProperty Name="tUsuario" Relationship="MARTES_BDModel.FK_tMaestro_tUsuario" FromRole="tMaestro" ToRole="tUsuario" />
+        </EntityType>
+        <EntityType Name="tProducto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Inventario" Type="Int32" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Imagen" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tCarrito" Relationship="MARTES_BDModel.FK_tCarrito_tProducto" FromRole="tProducto" ToRole="tCarrito" />
+          <NavigationProperty Name="tCategoria" Relationship="MARTES_BDModel.FK_tProducto_tCategoria" FromRole="tProducto" ToRole="tCategoria" />
+          <NavigationProperty Name="tDetalle" Relationship="MARTES_BDModel.FK_tDetalle_tProducto" FromRole="tProducto" ToRole="tDetalle" />
+          <NavigationProperty Name="tFavoritos" Relationship="MARTES_BDModel.FK_tFavoritos_tProducto" FromRole="tProducto" ToRole="tFavoritos" />
+        </EntityType>
+        <EntityType Name="tRol">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreRol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tUsuario" Relationship="MARTES_BDModel.FK_tUsuario_tRol" FromRole="tRol" ToRole="tUsuario" />
+        </EntityType>
+        <EntityType Name="tUsuario">
+          <Key>
+            <PropertyRef Name="Consecutivo" />
+          </Key>
+          <Property Name="Consecutivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Identificacion" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Contrasenna" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="IdRol" Type="Byte" Nullable="false" />
+          <Property Name="EsClaveTemporal" Type="Boolean" />
+          <Property Name="ClaveVencimiento" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tCarrito" Relationship="MARTES_BDModel.FK_tCarrito_tUsuario" FromRole="tUsuario" ToRole="tCarrito" />
+          <NavigationProperty Name="tFavoritos" Relationship="MARTES_BDModel.FK_tFavoritos_tUsuario" FromRole="tUsuario" ToRole="tFavoritos" />
+          <NavigationProperty Name="tMaestro" Relationship="MARTES_BDModel.FK_tMaestro_tUsuario" FromRole="tUsuario" ToRole="tMaestro" />
+          <NavigationProperty Name="tRol" Relationship="MARTES_BDModel.FK_tUsuario_tRol" FromRole="tUsuario" ToRole="tRol" />
+        </EntityType>
+        <Association Name="FK_tCarrito_tProducto">
+          <End Type="MARTES_BDModel.tProducto" Role="tProducto" Multiplicity="1" />
+          <End Type="MARTES_BDModel.tCarrito" Role="tCarrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tProducto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="tCarrito">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tCarrito_tUsuario">
+          <End Type="MARTES_BDModel.tUsuario" Role="tUsuario" Multiplicity="1" />
+          <End Type="MARTES_BDModel.tCarrito" Role="tCarrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUsuario">
+              <PropertyRef Name="Consecutivo" />
+            </Principal>
+            <Dependent Role="tCarrito">
+              <PropertyRef Name="Consecutivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tProducto_tCategoria">
+          <End Type="MARTES_BDModel.tCategoria" Role="tCategoria" Multiplicity="1" />
+          <End Type="MARTES_BDModel.tProducto" Role="tProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tCategoria">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="tProducto">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tDetalle_tMaestro">
+          <End Type="MARTES_BDModel.tMaestro" Role="tMaestro" Multiplicity="1" />
+          <End Type="MARTES_BDModel.tDetalle" Role="tDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tMaestro">
+              <PropertyRef Name="IdMaestro" />
+            </Principal>
+            <Dependent Role="tDetalle">
+              <PropertyRef Name="IdMaestro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tDetalle_tProducto">
+          <End Type="MARTES_BDModel.tProducto" Role="tProducto" Multiplicity="1" />
+          <End Type="MARTES_BDModel.tDetalle" Role="tDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tProducto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="tDetalle">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tFavoritos_tProducto">
+          <End Type="MARTES_BDModel.tProducto" Role="tProducto" Multiplicity="1" />
+          <End Type="MARTES_BDModel.tFavoritos" Role="tFavoritos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tProducto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="tFavoritos">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tFavoritos_tUsuario">
+          <End Type="MARTES_BDModel.tUsuario" Role="tUsuario" Multiplicity="1" />
+          <End Type="MARTES_BDModel.tFavoritos" Role="tFavoritos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUsuario">
+              <PropertyRef Name="Consecutivo" />
+            </Principal>
+            <Dependent Role="tFavoritos">
+              <PropertyRef Name="Consecutivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tMaestro_tUsuario">
+          <End Type="MARTES_BDModel.tUsuario" Role="tUsuario" Multiplicity="1" />
+          <End Type="MARTES_BDModel.tMaestro" Role="tMaestro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUsuario">
+              <PropertyRef Name="Consecutivo" />
+            </Principal>
+            <Dependent Role="tMaestro">
+              <PropertyRef Name="Consecutivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tUsuario_tRol">
+          <End Type="MARTES_BDModel.tRol" Role="tRol" Multiplicity="1" />
+          <End Type="MARTES_BDModel.tUsuario" Role="tUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tRol">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="tUsuario">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MARTES_BDModelStoreContainer" CdmEntityContainer="MARTES_BDEntities1">
-          <EntitySetMapping Name="tCarrito">
-            <EntityTypeMapping TypeName="MARTES_BDModel.tCarrito">
-              <MappingFragment StoreEntitySet="tCarrito">
-                <ScalarProperty Name="IdCarrito" ColumnName="IdCarrito" />
-                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
-                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tCategoria">
-            <EntityTypeMapping TypeName="MARTES_BDModel.tCategoria">
-              <MappingFragment StoreEntitySet="tCategoria">
-                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tDetalle">
-            <EntityTypeMapping TypeName="MARTES_BDModel.tDetalle">
-              <MappingFragment StoreEntitySet="tDetalle">
-                <ScalarProperty Name="IdDetale" ColumnName="IdDetale" />
-                <ScalarProperty Name="IdMaestro" ColumnName="IdMaestro" />
-                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
-                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
-                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tFavoritos">
-            <EntityTypeMapping TypeName="MARTES_BDModel.tFavoritos">
-              <MappingFragment StoreEntitySet="tFavoritos">
-                <ScalarProperty Name="IdFavorito" ColumnName="IdFavorito" />
-                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
-                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tMaestro">
-            <EntityTypeMapping TypeName="MARTES_BDModel.tMaestro">
-              <MappingFragment StoreEntitySet="tMaestro">
-                <ScalarProperty Name="IdMaestro" ColumnName="IdMaestro" />
-                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
-                <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
-                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
-                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tProducto">
-            <EntityTypeMapping TypeName="MARTES_BDModel.tProducto">
-              <MappingFragment StoreEntitySet="tProducto">
-                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Inventario" ColumnName="Inventario" />
-                <ScalarProperty Name="Precio" ColumnName="Precio" />
-                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
-                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tRol">
-            <EntityTypeMapping TypeName="MARTES_BDModel.tRol">
-              <MappingFragment StoreEntitySet="tRol">
-                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
-                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tUsuario">
-            <EntityTypeMapping TypeName="MARTES_BDModel.tUsuario">
-              <MappingFragment StoreEntitySet="tUsuario">
-                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
-                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="Correo" ColumnName="Correo" />
-                <ScalarProperty Name="Contrasenna" ColumnName="Contrasenna" />
-                <ScalarProperty Name="Estado" ColumnName="Estado" />
-                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
-                <ScalarProperty Name="EsClaveTemporal" ColumnName="EsClaveTemporal" />
-                <ScalarProperty Name="ClaveVencimiento" ColumnName="ClaveVencimiento" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ActualizarImagenProducto" FunctionName="MARTES_BDModel.Store.ActualizarImagenProducto" />
           <FunctionImportMapping FunctionImportName="ActualizarProducto" FunctionName="MARTES_BDModel.Store.ActualizarProducto" />
           <FunctionImportMapping FunctionImportName="ActualizarUsuario" FunctionName="MARTES_BDModel.Store.ActualizarUsuario" />
@@ -952,7 +865,97 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_FiltrarProductosPorCategoria" FunctionName="MARTES_BDModel.Store.sp_FiltrarProductosPorCategoria" />
+          <FunctionImportMapping FunctionImportName="EliminarUsuarios" FunctionName="MARTES_BDModel.Store.EliminarUsuarios" />
+          <EntitySetMapping Name="tCarrito">
+            <EntityTypeMapping TypeName="MARTES_BDModel.tCarrito">
+              <MappingFragment StoreEntitySet="tCarrito">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+                <ScalarProperty Name="IdCarrito" ColumnName="IdCarrito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tCategoria">
+            <EntityTypeMapping TypeName="MARTES_BDModel.tCategoria">
+              <MappingFragment StoreEntitySet="tCategoria">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tDetalle">
+            <EntityTypeMapping TypeName="MARTES_BDModel.tDetalle">
+              <MappingFragment StoreEntitySet="tDetalle">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="PrecioUnitario" ColumnName="PrecioUnitario" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="IdMaestro" ColumnName="IdMaestro" />
+                <ScalarProperty Name="IdDetale" ColumnName="IdDetale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tFavoritos">
+            <EntityTypeMapping TypeName="MARTES_BDModel.tFavoritos">
+              <MappingFragment StoreEntitySet="tFavoritos">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+                <ScalarProperty Name="IdFavorito" ColumnName="IdFavorito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tMaestro">
+            <EntityTypeMapping TypeName="MARTES_BDModel.tMaestro">
+              <MappingFragment StoreEntitySet="tMaestro">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+                <ScalarProperty Name="IdMaestro" ColumnName="IdMaestro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tProducto">
+            <EntityTypeMapping TypeName="MARTES_BDModel.tProducto">
+              <MappingFragment StoreEntitySet="tProducto">
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Inventario" ColumnName="Inventario" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tRol">
+            <EntityTypeMapping TypeName="MARTES_BDModel.tRol">
+              <MappingFragment StoreEntitySet="tRol">
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tUsuario">
+            <EntityTypeMapping TypeName="MARTES_BDModel.tUsuario">
+              <MappingFragment StoreEntitySet="tUsuario">
+                <ScalarProperty Name="ClaveVencimiento" ColumnName="ClaveVencimiento" />
+                <ScalarProperty Name="EsClaveTemporal" ColumnName="EsClaveTemporal" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Contrasenna" ColumnName="Contrasenna" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

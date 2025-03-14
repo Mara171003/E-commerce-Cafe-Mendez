@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'X:\Descargas\Martes-main (1)\Martes-main\KN_Web\KN_Web\BaseDatos\Model1.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\XPC\Source\Repos\E-commerce-Cafe-Mendez\KN_Web\BaseDatos\Model1.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

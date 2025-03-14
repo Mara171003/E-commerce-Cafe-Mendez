@@ -4,24 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="44ad2715c1894e54802820f525b320ce" Name="Diagram1">
-        <EntityTypeShape EntityType="MARTES_BDModel.tCarrito" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tCategoria" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tDetalle" Width="1.5" PointX="7.5" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tFavoritos" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tMaestro" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tProducto" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tRol" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tUsuario" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
-        <AssociationConnector Association="MARTES_BDModel.FK_tCarrito_tProducto" ManuallyRouted="false" />
-        <AssociationConnector Association="MARTES_BDModel.FK_tCarrito_tUsuario" ManuallyRouted="false" />
-        <AssociationConnector Association="MARTES_BDModel.FK_tProducto_tCategoria" ManuallyRouted="false" />
-        <AssociationConnector Association="MARTES_BDModel.FK_tDetalle_tMaestro" ManuallyRouted="false" />
-        <AssociationConnector Association="MARTES_BDModel.FK_tDetalle_tProducto" ManuallyRouted="false" />
-        <AssociationConnector Association="MARTES_BDModel.FK_tFavoritos_tProducto" ManuallyRouted="false" />
-        <AssociationConnector Association="MARTES_BDModel.FK_tFavoritos_tUsuario" ManuallyRouted="false" />
-        <AssociationConnector Association="MARTES_BDModel.FK_tMaestro_tUsuario" ManuallyRouted="false" />
-        <AssociationConnector Association="MARTES_BDModel.FK_tUsuario_tRol" ManuallyRouted="false" />
+      <Diagram DiagramId="44ad2715c1894e54802820f525b320ce" Name="Diagram1" ZoomLevel="25">
+        <EntityTypeShape EntityType="MARTES_BDModel.tCarrito" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tCategoria" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tDetalle" Width="1.5" PointX="7.5" PointY="10.75" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tFavoritos" Width="1.5" PointX="5.25" PointY="2.125" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tMaestro" Width="1.5" PointX="5.25" PointY="11" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tProducto" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tRol" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tUsuario" Width="1.5" PointX="3" PointY="4.5" />
+        <AssociationConnector Association="MARTES_BDModel.FK_tCarrito_tProducto" />
+        <AssociationConnector Association="MARTES_BDModel.FK_tCarrito_tUsuario" />
+        <AssociationConnector Association="MARTES_BDModel.FK_tProducto_tCategoria" />
+        <AssociationConnector Association="MARTES_BDModel.FK_tDetalle_tMaestro" />
+        <AssociationConnector Association="MARTES_BDModel.FK_tDetalle_tProducto" />
+        <AssociationConnector Association="MARTES_BDModel.FK_tFavoritos_tProducto" />
+        <AssociationConnector Association="MARTES_BDModel.FK_tFavoritos_tUsuario" />
+        <AssociationConnector Association="MARTES_BDModel.FK_tMaestro_tUsuario" />
+        <AssociationConnector Association="MARTES_BDModel.FK_tUsuario_tRol" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -6,14 +6,15 @@
     <title>Café Mendez</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="~/root/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
-    <link href="~/root/dist/css/adminlte.min.css" rel="stylesheet" />
+    <link href="~/root/dist/css/adminlte.css" rel="stylesheet" />
     <link href="~/root/dist/css/styles.css" rel="stylesheet" />
     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.3/sweetalert2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+
 </head>
 <body class="hold-transition sidebar-mini">
 
@@ -74,7 +75,7 @@
                         {
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <i class="fa-solid fa-screwdriver-wrench"></i>
                                     <p>
                                         Mantenimientos
                                         <i class="right fas fa-angle-left"></i>
@@ -83,7 +84,7 @@
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a href="@Url.Action("ConsultarUsuarios", "Usuario")" class="nav-link">
-                                            <i class="far fa-users nav-icon"></i>
+                                            <i class="fa-solid fa-users"></i>
                                             <p>Usuarios</p>
                                         </a>
                                     </li>
@@ -91,7 +92,7 @@
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a href="@Url.Action("ConsultarProductos", "Productos")" class="nav-link">
-                                            <i class="far fa-users nav-icon"></i>
+                                            <i class="fa-solid fa-warehouse"></i>
                                             <p>Productos</p>
                                         </a>
                                     </li>
@@ -99,7 +100,7 @@
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a href="@Url.Action("ConsultarDatos", "Datos")" class="nav-link">
-                                            <i class="far fa-users nav-icon"></i>
+                                            <i class="fa-solid fa-database"></i>
                                             <p>Ventas</p>
                                         </a>
                                     </li>
@@ -109,7 +110,7 @@
 
                         <li class="nav-item has-treeview">
                             <a href="@Url.Action("ConsultarCarrito","Carrito")" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="fa-solid fa-cart-shopping"></i>
                                 <p>
                                     Mi Carrito
                                 </p>
@@ -117,7 +118,7 @@
                         </li>
                         <li class="nav-item has-treeview">
                             <a href="@Url.Action("ConsultarFavoritos","Favoritos")" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="fa-solid fa-star"></i>
                                 <p>
                                     Mis Favoritos
                                 </p>
@@ -126,7 +127,7 @@
 
                         <li class="nav-item has-treeview">
                             <a href="@Url.Action("ConsultarFacturas","Carrito")" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <i class="fa-solid fa-file"></i>
                                 <p>
                                     Mis Compras
                                 </p>

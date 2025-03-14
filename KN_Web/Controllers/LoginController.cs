@@ -4,6 +4,7 @@ using KN_Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 
 namespace KN_Web.Controllers
@@ -20,12 +21,53 @@ namespace KN_Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            // Verificar si ya existe una sesión activa
+            if (Session["ConsecutivoUsuario"] != null)
+            {
+                // Si hay una sesión activa, redirigir al Home
+                return RedirectToAction("Home", "Login");
+            }
+
+            // Verificar si existe una cookie de usuario
+            HttpCookie cookieUsuario = Request.Cookies["UsuarioID"];
+            if (cookieUsuario != null)
+            {
+                // Recuperar el ID de usuario de la cookie
+                int usuarioID;
+                if (int.TryParse(cookieUsuario.Value, out usuarioID))
+                {
+                    // Buscar el usuario por ID
+                    var usuario = usuarioM.ConsultarUsuarioPorID(usuarioID);
+                    if (usuario != null)
+                    {
+                        // Recrear la sesión
+                        Session["NombreUsuario"] = usuario.Nombre;
+                        Session["ConsecutivoUsuario"] = usuario.Consecutivo;
+
+                        // Recuperar el rol de la cookie o del usuario
+                        HttpCookie cookieRol = Request.Cookies["RolUsuario"];
+                        if (cookieRol != null)
+                        {
+                            Session["RolUsuario"] = cookieRol.Value;
+                        }
+                        else
+                        {
+                            Session["RolUsuario"] = usuario.IdRol.ToString();
+                        }
+
+                        // Redirigir a Home
+                        return RedirectToAction("Home", "Login");
+                    }
+                }
+            }
+
+            // Si no hay sesión ni cookie válida, mostrar la vista de login
             return View();
         }
 
         // Iniciar Sesión - POST
         [HttpPost]
-        public ActionResult Index(Usuario user)
+        public ActionResult Index(Usuario user, bool recordarme = false)
         {
             var respuesta = usuarioM.IniciarSesion(user);
 
@@ -40,6 +82,21 @@ namespace KN_Web.Controllers
                 Session["NombreUsuario"] = respuesta.Nombre;
                 Session["ConsecutivoUsuario"] = respuesta.Consecutivo;
                 Session["RolUsuario"] = respuesta.IdRol.ToString();
+
+                // Si seleccionó recordarme, crear una cookie persistente
+                if (recordarme)
+                {
+                    // Crear cookie para el ID del usuario
+                    HttpCookie cookieUsuario = new HttpCookie("UsuarioID", respuesta.Consecutivo.ToString());
+                    cookieUsuario.Expires = DateTime.Now.AddDays(30); // Expira en 30 días
+                    Response.Cookies.Add(cookieUsuario);
+
+                    // Guardar el rol en otra cookie
+                    HttpCookie cookieRol = new HttpCookie("RolUsuario", respuesta.IdRol.ToString());
+                    cookieRol.Expires = DateTime.Now.AddDays(30);
+                    Response.Cookies.Add(cookieRol);
+                }
+
                 return RedirectToAction("Home", "Login");
             }
             else
@@ -55,6 +112,22 @@ namespace KN_Web.Controllers
         public ActionResult CerrarSesion()
         {
             Session.Clear();
+
+            // Eliminar las cookies
+            if (Request.Cookies["UsuarioID"] != null)
+            {
+                HttpCookie cookieUsuario = new HttpCookie("UsuarioID");
+                cookieUsuario.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(cookieUsuario);
+            }
+
+            if (Request.Cookies["RolUsuario"] != null)
+            {
+                HttpCookie cookieRol = new HttpCookie("RolUsuario");
+                cookieRol.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Add(cookieRol);
+            }
+
             return RedirectToAction("Index", "Login");
         }
 
@@ -72,7 +145,13 @@ namespace KN_Web.Controllers
             var respuesta = usuarioM.RegistrarUsuario(user);
 
             if (respuesta)
-                return RedirectToAction("Index", "Login");
+            {
+                Session["NombreUsuario"] = user.Nombre;
+                Session["ConsecutivoUsuario"] = user.Consecutivo;
+                Session["RolUsuario"] = user.IdRol.ToString();
+
+                return RedirectToAction("Home", "Login");
+            }
             else
             {
                 ViewBag.msj = "Su información ya existe en nuestro sistema";
@@ -164,6 +243,7 @@ namespace KN_Web.Controllers
             Session["SubTotal"] = carritoActual.Sum(c => c.SubTotal);
             Session["Total"] = carritoActual.Sum(c => c.Total);
         }
+
         [FiltroSeguridad]
         [HttpGet]
         public ActionResult Filtrar(int idCategoria)
@@ -181,7 +261,5 @@ namespace KN_Web.Controllers
             ViewBag.Categorias = productoM.ConsultarCategorias();
             return View("Filtros", productosFiltrados);
         }
-
-
     }
 }
