@@ -254,7 +254,6 @@
     <Content Include="root\dist\css\alt\adminlte.plugins.css" />
     <Content Include="root\dist\css\alt\adminlte.plugins.min.css" />
     <Content Include="root\dist\css\styles.css" />
-    <Content Include="root\dist\img\AdminLTELogo.png" />
     <Content Include="root\dist\img\avatar.png" />
     <Content Include="root\dist\img\avatar04.png" />
     <Content Include="root\dist\img\avatar2.png" />
@@ -262,6 +261,7 @@
     <Content Include="root\dist\img\avatar5.png" />
     <Content Include="root\dist\img\boxed-bg.jpg" />
     <Content Include="root\dist\img\boxed-bg.png" />
+    <Content Include="root\dist\img\CafeLogo.jpg" />
     <Content Include="root\dist\img\credit\american-express.png" />
     <Content Include="root\dist\img\credit\cirrus.png" />
     <Content Include="root\dist\img\credit\mastercard.png" />
@@ -270,6 +270,7 @@
     <Content Include="root\dist\img\credit\paypal2.png" />
     <Content Include="root\dist\img\credit\visa.png" />
     <Content Include="root\dist\img\default-150x150.png" />
+    <Content Include="root\dist\img\fondoLogin.jpeg" />
     <Content Include="root\dist\img\icons.png" />
     <Content Include="root\dist\img\photo1.png" />
     <Content Include="root\dist\img\photo2.png" />
