@@ -253,6 +253,7 @@
     <Content Include="root\dist\css\alt\adminlte.pages.min.css" />
     <Content Include="root\dist\css\alt\adminlte.plugins.css" />
     <Content Include="root\dist\css\alt\adminlte.plugins.min.css" />
+    <Content Include="root\dist\css\alt\StylesLayout.css" />
     <Content Include="root\dist\css\styles.css" />
     <Content Include="root\dist\img\avatar.png" />
     <Content Include="root\dist\img\avatar04.png" />
@@ -437,7 +438,6 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
-    <None Include="Views\Login\_ProductosPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

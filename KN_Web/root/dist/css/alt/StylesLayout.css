@@ -1,0 +1,368 @@
+﻿/* Color Variables */
+:root {
+    --dark-brown: #232126;
+    --light-gray: #CCD4D9;
+    --cream: #E0D2D0;
+    --gold: #D9A362;
+    --copper: #A65526;
+    --rust: #733729;
+    --dark-rust: #5c281c;
+}
+
+/* Animation for sidebar menu items */
+.nav-link {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+    .nav-link:hover {
+        transform: translateX(5px);
+        color: var(--gold) !important;
+    }
+
+    .nav-link:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--gold);
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover:after {
+        width: 100%;
+    }
+
+/* Animated logo */
+.brand-image {
+    transition: transform 0.5s ease;
+}
+
+.brand-link:hover .brand-image {
+    transform: rotate(360deg);
+}
+
+/* Pulse animation for cart icon */
+.fa-cart-shopping {
+    animation: pulse 2s infinite;
+}
+
+/* Fade-in animation for the content wrapper */
+.content-wrapper {
+    animation: fadeIn 0.8s ease;
+}
+
+/* Subtle hover effect for cards and elements */
+.card, .btn, .dropdown-item {
+    transition: all 0.3s ease;
+}
+
+    .card:hover, .btn:hover {
+        box-shadow: 0 5px 15px rgba(115, 55, 41, 0.3);
+        transform: translateY(-3px);
+    }
+
+    .dropdown-item:hover {
+        background-color: var(--cream);
+        color: var(--dark-rust);
+    }
+
+.loading-coffee {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--rust);
+    border-radius: 5px 5px 15px 15px;
+}
+
+    .loading-coffee:before {
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 10px;
+        border: 2px solid var(--rust);
+        border-left: none;
+        border-radius: 0 10px 10px 0;
+        right: -7px;
+        top: 5px;
+    }
+
+    .loading-coffee:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--gold);
+        animation: fill 2s ease infinite;
+    }
+
+/* Background gradient for the sidebar */
+.sidebar-dark-primary {
+    background: linear-gradient(to bottom, var(--dark-brown), var(--dark-rust));
+}
+
+/* Custom button styling with coffee theme */
+.btn-coffee {
+    background-color: var(--copper);
+    color: white;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+    .btn-coffee:hover {
+        background-color: var(--gold);
+        color: var(--dark-brown);
+    }
+
+    .btn-coffee:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: all 0.5s ease;
+    }
+
+    .btn-coffee:hover:before {
+        left: 100%;
+    }
+
+/* Animated product cards */
+.product-card {
+    transition: all 0.4s ease;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--light-gray);
+}
+
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(166, 85, 38, 0.2);
+    }
+
+    .product-card img {
+        transition: all 0.5s ease;
+    }
+
+    .product-card:hover img {
+        transform: scale(1.05);
+    }
+
+/* Animated price tag */
+.price-tag {
+    background-color: var(--gold);
+    color: var(--dark-brown);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    transform-origin: left;
+}
+
+.product-card:hover .price-tag {
+    transform: scale(1.1);
+    background-color: var(--rust);
+    color: white;
+}
+
+/* Pulse animation definition */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Fill animation for loading-coffee */
+@keyframes fill {
+    0% {
+        height: 0%;
+    }
+
+    50% {
+        height: 70%;
+    }
+
+    100% {
+        height: 0%;
+    }
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* External User Menu Styling */
+.external-user-menu {
+    background: linear-gradient(to bottom, var(--dark-brown), var(--dark-rust));
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+    .external-user-menu .dropdown-item {
+        color: var(--light-gray);
+        transition: all 0.3s ease;
+    }
+
+        .external-user-menu .dropdown-item:hover {
+            background-color: rgba(217, 163, 98, 0.2);
+            color: var(--gold);
+        }
+
+    .external-user-menu .dropdown-divider {
+        border-top: 1px solid rgba(204, 212, 217, 0.2);
+    }
+
+/* User Menu Button Styling */
+#userMenuDropdown {
+    border-radius: 30px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    #userMenuDropdown:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+
+/* Make sure the external user menu appears properly on mobile */
+@media (max-width: 768px) {
+    #user-menu-container {
+        bottom: 70px !important;
+        right: 10px !important;
+    }
+
+    #userMenuDropdown {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .external-user-menu {
+        width: 200px;
+    }
+}
+
+/* Override default dropdown menu behavior */
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
+
+/* Fix for RTL languages if needed */
+[dir="rtl"] .dropdown-menu-right {
+    right: auto;
+    left: 0;
+}
+
+/* Fix for positioning when scrolling */
+.position-fixed {
+    position: fixed !important;
+}
+
+/* Make sure user menu stays above other elements */
+#user-menu-container {
+    z-index: 1050 !important;
+}
+/* Nuevos estilos para el sidebar */
+.sidebar {
+    padding: 0.5rem;
+}
+
+/* Estilos para el user-panel dentro del sidebar */
+.user-panel {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+    .user-panel:hover {
+        background-color: rgba(217, 163, 98, 0.2);
+    }
+
+    .user-panel .info a {
+        color: var(--light-gray);
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .user-panel:hover .info a {
+        color: var(--gold);
+    }
+
+/* Mejorar el estilo de los íconos en el sidebar */
+.nav-sidebar .nav-item i {
+    margin-right: 8px;
+    width: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.nav-sidebar .nav-link:hover i {
+    color: var(--gold);
+    transform: scale(1.2);
+}
+
+/* Animación para el despliegue del treeview */
+.nav-treeview {
+    padding-left: 10px;
+    border-left: 2px solid var(--gold);
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+
+/* Crear un indicador de selección más visible */
+.nav-sidebar .nav-link.active {
+    background-color: var(--copper) !important;
+    color: white !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+    .nav-sidebar .nav-link.active i {
+        color: white;
+    }
+
+/* Añadir un pequeño badge para notificaciones */
+.nav-link .badge {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background-color: var(--gold);
+    color: var(--dark-brown);
+    font-size: 0.6rem;
+    padding: 2px 5px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover .badge {
+    transform: scale(1.2);
+}
