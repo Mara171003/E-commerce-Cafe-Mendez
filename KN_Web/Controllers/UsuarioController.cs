@@ -34,23 +34,6 @@ namespace KN_Web.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult EliminarUsuario(int consecutivo)
-        {
-            var respuesta = usuarioM.EliminarUsuario(consecutivo);
-
-            if (respuesta)
-            {
-                ViewBag.msj = "Usuario eliminado correctamente.";
-            }
-            else
-            {
-                ViewBag.msj = "No se pudo eliminar al usuario.";
-            }
-
-            return RedirectToAction("ConsultarUsuarios");
-        }
-
         [HttpGet]
         public ActionResult ActualizarUsuario(int Consecutivo)
         {
@@ -78,6 +61,20 @@ namespace KN_Web.Controllers
             {
                 ViewBag.msj = "No se ha podido actualizar la información del usuario";
                 return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EliminarUsuario(Usuario user)
+        {
+            var respuesta = usuarioM.EliminarUsuario(user.Consecutivo);
+            if (respuesta)
+                return RedirectToAction("ConsultarUsuarios", "Usuario");
+            else
+            {
+                ViewBag.msj = "No se ha podido eliminar el usuario";
+                var usuariosActuales = usuarioM.ConsultarUsuarios();
+                return View("ConsultarUsuarios", usuariosActuales);
             }
         }
     }

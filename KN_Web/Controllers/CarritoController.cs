@@ -85,6 +85,33 @@ namespace KN_Web.Controllers
             carritoM.EliminarProductoCarrito(ent.IdProducto);
             return RedirectToAction("ConsultarCarrito", "Carrito");
         }
-        
+
+        [HttpPost]
+        public ActionResult ActualizarCantidadCarrito(int IdProducto, int Cantidad)
+        {
+            try
+            {
+                // Primero eliminar el producto del carrito
+                carritoM.EliminarProductoCarrito(IdProducto);
+
+                // Luego agregar el producto con la nueva cantidad
+                bool resultado = carritoM.RegistrarCarrito(IdProducto, Cantidad);
+
+                if (resultado)
+                {
+                    // Actualizar la sesión
+                    var datos = carritoM.ConsultarCarrito();
+                    Session["Cantidad"] = datos.Sum(c => c.Cantidad);
+                    Session["SubTotal"] = datos.Sum(c => c.SubTotal);
+                    Session["Total"] = datos.Sum(c => c.Total);
+                }
+
+                return Json(new { success = resultado, message = resultado ? "Cantidad actualizada correctamente" : "No se pudo actualizar la cantidad" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Error: " + ex.Message });
+            }
+        }
     }
 }

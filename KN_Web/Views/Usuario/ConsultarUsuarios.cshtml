@@ -96,7 +96,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalEliminarLabel">Eliminar Usuario</h5>
+                <h5 class="modal-title" id="modalEliminarLabel">Confirmación de Eliminación</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -104,10 +104,10 @@
             @using (Html.BeginForm("EliminarUsuario", "Usuario"))
             {
                 <div class="modal-body">
-                    @Html.Hidden("consecutivo", "", new { id = "EliminarConsecutivo" })
+                    @Html.Hidden("Consecutivo", "")
                     <div class="alert alert-warning">
-                        <p>¿Está seguro que desea eliminar permanentemente al usuario <strong><label id="NombreEliminar"></label></strong>?</p>
-                        <p>Esta acción no se puede deshacer.</p>
+                        <strong>¡Advertencia!</strong> Esta acción eliminará permanentemente al usuario <label id="NombreEliminar"></label>.
+                        ¿Está seguro que desea continuar?
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -130,13 +130,19 @@
         });
     })
 
-    $(document).on("click", ".AbrirModal", function () {
-        $("#Consecutivo").val($(this).attr('data-id'));
-        $("#Nombre").text($(this).attr('data-name'));
+    // Manejar modal de cambio de estado
+    $(".AbrirModal").click(function () {
+        var consecutivo = $(this).data('id');
+        var nombre = $(this).data('name');
+        $("#Consecutivo").val(consecutivo);
+        $("#Nombre").text(nombre);
     });
 
-    $(document).on("click", ".AbrirModalEliminar", function () {
-        $("#EliminarConsecutivo").val($(this).attr('data-id'));
-        $("#NombreEliminar").text($(this).attr('data-name'));
+    // Manejar modal de eliminación
+    $(".AbrirModalEliminar").click(function () {
+        var consecutivo = $(this).data('id');
+        var nombre = $(this).data('name');
+        $("#ModalEliminarUsuario #Consecutivo").val(consecutivo);
+        $("#NombreEliminar").text(nombre);
     });
 </script>

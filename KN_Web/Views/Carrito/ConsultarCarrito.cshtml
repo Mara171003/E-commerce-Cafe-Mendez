@@ -34,6 +34,7 @@
                     <th>SubTotal</th>
                     <th>Impuesto</th>
                     <th>Total</th>
+                    <th>Acciones</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
@@ -43,18 +44,29 @@
                     <tr>
                         <td>@item.Descripcion</td>
                         <td>@item.Precio.ToString("N2")</td>
-                        <td>@item.Cantidad</td>
-                        <td>@item.SubTotal.Value.ToString("N2")</td>
-                        <td>@item.Impuesto.Value.ToString("N2")</td>
-                        <td>@item.Total.Value.ToString("N2")</td>
-
+                        <td id="cantidad-@item.IdProducto">@item.Cantidad</td>
+                        <td id="subtotal-@item.IdProducto">@item.SubTotal.Value.ToString("N2")</td>
+                        <td id="impuesto-@item.IdProducto">@item.Impuesto.Value.ToString("N2")</td>
+                        <td id="total-@item.IdProducto">@item.Total.Value.ToString("N2")</td>
+                        <td style="text-align:center">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-danger btn-sm" onclick="disminuirCantidad(@item.IdProducto, @item.Precio)">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-success btn-sm" onclick="aumentarCantidad(@item.IdProducto, @item.Precio)">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                            <button type="button" class="btn btn-info btn-sm mt-1" onclick="actualizarCantidad(@item.IdProducto)">
+                                <i class="fa fa-save"></i> Guardar
+                            </button>
+                        </td>
                         <td style="text-align:center">
                             <button type="button" class="btn btn-danger AbrirModal" data-toggle="modal" data-target="#ModalCarrito"
                                     data-id="@item.IdProducto" data-name="@item.Descripcion">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
-
                     </tr>
                 }
             </tbody>
@@ -64,7 +76,7 @@
 
         <div class="row">
             <div class="col-3">
-                <p style="font-size:14pt; margin-top:2%">El monto a cancelar es de: ¢<b>@decimal.Parse(Session["Total"].ToString()).ToString("N2")</b></p>
+                <p style="font-size:14pt; margin-top:2%">El monto a cancelar es de: ¢<b id="granTotal">@decimal.Parse(Session["Total"].ToString()).ToString("N2")</b></p>
             </div>
             <div>
                 @if (Session["Total"].ToString() != "0")
@@ -112,13 +124,78 @@
             language: {
                 url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'
             },
-            columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4, 5] }]
+            columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4, 5, 6] }]
         });
-    })
+    });
 
     $(document).on("click", ".AbrirModal", function () {
         $("#IdProducto").val($(this).attr('data-id'));
         $("#Nombre").text($(this).attr('data-name'));
     });
 
+    function calcularTotales(idProducto, precio, cantidad) {
+        var subtotal = precio * cantidad;
+        var impuesto = subtotal * 0.13; // Asumiendo 13% de IVA
+        var total = subtotal + impuesto;
+
+        // Actualizar los valores en la tabla
+        $('#subtotal-' + idProducto).text(subtotal.toFixed(2));
+        $('#impuesto-' + idProducto).text(impuesto.toFixed(2));
+        $('#total-' + idProducto).text(total.toFixed(2));
+
+        // Recalcular el total general
+        recalcularTotalGeneral();
+    }
+
+    function recalcularTotalGeneral() {
+        var total = 0;
+        $('[id^="total-"]').each(function() {
+            total += parseFloat($(this).text());
+        });
+        $('#granTotal').text(total.toFixed(2));
+    }
+
+    function aumentarCantidad(idProducto, precio) {
+        var cantidadCell = document.getElementById('cantidad-' + idProducto);
+        var cantidadActual = parseInt(cantidadCell.innerText);
+        cantidadCell.innerText = cantidadActual + 1;
+        cantidadCell.style.backgroundColor = "#d4edda";
+
+        calcularTotales(idProducto, precio, cantidadActual + 1);
+    }
+
+    function disminuirCantidad(idProducto, precio) {
+        var cantidadCell = document.getElementById('cantidad-' + idProducto);
+        var cantidadActual = parseInt(cantidadCell.innerText);
+        if (cantidadActual > 1) {
+            cantidadCell.innerText = cantidadActual - 1;
+            cantidadCell.style.backgroundColor = "#f8d7da";
+
+            calcularTotales(idProducto, precio, cantidadActual - 1);
+        }
+    }
+
+    function actualizarCantidad(idProducto) {
+        var cantidadCell = document.getElementById('cantidad-' + idProducto);
+        var nuevaCantidad = parseInt(cantidadCell.innerText);
+
+        $.ajax({
+            url: '@Url.Action("ActualizarCantidadCarrito", "Carrito")',
+            type: 'POST',
+            data: { IdProducto: idProducto, Cantidad: nuevaCantidad },
+            success: function (result) {
+                if (result.success) {
+                    cantidadCell.style.backgroundColor = "#fff"; 
+                    alert("Cantidad actualizada correctamente");
+                } else {
+                    alert("Error al actualizar cantidad: " + result.message);
+                    location.reload();
+                }
+            },
+            error: function () {
+                alert("Error al conectar con el servidor");
+                location.reload();
+            }
+        });
+    }
 </script>

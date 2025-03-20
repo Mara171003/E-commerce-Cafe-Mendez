@@ -33,8 +33,6 @@ namespace KN_Web.Controllers
             }
         }
 
-
-
         [HttpGet]
         public ActionResult ActualizarContrasenna()
         {
@@ -62,6 +60,25 @@ namespace KN_Web.Controllers
             }
         }
 
-
+        [HttpPost]
+        public ActionResult EliminarCuenta(int confirmacion)
+        {
+            if (confirmacion == 1)
+            {
+                int Consecutivo = int.Parse(Session["ConsecutivoUsuario"].ToString());
+                var respuesta = usuarioM.EliminarUsuario(Consecutivo);
+                if (respuesta)
+                    return RedirectToAction("CerrarSesion", "Login");
+                else
+                {
+                    TempData["Error"] = "No se ha podido eliminar la cuenta";
+                    return RedirectToAction("PerfilUsuario");
+                }
+            }
+            else
+            {
+                return RedirectToAction("PerfilUsuario");
+            }
+        }
     }
 }

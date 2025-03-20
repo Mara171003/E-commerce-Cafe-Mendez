@@ -4,6 +4,7 @@
     ViewBag.Title = "ActualizarUsuario";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <br>
 <h4>Datos del usuario</h4>
@@ -69,8 +70,69 @@
                     <button type="submit" class="btn btn-primary btn-block" style="width:100%">Confirmar</button>
                 </div>
             </div>
+
+            <div class="row mt-3">
+                <div class="col-sm-6 col-md-4 col-lg-4">
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#eliminarCuentaModal">
+                        Eliminar cuenta
+                    </button>
+                </div>
+            </div>
         }
 
+        <div class="modal fade" id="eliminarCuentaModal" tabindex="-1" role="dialog" aria-labelledby="eliminarCuentaModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="eliminarCuentaModalLabel">Eliminar cuenta</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning" role="alert">
+                            <h5><i class="icon fas fa-exclamation-triangle"></i> ¡Advertencia!</h5>
+                            Esta acción eliminará permanentemente su cuenta y todos los datos asociados. Esta operación no se puede deshacer.
+                        </div>
+                        <p>Si desea continuar, haga clic en "Confirmar eliminación". Se le pedirá una confirmación adicional.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <form action="/Perfil/EliminarCuenta" method="post" style="display:inline;">
+                            <input type="hidden" name="confirmacion" value="1" />
+                            <button type="submit" class="btn btn-danger">Confirmar eliminación</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
 <script src="~/root/funciones/Usuario.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Script cargado");
+        document.getElementById("btnConfirmarEliminacion").addEventListener("click", function () {
+            console.log("Botón pulsado");
+            if (confirm("¿Está seguro que desea eliminar permanentemente su cuenta? Esta acción no se puede deshacer.")) {
+                // Usando un enfoque sin jQuery
+                var form = document.createElement("form");
+                form.method = "post";
+                form.action = "/Perfil/EliminarCuenta";
+
+                var input = document.createElement("input");
+                input.type = "hidden";
+                input.name = "confirmacion";
+                input.value = "1";
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+</script>

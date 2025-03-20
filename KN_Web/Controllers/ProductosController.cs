@@ -104,6 +104,5 @@ namespace KN_Web.Controllers
 
             ViewBag.Categorias = lstCategorias;
         }
-
     }
 }

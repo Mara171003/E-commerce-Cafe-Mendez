@@ -16,20 +16,6 @@ namespace KN_Web.Models
         {
             var rowsAffected = 0;
 
-            //var tabla = new tUsuario();
-            //tabla.Identificacion = user.Identificacion;
-            //tabla.Nombre = user.Nombre;
-            //tabla.Correo = user.Correo;
-            //tabla.Contrasenna = user.Contrasenna;
-            //tabla.Estado = true;
-            //tabla.IdRol = 1;
-
-            //using (var context = new MARTES_BDEntities())
-            //{
-            //    context.tUsuario.Add(tabla);
-            //    rowsAffected = context.SaveChanges();
-            //}
-
             using (var context = new MARTES_BDEntities1())
             {
                 rowsAffected = context.RegistrarUsuario(user.Identificacion, user.Nombre, user.Correo, user.Contrasenna);
@@ -40,15 +26,6 @@ namespace KN_Web.Models
 
         public IniciarSesion_Result IniciarSesion(Usuario user)
         {
-            //using (var context = new MARTES_BDEntities())
-            //{
-            //    rowsCount = (from x in context.tUsuario
-            //                     where x.Correo == user.Correo
-            //                     && x.Contrasenna == user.Contrasenna
-            //                     && x.Estado == true
-            //                     select x).ToList().Count();
-            //}
-
             using (var context = new MARTES_BDEntities1())
             {
                 return context.IniciarSesion(user.Correo, user.Contrasenna).FirstOrDefault();
@@ -89,16 +66,6 @@ namespace KN_Web.Models
         {
             var rowsAffected = 0;
 
-            //using (var context = new MARTES_BDEntities())
-            //{
-            //    var datos = (from x in context.tUsuario
-            //                 where x.Consecutivo == user.Consecutivo
-            //                 select x).FirstOrDefault();
-
-            //    datos.Estado = false;
-            //    rowsAffected = context.SaveChanges();
-            //}
-
             using (var context = new MARTES_BDEntities1())
             {
                 rowsAffected = context.CambiarEstadoUsuario(user.Consecutivo);
@@ -138,17 +105,6 @@ namespace KN_Web.Models
             return (rowsAffected > 0 ? true : false);
         }
 
-        public bool EliminarUsuario(int consecutivo)
-        {
-            var rowsAffected = 0;
-
-            using (var context = new MARTES_BDEntities1())
-            {
-                rowsAffected = context.EliminarUsuarios(consecutivo);
-            }
-
-            return (rowsAffected > 0);
-        }
         public Usuario ConsultarUsuarioPorID(int consecutivo)
         {
             using (var contexto = new MARTES_BDEntities1())
@@ -169,6 +125,46 @@ namespace KN_Web.Models
                 }
 
                 return null;
+            }
+        }
+
+        public bool EliminarUsuario(int consecutivo)
+        {
+            var rowsAffected = 0;
+            using (var context = new MARTES_BDEntities1())
+            {
+                var usuario = (from x in context.tUsuario
+                               where x.Consecutivo == consecutivo
+                               select x).FirstOrDefault();
+
+                if (usuario != null && usuario.IdRol != 2)
+                {
+                    context.tUsuario.Remove(usuario);
+                    rowsAffected = context.SaveChanges();
+                }
+            }
+            return (rowsAffected > 0);
+        }
+
+        public bool EliminarUsuarioCliente(int consecutivo)
+        {
+            try
+            {
+                using (var db = new MARTES_BDEntities1())
+                {
+                    var usuario = db.tUsuario.Find(consecutivo);
+                    if (usuario != null)
+                    {
+                        db.tUsuario.Remove(usuario);
+                        db.SaveChanges();
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
     }
