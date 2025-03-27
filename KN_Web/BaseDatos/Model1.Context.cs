@@ -35,6 +35,7 @@ namespace KN_Web.BaseDatos
         public virtual DbSet<tProducto> tProducto { get; set; }
         public virtual DbSet<tRol> tRol { get; set; }
         public virtual DbSet<tUsuario> tUsuario { get; set; }
+        public virtual DbSet<Contacto> Contacto { get; set; }
     
         public virtual int ActualizarImagenProducto(Nullable<int> idProducto, string imagen)
         {

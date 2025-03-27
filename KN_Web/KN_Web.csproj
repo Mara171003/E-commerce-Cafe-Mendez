@@ -138,6 +138,9 @@
     <Compile Include="BaseDatos\ConsultarVentasMensuales_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\Contacto.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\IniciarSesion_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -187,8 +190,11 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CarritoController.cs" />
+    <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\DatosController.cs" />
     <Compile Include="Controllers\FavoritosController.cs" />
+    <Compile Include="Entidades\ContactoView.cs" />
+    <Compile Include="Models\ContactoModel.cs" />
     <Compile Include="Views\Login\LoginController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model KN_Web.Entidades.ContactoView
+
+@{
     ViewBag.Title = "Contact";
 }
 
@@ -50,27 +52,31 @@
             </div>
         </div>
     </div>
+
     <div class="contact_section_2 layout_padding">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 padding_0">
                     <div class="mail_section">
                         <div class="email_text">
-                            <div class="form-group">
-                                <input type="text" class="email-bt" placeholder="Nombre" name="nombre" style="width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="email-bt" placeholder="Email" name="Email" style="width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="email-bt" placeholder="Numero de Telefono" name="telefono" style="width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;">
-                            </div>
-                            <div class="form-group">
-                                <textarea class="massage-bt" placeholder="Mensaje" rows="5" id="Mensaje" name="Mensaje" style="width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;"></textarea>
-                            </div>
-                            <div class="send_btn">
-                                <div class="main_bt"><a href="#" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Enviar</a></div>
-                            </div>
+                            @using (Html.BeginForm("Index", "Contacto", FormMethod.Post, new { id = "contactoForm" }))
+                            {
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.Nombre, new { @class = "email-bt", placeholder = "Nombre", style = "width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "email-bt", placeholder = "Email", style = "width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.Telefono, new { @class = "email-bt", placeholder = "Número de Teléfono", style = "width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextAreaFor(m => m.Mensaje, new { @class = "massage-bt", placeholder = "Mensaje", rows = "5", style = "width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;" })
+                                </div>
+                                <div class="send_btn">
+                                    <button type="submit" class="main_bt" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Enviar</button>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -102,7 +108,7 @@
                                 <li>@Html.ActionLink("Galeria", "Gallery", "Login")</li>
                                 <li>@Html.ActionLink("Contactenos", "Contact", "Login")</li>
                             </ul>
-</div>
+                    </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <h1 class="useful_text">Politicas de compra y Envios</h1>
@@ -153,6 +159,39 @@
 
     <script>
         (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "y-804SD1Jx2UKBVv6UmOQ"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.getElementById("contactoForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita que el formulario se envíe automáticamente
+
+            let form = this;
+
+            // Envía el formulario con AJAX
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form)
+            })
+                .then(response => {
+                    if (response.redirected) {
+                        Swal.fire({
+                            title: "¡Gracias por contactarnos!",
+                            text: "Su mensaje ha sido enviado con éxito. Nos pondremos en contacto pronto.",
+                            icon: "success",
+                            confirmButtonText: "Aceptar"
+                        }).then(() => {
+                            window.location.href = response.url; // Redirige a "About"
+                        });
+                    } else {
+                        Swal.fire("Error", "Hubo un problema al enviar el mensaje.", "error");
+                    }
+                })
+                .catch(error => {
+                    Swal.fire("Error", "No se pudo procesar la solicitud.", "error");
+                });
+        });
     </script>
 </body>
 </html>

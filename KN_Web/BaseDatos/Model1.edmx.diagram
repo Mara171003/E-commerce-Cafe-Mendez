@@ -22,6 +22,7 @@
         <AssociationConnector Association="MARTES_BDModel.FK_tFavoritos_tUsuario" />
         <AssociationConnector Association="MARTES_BDModel.FK_tMaestro_tUsuario" />
         <AssociationConnector Association="MARTES_BDModel.FK_tUsuario_tRol" />
+        <EntityTypeShape EntityType="MARTES_BDModel.Contacto" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
