@@ -1,0 +1,158 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+
+<html lang="en">
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Café Méndez</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    19
+    <link rel="stylesheet" type="text/css" href="~/root/dist/css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="~/root/dist/css/style.css">
+    <!-- Responsive -->
+    <link rel="stylesheet" href="~/root/dist/css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="~/root/dist/img/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="~/root/dist/css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets -->
+    <link rel="stylesheet" href="~/root/dist/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/root/dist/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+</head>
+<body>
+
+    <!-- contact section start -->
+    <div class="contact_section layout_padding">
+        <div class="container">
+            <h1>Contáctenos</h1>
+            <p>¿Tienes preguntas o quieres saber más sobre nuestro café? ¡Nos encantaría escucharte!</p>
+
+            <div class="contact-info">
+                <p>📍 <strong>Ubicación:</strong> Dota, Costa Rica</p>
+                <p>📧 <strong>Correo:</strong> <a href="mailto:contacto@tucafe.com">contacto@gmail.com</a></p>
+                <p>📞 <strong>Teléfono:</strong> <a href="tel:+50688888888">+506 8888-8888</a></p>
+                <p>📷 <strong>Instagram:</strong> <a href="https://www.instagram.com/p/CZtNF4FuLwN/?img_index=1" target="_blank">CafeMendezCR</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="contact_section_2 layout_padding">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 padding_0">
+                    <div class="mail_section">
+                        <div class="email_text">
+                            <div class="form-group">
+                                <input type="text" class="email-bt" placeholder="Nombre" name="nombre" style="width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="email-bt" placeholder="Email" name="Email" style="width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="email-bt" placeholder="Numero de Telefono" name="telefono" style="width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="massage-bt" placeholder="Mensaje" rows="5" id="Mensaje" name="Mensaje" style="width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;"></textarea>
+                            </div>
+                            <div class="send_btn">
+                                <div class="main_bt"><a href="#" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Enviar</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 padding_0">
+                    <div class="map-responsive">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40357.367328336535!2d-84.00638016139146!3d9.654799422882636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1179bc4733f29%3A0xa6bb565b039dcb83!2zU2FudGEgTWFyw61hIGRlIERvdGEsIFNhbiBKb3PDqSwgU2FudGEgTWFyw61h!5e1!3m2!1ses-419!2scr!4v1742876159198!5m2!1ses-419!2scr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- contact section end -->
+    <!-- footer section start -->
+    <div class="footer_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <h3 class="useful_text">Acerca de nosotros</h3>
+                    <p class="footer_text">Directo de la zona de los Santos hasta su mesa</p>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <h3 class="useful_text">Menu</h3>
+                    <div class="footer_menu">
+                        <ul>
+                            <ul>
+                                <li>@Html.ActionLink("Inicio", "homepage", "Login")</li>
+                                <li>@Html.ActionLink("Acerca de Nosotros", "About", "Login")</li>
+                                <li>@Html.ActionLink("Galeria", "Gallery", "Login")</li>
+                                <li>@Html.ActionLink("Contactenos", "Contact", "Login")</li>
+                            </ul>
+</div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <h1 class="useful_text">Politicas de compra y Envios</h1>
+                    <p class="dummy_text">Envios y Devoluciones </p>
+                    <p class="dummy_text">Pagos </p>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <h1 class="useful_text">Contactenos</h1>
+                    <div class="location_text">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i><span class="padding_left_10">Direccion:Los Santos, Santa Maria de Dota </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">Telefono: +01 1234567890</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">Email : demo@gmail.com</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer section end -->
+    <!-- copyright section start -->
+    <div class="copyright_section">
+        <div class="container">
+            <p class="copyright_text">2020 All Rights Reserved. Design by <a href="https://html.design">Free html  Templates</a></p>
+        </div>
+    </div>
+    <!-- copyright section end -->
+    <!-- Javascript files-->
+    <!-- Javascript files-->
+    <script src="@Url.Content("~/root/dist/js/popper.min.js")"></script>
+    <script src="@Url.Content("~/root/dist/js/bootstrap.bundle.min.js")"></script>
+    <script src="@Url.Content("~/root/dist/js/plugin.js")"></script>
+    <!-- sidebar -->
+    <script src="@Url.Content("~/root/dist/js/jquery.mCustomScrollbar.concat.min.js")"></script>
+    <script src="@Url.Content("~/root/dist/js/custom.js")"></script>
+
+    <script>
+        (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "y-804SD1Jx2UKBVv6UmOQ"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+    </script>
+</body>
+</html>

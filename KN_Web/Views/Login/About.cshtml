@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<html lang="en">
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Café Méndez</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    19
+    <link rel="stylesheet" type="text/css" href="~/root/dist/css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="~/root/dist/css/style.css">
+    <!-- Responsive -->
+    <link rel="stylesheet" href="~/root/dist/css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="~/root/dist/img/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="~/root/dist/css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets -->
+    <link rel="stylesheet" href="~/root/dist/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/root/dist/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+</head>
+<body>
+
+    <!-- about section start -->
+    <div class="about_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="about_taital_main">
+                        <div class="about_taital">Acerca de Nosotros</div>
+                        <p class="about_text">En el corazón de las montañas de Dota, Costa Rica, cultivamos más que café: cultivamos tradición, pasión y excelencia en cada grano. Somos un pequeño productor comprometido con la calidad y el respeto por la naturaleza, heredando conocimientos de generaciones para ofrecer un café único, de origen puro y con sabores inigualables.</p>
+                        <p class="about_text">Nuestro café nace en tierras fértiles y bajo un clima privilegiado, donde cada cosecha es seleccionada a mano con el cuidado y la dedicación que nos caracterizan. Creemos en la sostenibilidad, el trabajo en comunidad y en brindar una experiencia auténtica a quienes disfrutan de una taza de nuestro café.</p>
+                        <p class="about_text">Desde Dota hasta tu hogar, queremos compartir contigo la esencia de nuestra tierra, una historia de esfuerzo y pasión reflejada en cada sorbo.</p>
+
+                    </div>
+                    <br />
+
+                </div>
+                <div class="col-md-6">
+                    <div class="about_img"><img src="~/root/dist/img/cafe-about.png"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- about section end -->
+    <!-- footer section start -->
+    <div class="footer_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <h3 class="useful_text">Acerca de nosotros</h3>
+                    <p class="footer_text">Directo de la zona de los Santos hasta su mesa</p>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <h3 class="useful_text">Menu</h3>
+                    <div class="footer_menu">
+                        <ul>
+                            <li>@Html.ActionLink("Inicio", "homepage", "Login")</li>
+                            <li>@Html.ActionLink("Acerca de Nosotros", "About", "Login")</li>
+                            <li>@Html.ActionLink("Galeria", "Gallery", "Login")</li>
+                            <li>@Html.ActionLink("Contactenos", "Contact", "Login")</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <h1 class="useful_text">Politicas de compra y Envios</h1>
+                    <p class="dummy_text">Envios y Devoluciones </p>
+                    <p class="dummy_text">Pagos </p>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <h1 class="useful_text">Contactenos</h1>
+                    <div class="location_text">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i><span class="padding_left_10">Direccion:Los Santos, Santa Maria de Dota </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">Telefono: +01 1234567890</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">Email : demo@gmail.com</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer section end -->
+    <!-- Javascript files-->
+    <script src="@Url.Content(" ~ /root/dist/js/popper.min.js")"></script>
+    <script src="@Url.Content(" ~ /root/dist/js/bootstrap.bundle.min.js")"></script>
+    <script src="@Url.Content(" ~ /root/dist/js/plugin.js")"></script>
+    <!-- sidebar -->
+    <script src="@Url.Content(" ~ /root/dist/js/jquery.mCustomScrollbar.concat.min.js")"></script>
+    <script src="@Url.Content(" ~ /root/dist/js/custom.js")"></script>
+
+    <script>
+        (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "y-804SD1Jx2UKBVv6UmOQ"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+    </script>
+</body>
+</html>
