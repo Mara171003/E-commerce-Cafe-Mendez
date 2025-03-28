@@ -56,7 +56,7 @@ namespace KN_Web.Controllers
                         }
 
                         // Redirigir a Home
-                        return RedirectToAction("homepage", "Login");
+                        return RedirectToAction("Home", "Login");
                     }
                 }
             }

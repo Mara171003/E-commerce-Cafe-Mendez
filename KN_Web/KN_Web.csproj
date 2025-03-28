@@ -222,7 +222,7 @@
     <Compile Include="Models\Pago\MetodoPagoModel.cs" />
     <Compile Include="Models\Pago\ReciboPagoModel.cs" />
     <Compile Include="Models\Pago\TransaccionPagoModel.cs" />
-    <Compile Include="Views\Login\LoginController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />

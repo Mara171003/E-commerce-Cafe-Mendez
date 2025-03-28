@@ -32,11 +32,16 @@ namespace KN_Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult ConsultarCuentasPago(int consecutivo)
+        public ActionResult ConsultarCuentasPago(int? consecutivo)
         {
             try
             {
-                var cuentasPago = _cuentaPagoModel.ConsultarCuentasPago(consecutivo);
+                if (!consecutivo.HasValue)
+                {
+                    return Json(new { Success = false, Message = "El parámetro 'consecutivo' es obligatorio." }, JsonRequestBehavior.AllowGet);
+                }
+
+                var cuentasPago = _cuentaPagoModel.ConsultarCuentasPago(consecutivo.Value);
                 return Json(cuentasPago, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -44,5 +49,6 @@ namespace KN_Web.Controllers
                 return Json(new { Success = false, Message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
     }
 }

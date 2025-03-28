@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MARTES_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contacto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="20" />
+          <Property Name="Mensaje" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="tCarrito">
           <Key>
             <PropertyRef Name="IdCarrito" />
@@ -418,6 +428,7 @@
           <Parameter Name="Identificacion" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="MARTES_BDModelStoreContainer">
+          <EntitySet Name="Contacto" EntityType="Self.Contacto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tCarrito" EntityType="Self.tCarrito" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tCategoria" EntityType="Self.tCategoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tCuentaPago" EntityType="Self.tCuentaPago" Schema="dbo" store:Type="Tables" />
@@ -624,7 +635,6 @@
             <End EntitySet="tRol" Role="tRol" />
             <End EntitySet="tUsuario" Role="tUsuario" />
           </AssociationSet>
-          <EntitySet Name="Contacto" EntityType="MARTES_BDModel.Contacto" />
           <EntitySet Name="tCuentaPago" EntityType="MARTES_BDModel.tCuentaPago" />
           <EntitySet Name="tMetodoPago" EntityType="MARTES_BDModel.tMetodoPago" />
           <EntitySet Name="tReciboPago" EntityType="MARTES_BDModel.tReciboPago" />
@@ -654,7 +664,7 @@
             <End Role="tTransaccionPago" EntitySet="tTransaccionPago" />
           </AssociationSet>
           <FunctionImport Name="EliminarUsuarios1">
-            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GenerarReciboPago" ReturnType="Collection(Decimal)">
             <Parameter Name="IdTransaccion" Mode="In" Type="Int32" />
@@ -679,8 +689,9 @@
             <Parameter Name="CodigoTransaccion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_FiltrarProductosPorCategoria1" ReturnType="Collection(MARTES_BDModel.sp_FiltrarProductosPorCategoria1_Result)">
-            <Parameter Name="IdCategoria" Mode="In" Type="Int32" />
+          <Parameter Name="IdCategoria" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Contacto" EntityType="MARTES_BDModel.Contacto" />
         </EntityContainer>
         <ComplexType Name="ConsultarCarrito_Result">
           <Property Type="Int32" Name="IdCarrito" Nullable="false" />
@@ -967,16 +978,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Contacto">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
-          <Property Name="Nombre" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="Email" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="Telefono" MaxLength="20" FixedLength="false" Unicode="true" Type="String" />
-          <Property Name="Mensaje" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
-        </EntityType>
         <EntityType Name="tCuentaPago">
           <Key>
             <PropertyRef Name="IdCuentaPago" />
@@ -1111,6 +1112,16 @@
           <Property Type="Int32" Name="IdCategoria" Nullable="false" />
           <Property Type="String" Name="Categoria" Nullable="false" MaxLength="255" />
         </ComplexType>
+        <EntityType Name="Contacto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Mensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1394,6 +1405,17 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Contacto">
+            <EntityTypeMapping TypeName="MARTES_BDModel.Contacto">
+              <MappingFragment StoreEntitySet="Contacto">
+                <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
