@@ -36,6 +36,10 @@ namespace KN_Web.BaseDatos
         public virtual DbSet<tRol> tRol { get; set; }
         public virtual DbSet<tUsuario> tUsuario { get; set; }
         public virtual DbSet<Contacto> Contacto { get; set; }
+        public virtual DbSet<tCuentaPago> tCuentaPago { get; set; }
+        public virtual DbSet<tMetodoPago> tMetodoPago { get; set; }
+        public virtual DbSet<tReciboPago> tReciboPago { get; set; }
+        public virtual DbSet<tTransaccionPago> tTransaccionPago { get; set; }
     
         public virtual int ActualizarImagenProducto(Nullable<int> idProducto, string imagen)
         {
@@ -313,6 +317,100 @@ namespace KN_Web.BaseDatos
                 new ObjectParameter("IdUsuario", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EliminarUsuarios", idUsuarioParameter);
+        }
+    
+        public virtual int EliminarUsuarios1(Nullable<int> idUsuario)
+        {
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EliminarUsuarios1", idUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> GenerarReciboPago(Nullable<int> idTransaccion, string rutaArchivoPDF)
+        {
+            var idTransaccionParameter = idTransaccion.HasValue ?
+                new ObjectParameter("IdTransaccion", idTransaccion) :
+                new ObjectParameter("IdTransaccion", typeof(int));
+    
+            var rutaArchivoPDFParameter = rutaArchivoPDF != null ?
+                new ObjectParameter("RutaArchivoPDF", rutaArchivoPDF) :
+                new ObjectParameter("RutaArchivoPDF", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GenerarReciboPago", idTransaccionParameter, rutaArchivoPDFParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> GuardarCuentaPago(Nullable<int> consecutivo, Nullable<int> idMetodoPago, string identificadorCuenta, string ultimosCuatroDigitos)
+        {
+            var consecutivoParameter = consecutivo.HasValue ?
+                new ObjectParameter("Consecutivo", consecutivo) :
+                new ObjectParameter("Consecutivo", typeof(int));
+    
+            var idMetodoPagoParameter = idMetodoPago.HasValue ?
+                new ObjectParameter("IdMetodoPago", idMetodoPago) :
+                new ObjectParameter("IdMetodoPago", typeof(int));
+    
+            var identificadorCuentaParameter = identificadorCuenta != null ?
+                new ObjectParameter("IdentificadorCuenta", identificadorCuenta) :
+                new ObjectParameter("IdentificadorCuenta", typeof(string));
+    
+            var ultimosCuatroDigitosParameter = ultimosCuatroDigitos != null ?
+                new ObjectParameter("UltimosCuatroDigitos", ultimosCuatroDigitos) :
+                new ObjectParameter("UltimosCuatroDigitos", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("GuardarCuentaPago", consecutivoParameter, idMetodoPagoParameter, identificadorCuentaParameter, ultimosCuatroDigitosParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> InsertarMetodoPago(string nombre, string descripcion)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("InsertarMetodoPago", nombreParameter, descripcionParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> RegistrarTransaccionPago(Nullable<int> consecutivo, Nullable<int> idMaestro, Nullable<int> idMetodoPago, Nullable<decimal> montoTotal, string estadoPago, string codigoTransaccion)
+        {
+            var consecutivoParameter = consecutivo.HasValue ?
+                new ObjectParameter("Consecutivo", consecutivo) :
+                new ObjectParameter("Consecutivo", typeof(int));
+    
+            var idMaestroParameter = idMaestro.HasValue ?
+                new ObjectParameter("IdMaestro", idMaestro) :
+                new ObjectParameter("IdMaestro", typeof(int));
+    
+            var idMetodoPagoParameter = idMetodoPago.HasValue ?
+                new ObjectParameter("IdMetodoPago", idMetodoPago) :
+                new ObjectParameter("IdMetodoPago", typeof(int));
+    
+            var montoTotalParameter = montoTotal.HasValue ?
+                new ObjectParameter("MontoTotal", montoTotal) :
+                new ObjectParameter("MontoTotal", typeof(decimal));
+    
+            var estadoPagoParameter = estadoPago != null ?
+                new ObjectParameter("EstadoPago", estadoPago) :
+                new ObjectParameter("EstadoPago", typeof(string));
+    
+            var codigoTransaccionParameter = codigoTransaccion != null ?
+                new ObjectParameter("CodigoTransaccion", codigoTransaccion) :
+                new ObjectParameter("CodigoTransaccion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("RegistrarTransaccionPago", consecutivoParameter, idMaestroParameter, idMetodoPagoParameter, montoTotalParameter, estadoPagoParameter, codigoTransaccionParameter);
+        }
+    
+        public virtual ObjectResult<sp_FiltrarProductosPorCategoria1_Result> sp_FiltrarProductosPorCategoria1(Nullable<int> idCategoria)
+        {
+            var idCategoriaParameter = idCategoria.HasValue ?
+                new ObjectParameter("IdCategoria", idCategoria) :
+                new ObjectParameter("IdCategoria", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_FiltrarProductosPorCategoria1_Result>("sp_FiltrarProductosPorCategoria1", idCategoriaParameter);
         }
     }
 }

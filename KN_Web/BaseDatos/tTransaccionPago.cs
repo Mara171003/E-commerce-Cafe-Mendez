@@ -12,26 +12,29 @@ namespace KN_Web.BaseDatos
     using System;
     using System.Collections.Generic;
     
-    public partial class tMaestro
+    public partial class tTransaccionPago
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tMaestro()
+        public tTransaccionPago()
         {
-            this.tDetalle = new HashSet<tDetalle>();
-            this.tTransaccionPago = new HashSet<tTransaccionPago>();
+            this.tReciboPago = new HashSet<tReciboPago>();
         }
     
-        public int IdMaestro { get; set; }
+        public int IdTransaccion { get; set; }
         public int Consecutivo { get; set; }
-        public System.DateTime FechaCompra { get; set; }
-        public decimal SubTotal { get; set; }
+        public int IdMaestro { get; set; }
+        public int IdMetodoPago { get; set; }
+        public decimal MontoTotal { get; set; }
+        public System.DateTime FechaPago { get; set; }
+        public string EstadoPago { get; set; }
+        public string CodigoTransaccion { get; set; }
         public decimal Impuesto { get; set; }
-        public decimal Total { get; set; }
+        public decimal SubTotal { get; set; }
     
+        public virtual tMaestro tMaestro { get; set; }
+        public virtual tMetodoPago tMetodoPago { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tDetalle> tDetalle { get; set; }
+        public virtual ICollection<tReciboPago> tReciboPago { get; set; }
         public virtual tUsuario tUsuario { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tTransaccionPago> tTransaccionPago { get; set; }
     }
 }

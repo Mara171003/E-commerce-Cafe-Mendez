@@ -83,7 +83,9 @@
                 {
                     using (Html.BeginForm("PagarCarrito", "Carrito"))
                     {
-                        <button type="submit" class="btn btn-outline-primary" style="width:200px">Pagar</button>
+                        <button type="button" class="btn btn-outline-primary" style="width:200px" onclick="redirigirPago()">
+                            Pagar
+                        </button>
                     }
                 }
             </div>
@@ -119,6 +121,9 @@
 
 <script src="~/root/plugins/jquery/jquery.min.js"></script>
 <script>
+    function redirigirPago() {
+        window.location.href = '@Url.Action("GuardarCuentaPago", "Pago")';
+    }
     $(document).ready(function () {
         $("#tablaCarrito").DataTable({
             language: {
@@ -185,7 +190,7 @@
             data: { IdProducto: idProducto, Cantidad: nuevaCantidad },
             success: function (result) {
                 if (result.success) {
-                    cantidadCell.style.backgroundColor = "#fff"; 
+                    cantidadCell.style.backgroundColor = "#fff";
                     alert("Cantidad actualizada correctamente");
                 } else {
                     alert("Error al actualizar cantidad: " + result.message);

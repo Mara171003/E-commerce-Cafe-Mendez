@@ -159,10 +159,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\sp_FiltrarProductosPorCategoria1_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\tCarrito.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\tCategoria.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\tCuentaPago.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\tDetalle.cs">
@@ -174,10 +180,19 @@
     <Compile Include="BaseDatos\tMaestro.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\tMetodoPago.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\tProducto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BaseDatos\tReciboPago.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="BaseDatos\tRol.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaseDatos\tTransaccionPago.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BaseDatos\tUsuario.cs">
@@ -191,10 +206,22 @@
     </Compile>
     <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\ContactoController.cs" />
+    <Compile Include="Controllers\CuentaPagoController.cs" />
     <Compile Include="Controllers\DatosController.cs" />
     <Compile Include="Controllers\FavoritosController.cs" />
+    <Compile Include="Controllers\MetodoPagoController.cs" />
+    <Compile Include="Controllers\ReciboPagoController.cs" />
+    <Compile Include="Controllers\TransaccionPagoController.cs" />
     <Compile Include="Entidades\ContactoView.cs" />
+    <Compile Include="Entidades\Pago\CuentaPago.cs" />
+    <Compile Include="Entidades\Pago\MetodoPago.cs" />
+    <Compile Include="Entidades\Pago\ReciboPago.cs" />
+    <Compile Include="Entidades\Pago\TransaccionPago.cs" />
     <Compile Include="Models\ContactoModel.cs" />
+    <Compile Include="Models\Pago\CuentaPagoModel.cs" />
+    <Compile Include="Models\Pago\MetodoPagoModel.cs" />
+    <Compile Include="Models\Pago\ReciboPagoModel.cs" />
+    <Compile Include="Models\Pago\TransaccionPagoModel.cs" />
     <Compile Include="Views\Login\LoginController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
     <Compile Include="Controllers\ProductosController.cs" />
@@ -530,6 +557,15 @@
     <Content Include="Views\Login\About.cshtml" />
     <Content Include="Views\Login\Contact.cshtml" />
     <Content Include="Views\Login\Gallery.cshtml" />
+    <Content Include="Views\CuentaPago\ConsultarCuentasPago.cshtml" />
+    <Content Include="Views\CuentaPago\GuardarCuentaPago.cshtml" />
+    <Content Include="Views\TransaccionPago\RegistrarTransaccionPago.cshtml" />
+    <Content Include="Views\TransaccionPago\ConsultarTransaccionesPago.cshtml" />
+    <Content Include="Views\TransaccionPago\ConsultarTransaccionPorId.cshtml" />
+    <Content Include="Views\MetodoPago\InsertarMetodoPago.cshtml" />
+    <Content Include="Views\MetodoPago\ConsultarMetodosPago.cshtml" />
+    <Content Include="Views\ReciboPago\GenerarReciboPago.cshtml" />
+    <Content Include="Views\ReciboPago\ConsultarReciboPorTransaccion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

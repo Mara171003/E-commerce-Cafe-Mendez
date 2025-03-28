@@ -1,0 +1,51 @@
+﻿@model KN_Web.Entidades.Pago.TransaccionPago
+@{
+    ViewBag.Title = "Registrar Transacción de Pago";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Registrar Transacción de Pago</h2>
+
+<form id="formRegistrarTransaccion">
+    <label for="monto">Monto:</label>
+    <input type="number" id="monto" name="Monto" required />
+
+    <label for="descripcion">Descripción:</label>
+    <input type="text" id="descripcion" name="Descripcion" required />
+
+    <button type="submit">Registrar</button>
+</form>
+
+<div id="mensaje"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#formRegistrarTransaccion").submit(function (event) {
+            event.preventDefault();
+
+            var transaccion = {
+                Monto: $("#monto").val(),
+                Descripcion: $("#descripcion").val()
+            };
+
+            $.ajax({
+                url: '@Url.Action("RegistrarTransaccionPago", "TransaccionPago")',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(transaccion),
+                success: function (response) {
+                    if (response.Success) {
+                        $("#mensaje").html("<p style='color: green;'>Transacción registrada exitosamente</p>");
+                        $("#formRegistrarTransaccion")[0].reset();
+                    } else {
+                        $("#mensaje").html("<p style='color: red;'>Error: " + response.Message + "</p>");
+                    }
+                },
+                error: function () {
+                    $("#mensaje").html("<p style='color: red;'>Ocurrió un error al registrar la transacción.</p>");
+                }
+            });
+        });
+    });
+</script>

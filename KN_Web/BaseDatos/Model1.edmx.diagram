@@ -4,15 +4,15 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="44ad2715c1894e54802820f525b320ce" Name="Diagram1" ZoomLevel="25">
-        <EntityTypeShape EntityType="MARTES_BDModel.tCarrito" Width="1.5" PointX="5.25" PointY="5" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tCategoria" Width="1.5" PointX="0.75" PointY="1.375" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tDetalle" Width="1.5" PointX="7.5" PointY="10.75" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tFavoritos" Width="1.5" PointX="5.25" PointY="2.125" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tMaestro" Width="1.5" PointX="5.25" PointY="11" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tProducto" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tRol" Width="1.5" PointX="0.75" PointY="5.375" />
-        <EntityTypeShape EntityType="MARTES_BDModel.tUsuario" Width="1.5" PointX="3" PointY="4.5" />
+      <Diagram DiagramId="44ad2715c1894e54802820f525b320ce" Name="Diagram1" ZoomLevel="34">
+        <EntityTypeShape EntityType="MARTES_BDModel.tCarrito" PointX="5.25" PointY="2" Width="1.5" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tCategoria" PointX="0.75" PointY="1.375" Width="1.5" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tDetalle" PointX="7.5" PointY="10.75" Width="1.5" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tFavoritos" PointX="5.25" PointY="5.125" Width="1.5" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tMaestro" PointX="5.25" PointY="11" Width="1.5" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tProducto" PointX="3" PointY="0.75" Width="1.5" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tRol" PointX="0.75" PointY="5.375" Width="1.5" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tUsuario" PointX="3" PointY="4.5" Width="1.5" />
         <AssociationConnector Association="MARTES_BDModel.FK_tCarrito_tProducto" />
         <AssociationConnector Association="MARTES_BDModel.FK_tCarrito_tUsuario" />
         <AssociationConnector Association="MARTES_BDModel.FK_tProducto_tCategoria" />
@@ -22,7 +22,17 @@
         <AssociationConnector Association="MARTES_BDModel.FK_tFavoritos_tUsuario" />
         <AssociationConnector Association="MARTES_BDModel.FK_tMaestro_tUsuario" />
         <AssociationConnector Association="MARTES_BDModel.FK_tUsuario_tRol" />
-        <EntityTypeShape EntityType="MARTES_BDModel.Contacto" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MARTES_BDModel.Contacto" PointX="7.75" PointY="1.25" Width="1.5" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tCuentaPago" Width="1.5" PointX="12.625" PointY="4.75" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tMetodoPago" Width="1.5" PointX="10.375" PointY="3.75" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tReciboPago" Width="1.5" PointX="14.875" PointY="9.75" />
+        <EntityTypeShape EntityType="MARTES_BDModel.tTransaccionPago" Width="1.5" PointX="12.625" PointY="8.875" />
+        <AssociationConnector Association="MARTES_BDModel.FK_CuentaPago_MetodoPago" />
+        <AssociationConnector Association="MARTES_BDModel.FK_CuentaPago_Usuario" />
+        <AssociationConnector Association="MARTES_BDModel.FK_TransaccionPago_Maestro" />
+        <AssociationConnector Association="MARTES_BDModel.FK_TransaccionPago_MetodoPago" />
+        <AssociationConnector Association="MARTES_BDModel.FK_ReciboPago_Transaccion" />
+        <AssociationConnector Association="MARTES_BDModel.FK_TransaccionPago_Usuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

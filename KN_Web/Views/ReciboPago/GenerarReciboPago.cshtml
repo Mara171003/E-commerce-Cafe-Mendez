@@ -1,0 +1,55 @@
+﻿@model KN_Web.Entidades.Pago.ReciboPago
+@{
+    ViewBag.Title = "Generar Recibo de Pago";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Generar Recibo de Pago</h2>
+
+<form id="formGenerarRecibo">
+    <label for="idTransaccion">ID de Transacción:</label>
+    <input type="number" id="idTransaccion" name="IdTransaccion" required />
+
+    <label for="monto">Monto:</label>
+    <input type="number" id="monto" name="Monto" step="0.01" required />
+
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" name="Fecha" required />
+
+    <button type="submit">Generar Recibo</button>
+</form>
+
+<div id="mensaje"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#formGenerarRecibo").submit(function (event) {
+            event.preventDefault();
+
+            var recibo = {
+                IdTransaccion: $("#idTransaccion").val(),
+                Monto: $("#monto").val(),
+                Fecha: $("#fecha").val()
+            };
+
+            $.ajax({
+                url: '@Url.Action("GenerarReciboPago", "ReciboPago")',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(recibo),
+                success: function (response) {
+                    if (response.Success) {
+                        $("#mensaje").html("<p style='color: green;'>Recibo generado correctamente.</p>");
+                        $("#formGenerarRecibo")[0].reset();
+                    } else {
+                        $("#mensaje").html("<p style='color: red;'>Error: " + response.Message + "</p>");
+                    }
+                },
+                error: function () {
+                    $("#mensaje").html("<p style='color: red;'>Ocurrió un error al generar el recibo.</p>");
+                }
+            });
+        });
+    });
+</script>
