@@ -18,7 +18,6 @@ namespace KN_Web.BaseDatos
         public tMaestro()
         {
             this.tDetalle = new HashSet<tDetalle>();
-            this.tTransaccionPago = new HashSet<tTransaccionPago>();
         }
     
         public int IdMaestro { get; set; }
@@ -31,7 +30,5 @@ namespace KN_Web.BaseDatos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tDetalle> tDetalle { get; set; }
         public virtual tUsuario tUsuario { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tTransaccionPago> tTransaccionPago { get; set; }
     }
 }

@@ -82,6 +82,12 @@ namespace KN_Web.Models
 
             return (rowsAffected > 0 ? true : false);
         }
-
+        public ObtenerFacturaPorId_Result ObtenerFacturaPorId(int idFactura)
+        {
+            using (var context = new MARTES_BDEntities1())
+            {
+                return context.ObtenerFacturaPorId(idFactura).FirstOrDefault();
+            }
+        }
     }
 }

@@ -20,8 +20,6 @@ namespace KN_Web.BaseDatos
             this.tCarrito = new HashSet<tCarrito>();
             this.tFavoritos = new HashSet<tFavoritos>();
             this.tMaestro = new HashSet<tMaestro>();
-            this.tCuentaPago = new HashSet<tCuentaPago>();
-            this.tTransaccionPago = new HashSet<tTransaccionPago>();
         }
     
         public int Consecutivo { get; set; }
@@ -41,9 +39,5 @@ namespace KN_Web.BaseDatos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tMaestro> tMaestro { get; set; }
         public virtual tRol tRol { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tCuentaPago> tCuentaPago { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tTransaccionPago> tTransaccionPago { get; set; }
     }
 }

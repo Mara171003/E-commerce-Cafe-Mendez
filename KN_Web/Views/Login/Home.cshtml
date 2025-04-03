@@ -6,203 +6,203 @@
 }
 
 <style>
-/* Estilos para la cuadrícula de productos */
-.productos-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -10px;
-    background-color: white;
-}
+    /* Estilos para la cuadrícula de productos */
+    .productos-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -10px;
+        background-color: white;
+    }
 
-.producto-item {
-    padding: 10px;
-    transition: all 0.3s ease;
-}
+    .producto-item {
+        padding: 10px;
+        transition: all 0.3s ease;
+    }
 
-/* Estilos para cada tarjeta de producto */
-.producto-card {
-    height: 100%;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    background-color: #fff;
-    border: 1px solid #CCD4D9;
-}
+    /* Estilos para cada tarjeta de producto */
+    .producto-card {
+        height: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        background-color: #fff;
+        border: 1px solid #CCD4D9;
+    }
 
-.producto-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
+        .producto-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
 
-/* Estilo para la imagen */
-.producto-img-container {
-    overflow: hidden;
-    text-align: center;
-    padding: 15px;
-    background-color: white;
-}
+    /* Estilo para la imagen */
+    .producto-img-container {
+        overflow: hidden;
+        text-align: center;
+        padding: 15px;
+        background-color: white;
+    }
 
-.producto-img {
-    width: 200px;
-    height: 150px;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
+    .producto-img {
+        width: 200px;
+        height: 150px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
 
-.producto-card:hover .producto-img {
-    transform: scale(1.08);
-}
+    .producto-card:hover .producto-img {
+        transform: scale(1.08);
+    }
 
-/* Estilos para la información del producto */
-.producto-info {
-    padding: 0;
-}
+    /* Estilos para la información del producto */
+    .producto-info {
+        padding: 0;
+    }
 
-.producto-title {
-    font-weight: 600;
-    color: #232126;
-    transition: color 0.3s ease;
-}
+    .producto-title {
+        font-weight: 600;
+        color: #232126;
+        transition: color 0.3s ease;
+    }
 
-.producto-card:hover .producto-title {
-    color: #A65526;
-}
+    .producto-card:hover .producto-title {
+        color: #A65526;
+    }
 
-.list-group-item {
-    border-left: none;
-    border-right: none;
-    transition: background-color 0.3s ease;
-    background-color: white;
-}
+    .list-group-item {
+        border-left: none;
+        border-right: none;
+        transition: background-color 0.3s ease;
+        background-color: white;
+    }
 
-.producto-card:hover .list-group-item {
-    background-color: white;
-}
+    .producto-card:hover .list-group-item {
+        background-color: white;
+    }
 
-.producto-price {
-    color: #733729;
-    font-weight: bold;
-}
+    .producto-price {
+        color: #733729;
+        font-weight: bold;
+    }
 
-/* Estilos para los botones */
-.btn-favorito {
-    transition: all 0.3s ease;
-    color: #232126;
-    border-color: #D9A362;
-}
+    /* Estilos para los botones */
+    .btn-favorito {
+        transition: all 0.3s ease;
+        color: #232126;
+        border-color: #D9A362;
+    }
 
-.btn-favorito:hover {
-    background-color: #D9A362;
-    color: #232126;
-}
+        .btn-favorito:hover {
+            background-color: #D9A362;
+            color: #232126;
+        }
 
-.btn-agregar {
-    transition: all 0.3s ease;
-    background-color: #D9A362;
-    border-color: #D9A362;
-    color: #232126;
-}
+    .btn-agregar {
+        transition: all 0.3s ease;
+        background-color: #D9A362;
+        border-color: #D9A362;
+        color: #232126;
+    }
 
-.btn-agregar:hover {
-    background-color: #A65526;
-    border-color: #A65526;
-    color: white;
-    transform: scale(1.05);
-}
+        .btn-agregar:hover {
+            background-color: #A65526;
+            border-color: #A65526;
+            color: white;
+            transform: scale(1.05);
+        }
 
-.cantidad-input {
-    border-radius: 5px;
-    border: 1px solid #CCD4D9;
-    transition: all 0.3s ease;
-}
+    .cantidad-input {
+        border-radius: 5px;
+        border: 1px solid #CCD4D9;
+        transition: all 0.3s ease;
+    }
 
-.cantidad-input:focus {
-    border-color: #D9A362;
-    box-shadow: 0 0 0 0.25rem rgba(217, 163, 98, 0.25);
-}
+        .cantidad-input:focus {
+            border-color: #D9A362;
+            box-shadow: 0 0 0 0.25rem rgba(217, 163, 98, 0.25);
+        }
 
-/* Estilo para productos agotados */
-.producto-agotado {
-    font-size: 14pt;
-    color: #5c281c;
-    font-weight: bold;
-    animation: pulse 1.5s infinite;
-}
+    /* Estilo para productos agotados */
+    .producto-agotado {
+        font-size: 14pt;
+        color: #5c281c;
+        font-weight: bold;
+        animation: pulse 1.5s infinite;
+    }
 
-/* Mejoras para la búsqueda y filtros */
-.search-container {
-    margin-bottom: 20px;
-}
+    /* Mejoras para la búsqueda y filtros */
+    .search-container {
+        margin-bottom: 20px;
+    }
 
-.search-box {
-    border-radius: 20px 0 0 20px;
-    border: 1px solid #CCD4D9;
-    padding-left: 15px;
-    transition: all 0.3s ease;
-    background-color: white;
-    color: #232126;
-}
+    .search-box {
+        border-radius: 20px 0 0 20px;
+        border: 1px solid #CCD4D9;
+        padding-left: 15px;
+        transition: all 0.3s ease;
+        background-color: white;
+        color: #232126;
+    }
 
-.search-box:focus {
-    box-shadow: 0 0 0 0.25rem rgba(217, 163, 98, 0.25);
-    border-color: #D9A362;
-}
+        .search-box:focus {
+            box-shadow: 0 0 0 0.25rem rgba(217, 163, 98, 0.25);
+            border-color: #D9A362;
+        }
 
-.search-btn {
-    border-radius: 0 20px 20px 0;
-    background-color: #A65526;
-    color: white;
-    transition: all 0.3s ease;
-}
+    .search-btn {
+        border-radius: 0 20px 20px 0;
+        background-color: #A65526;
+        color: white;
+        transition: all 0.3s ease;
+    }
 
-.search-btn:hover {
-    background-color: #733729;
-}
+        .search-btn:hover {
+            background-color: #733729;
+        }
 
-.filter-container {
-    margin-bottom: 20px;
-}
+    .filter-container {
+        margin-bottom: 20px;
+    }
 
-.filter-select {
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    border: 1px solid #CCD4D9;
-    color: #232126;
-}
+    .filter-select {
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        border: 1px solid #CCD4D9;
+        color: #232126;
+    }
 
-.filter-select:focus {
-    border-color: #D9A362;
-    box-shadow: 0 0 0 0.25rem rgba(217, 163, 98, 0.25);
-}
+        .filter-select:focus {
+            border-color: #D9A362;
+            box-shadow: 0 0 0 0.25rem rgba(217, 163, 98, 0.25);
+        }
 
-/* Estilos generales para la página */
-body {
-    background-color: white;
-    color: #232126;
-}
+    /* Estilos generales para la página */
+    body {
+        background-color: white;
+        color: #232126;
+    }
 
-.card-body {
-    background-color: white;
-}
+    .card-body {
+        background-color: white;
+    }
 
-/* Otros elementos */
-label {
-    color: #232126;
-    font-weight: 500;
-}
+    /* Otros elementos */
+    label {
+        color: #232126;
+        font-weight: 500;
+    }
 
-.swal2-popup {
-    border: 2px solid #D9A362;
-}
+    .swal2-popup {
+        border: 2px solid #D9A362;
+    }
 
-.swal2-confirm {
-    background-color: #A65526 !important;
-}
+    .swal2-confirm {
+        background-color: #A65526 !important;
+    }
 
-.swal2-confirm:hover {
-    background-color: #733729 !important;
-}
+        .swal2-confirm:hover {
+            background-color: #733729 !important;
+        }
 </style>
 
 <!-- Barra de búsqueda con autocomplete -->

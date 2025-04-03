@@ -10,15 +10,11 @@
 namespace KN_Web.BaseDatos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tReciboPago
+    public partial class ValidarExistencias1_Result
     {
-        public int IdRecibo { get; set; }
-        public int IdTransaccion { get; set; }
-        public string RutaArchivoPDF { get; set; }
-        public System.DateTime FechaGeneracion { get; set; }
-    
-        public virtual tTransaccionPago tTransaccionPago { get; set; }
+        public int IdProducto { get; set; }
+        public string Descripcion { get; set; }
+        public int Inventario { get; set; }
     }
 }

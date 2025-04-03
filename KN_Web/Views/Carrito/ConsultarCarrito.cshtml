@@ -78,22 +78,36 @@
             <div class="col-3">
                 <p style="font-size:14pt; margin-top:2%">El monto a cancelar es de: ¢<b id="granTotal">@decimal.Parse(Session["Total"].ToString()).ToString("N2")</b></p>
             </div>
-            <div>
-                @if (Session["Total"].ToString() != "0")
-                {
-                    using (Html.BeginForm("PagarCarrito", "Carrito"))
-                    {
-                        <button type="button" class="btn btn-outline-primary" style="width:200px" onclick="redirigirPago()">
-                            Pagar
-                        </button>
-                    }
-                }
-            </div>
+            <button type="button" class="btn btn-outline-primary" style="width:200px" onclick="procesarPago()">
+                Pagar
+            </button>
         </div>
 
     </div>
 </div>
 
+<div class="modal fade" id="pagoModal" tabindex="-1" aria-labelledby="pagoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pagoModalLabel">Pago SINPE MÓVIL </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Paga al <strong>+506 88566227</strong></p>
+                <p>A nombre de <strong>John Wilson Méndez Hernández</strong></p>
+                <p>Enviar comprobante al siguiente enlace:</p>
+                <a href="https://wa.link/z89r8d" target="_blank" class="btn btn-success">
+                    Enviar Comprobante
+                </a>
+                <a><button type="button" id="descargarPdfButton" class="btn btn-primary">Descargar PDF</button> </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="ModalCarrito" data-backdrop="static" data-keyboard="false" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -121,9 +135,6 @@
 
 <script src="~/root/plugins/jquery/jquery.min.js"></script>
 <script>
-    function redirigirPago() {
-        window.location.href = '@Url.Action("GuardarCuentaPago", "CuentaPago")';
-    }
     $(document).ready(function () {
         $("#tablaCarrito").DataTable({
             language: {
@@ -203,4 +214,20 @@
             }
         });
     }
+    function procesarPago() {
+    const idFactura = '@Model.DatosCarrito.FirstOrDefault()?.IdFactura';
+    if (idFactura && idFactura !== "undefined") {
+        const modal = new bootstrap.Modal(document.getElementById('pagoModal'));
+        modal.show();
+
+        document.getElementById('descargarPdfButton').onclick = function() {
+            window.location.href = `/Carrito/DescargarPDF?id=${idFactura}`;
+        };
+    } else {
+        alert("No se encontró ID de factura. Por favor, verifica el carrito.");
+    }
+
 </script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

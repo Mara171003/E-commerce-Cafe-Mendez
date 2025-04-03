@@ -35,7 +35,7 @@ namespace KN_Web.Models
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
             {
                 { "controller", "Login" },
-                { "action", "Home" }
+                { "action", "homepage" }
             });
             }
 

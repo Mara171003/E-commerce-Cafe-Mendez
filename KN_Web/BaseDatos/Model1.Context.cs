@@ -27,6 +27,7 @@ namespace KN_Web.BaseDatos
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Contacto> Contacto { get; set; }
         public virtual DbSet<tCarrito> tCarrito { get; set; }
         public virtual DbSet<tCategoria> tCategoria { get; set; }
         public virtual DbSet<tDetalle> tDetalle { get; set; }
@@ -35,11 +36,6 @@ namespace KN_Web.BaseDatos
         public virtual DbSet<tProducto> tProducto { get; set; }
         public virtual DbSet<tRol> tRol { get; set; }
         public virtual DbSet<tUsuario> tUsuario { get; set; }
-        public virtual DbSet<tCuentaPago> tCuentaPago { get; set; }
-        public virtual DbSet<tMetodoPago> tMetodoPago { get; set; }
-        public virtual DbSet<tReciboPago> tReciboPago { get; set; }
-        public virtual DbSet<tTransaccionPago> tTransaccionPago { get; set; }
-        public virtual DbSet<Contacto> Contacto { get; set; }
     
         public virtual int ActualizarImagenProducto(Nullable<int> idProducto, string imagen)
         {
@@ -411,6 +407,33 @@ namespace KN_Web.BaseDatos
                 new ObjectParameter("IdCategoria", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_FiltrarProductosPorCategoria1_Result>("sp_FiltrarProductosPorCategoria1", idCategoriaParameter);
+        }
+    
+        public virtual int GenerarFacturaConCarrito(Nullable<int> consecutivo)
+        {
+            var consecutivoParameter = consecutivo.HasValue ?
+                new ObjectParameter("Consecutivo", consecutivo) :
+                new ObjectParameter("Consecutivo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("GenerarFacturaConCarrito", consecutivoParameter);
+        }
+    
+        public virtual ObjectResult<ObtenerFacturaPorId_Result> ObtenerFacturaPorId(Nullable<int> idFactura)
+        {
+            var idFacturaParameter = idFactura.HasValue ?
+                new ObjectParameter("IdFactura", idFactura) :
+                new ObjectParameter("IdFactura", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ObtenerFacturaPorId_Result>("ObtenerFacturaPorId", idFacturaParameter);
+        }
+    
+        public virtual ObjectResult<ValidarExistencias1_Result> ValidarExistencias1(Nullable<int> consecutivo)
+        {
+            var consecutivoParameter = consecutivo.HasValue ?
+                new ObjectParameter("Consecutivo", consecutivo) :
+                new ObjectParameter("Consecutivo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ValidarExistencias1_Result>("ValidarExistencias1", consecutivoParameter);
         }
     }
 }

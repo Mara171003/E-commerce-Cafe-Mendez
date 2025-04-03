@@ -29,6 +29,7 @@
                     <th>Impuestos</th>
                     <th>Total</th>
                     <th>Ver Detalle</th>
+                    <th>Descargar PDF</th> <!-- Columna adicional -->
                 </tr>
             </thead>
             <tbody>
@@ -43,6 +44,12 @@
                         <td style="text-align:center">
                             <a class="btn btn-primary" href="@Url.Action("ConsultarDetalleFactura","Carrito", new { Consecutivo = item.IdMaestro })">
                                 <i class="fa fa-eye"></i>
+                            </a>
+                        </td>
+                        <td style="text-align:center">
+                            <!-- Botón para descargar PDF -->
+                            <a class="btn btn-success" href="@Url.Action("DescargarPDF","Carrito", new { id = item.IdMaestro })">
+                                <i class="fa fa-download"></i>
                             </a>
                         </td>
                     </tr>
@@ -60,8 +67,7 @@
             language: {
                 url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'
             },
-            columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4] }]
+            columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4, 5] }]
         });
-    })
-
+    });
 </script>

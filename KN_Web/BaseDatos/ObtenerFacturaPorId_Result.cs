@@ -10,19 +10,14 @@
 namespace KN_Web.BaseDatos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tCuentaPago
+    public partial class ObtenerFacturaPorId_Result
     {
-        public int IdCuentaPago { get; set; }
+        public int IdMaestro { get; set; }
         public int Consecutivo { get; set; }
-        public int IdMetodoPago { get; set; }
-        public string IdentificadorCuenta { get; set; }
-        public string UltimosCuatroDigitos { get; set; }
-        public System.DateTime FechaRegistro { get; set; }
-        public bool Predeterminado { get; set; }
-    
-        public virtual tMetodoPago tMetodoPago { get; set; }
-        public virtual tUsuario tUsuario { get; set; }
+        public System.DateTime FechaCompra { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal Impuesto { get; set; }
+        public decimal Total { get; set; }
     }
 }

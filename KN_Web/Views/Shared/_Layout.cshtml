@@ -32,7 +32,9 @@
                 <!-- Carrito -->
                 <li class="nav-item d-flex align-items-center">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="ml-2">@Session["Cantidad"].ToString()</span>
+                    <span class="ml-2">
+                        @(Session["Cantidad"] != null ? Session["Cantidad"].ToString() : "0")
+                    </span>
                 </li>
 
                 <!-- Espaciado entre carrito y usuario -->
@@ -61,7 +63,7 @@
         </nav>
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="@Url.Action("Home","Login")" class="brand-link">
+            <a href="@Url.Action("homepage","Login")" class="brand-link">
                 <img src="~/root/dist/img/CafeLogo.jpg"
                      alt="AdminLTE Logo"
                      class="brand-image img-circle elevation-3"
@@ -104,22 +106,21 @@
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a href="@Url.Action("ConsultarDatos", "Datos")" class="nav-link">
-                                            <i class="fa-solid fa-database"></i>
+                                            <i class="fa-solid fa-chart-simple"></i>
                                             <p>Ventas</p>
                                         </a>
                                     </li>
                                 </ul>
                             <li class="nav-item has-treeview">
-                                <a href="@Url.Action("homepage","Login")" class="nav-link">
-                                    <i class="fa-solid fa-cart-shopping"></i>
+                                <a href="@Url.Action("Home","Login")" class="nav-link">
+                                    <i class="fa-solid fa-boxes-stacked"></i>
                                     <p>
-                                        Inicio
+                                        Tienda
                                     </p>
                                 </a>
                             </li>
                             </li>
                         }
-
                         <li class="nav-item has-treeview">
                             <a href="@Url.Action("ConsultarCarrito","Carrito")" class="nav-link">
                                 <i class="fa-solid fa-cart-shopping"></i>
@@ -133,6 +134,14 @@
                                 <i class="fa-solid fa-star"></i>
                                 <p>
                                     Mis Favoritos
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item has-treeview">
+                            <a href="@Url.Action("ConsultarFacturas","Carrito")" class="nav-link">
+                                <i class="fa-solid fa-file"></i>
+                                <p>
+                                    Facturas
                                 </p>
                             </a>
                         </li>
