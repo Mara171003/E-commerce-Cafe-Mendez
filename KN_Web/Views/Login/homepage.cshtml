@@ -17,7 +17,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- bootstrap css -->
-    19
     <link rel="stylesheet" type="text/css" href="~/root/dist/css/bootstrap.min.css">
     <!-- style css -->
     <link rel="stylesheet" type="text/css" href="~/root/dist/css/style.css">
@@ -50,7 +49,7 @@
                                     <h1 class="coffee_text" style="color: black;">De las altas montañas de Dota</h1>
                                     <p class="there_text" style="color: black;">Café Méndez se cultiva en las montañas de la Zona de los Santos, directamente de sus productores. Para el disfrute de los amantes del café de alta calidad.</p>
                                     <div class="learnmore_bt">
-                                        <a href="~/Login/Home" style="white-space: nowrap; display: inline-block;">Ver Productos</a>
+                                        <a href="@Url.Action("Home", "Login")" style="white-space: nowrap; display: inline-block;">Ver Productos</a>
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +64,7 @@
                                     <p class="there_text" style="color: black;">Nació como un proyecto en donde a los amantes del café se les pudiera ofrecer la experiencia de degustar un café calidad de exportación, donde se le pudiera dar trazabilidad desde la finca a la taz; a un valor razonable, sin intermediarios.</p>
                                     <br />
                                     <div class="learnmore_bt">
-                                        <a href="~/Login/Home" style="white-space: nowrap; display: inline-block;">Ver Productos</a>
+                                        <a href="@Url.Action("Home", "Login")" style="white-space: nowrap; display: inline-block;">Ver Productos</a>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +91,7 @@
                         <div class="about_taital">Acerca de nosotros</div>
                         <p class="about_text">Café producido en las altas montañas de la zona de los Santos</p>
                         <p class="about_text">Somos una familia apasionada por el café, ubicada en la hermosa región de Los Santos de Tarrazú, Costa Rica. Amamos lo que hacemos y por eso cultivamos y seleccionamos cuidadosamente los mejores granos de café, respetando las tradiciones y el medio ambiente. Nuestro compromiso es ofrecer un café de calidad excepcional, lleno de sabor y aroma, que refleja el amor y dedicación de nuestra familia. ¡Adquirí nuestros productos y descubre la magia del café costarricense!</p>
-                        <div class="read_bt"><a href="#">Ver más</a></div>
+                        <div class="read_bt"><a href="@Url.Action("About", "Login")">Ver más</a></div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -142,68 +141,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="gallery_section_2">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="container_main">
-                                <img src="~/root/dist/img/g4.png" alt="Avatar" class="image">
-                                <div class="overlay">
-                                    <div class="text"><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container_main">
-                                <img src="~/root/dist/img/g5.png" alt="Avatar" class="image">
-                                <div class="overlay">
-                                    <div class="overlay">
-                                        <div class="text"><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container_main">
-                                <img src="~/root/dist/img/g6.png" alt="Avatar" class="image">
-                                <div class="overlay">
-                                    <div class="overlay">
-                                        <div class="text"><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery_section_2">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="container_main">
-                                <img src="~/root/dist/img/g7.png" alt="Avatar" class="image">
-                                <div class="overlay">
-                                    <div class="text"><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container_main">
-                                <img src="~/root/dist/img/g8.png" alt="Avatar" class="image">
-                                <div class="overlay">
-                                    <div class="text"><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="container_main">
-                                <img src="~/root/dist/img/g9.png" alt="Avatar" class="image">
-                                <div class="overlay">
-                                    <div class="text"><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="seemore_bt"><a href="#">Ver Más</a></div>
+            <div class="seemore_bt"><a href="@Url.Action("Gallery", "Login")">Ver Más</a></div>
         </div>
     </div>
     <!-- gallery section end -->
@@ -248,7 +187,7 @@
                             </div>
                             <h3 class="decorate_text">🌱 Experiencias y Degustaciones</h3>
                             <p class="tation_text">Sumérgete en el mundo del café con experiencias únicas. Ofrecemos degustaciones y recorridos en nuestra finca para conocer el proceso de producción, desde la cosecha hasta la taza. Ideal para amantes del café y quienes buscan una conexión auténtica con la cultura cafetalera.</p>
-                            <div class="readmore_bt"><a href="~/Home/Contact"> Agendar Visita</a></div>
+                            <div class="readmore_bt"><a href="@Url.Action("Contact", "Login")"> Agendar Visita</a></div>
                         </div>
                     </div>
                 </div>
@@ -380,6 +319,12 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
             }
+
+        .container_main .image {
+            width: 100%; /* Asegura que la imagen se ajuste al ancho del contenedor */
+            height: 250px; /* Define una altura uniforme */
+            object-fit: cover; /* Ajusta la imagen sin deformarla */
+        }
     </style>
     <!-- contact section start -->
     <div class="contact_section layout_padding">
@@ -448,7 +393,7 @@
                 <div class="col-lg-3 col-sm-6">
                     <h1 class="useful_text">Politicas de compra y Envios</h1>
                     <p class="dummy_text">Envios y Devoluciones </p>
-                    <p class="dummy_text">Pagos </p>
+                    <p class="dummy_text">Pagos<a href="@Url.Action("Pago", "Carrito")"> </a> </p>
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <h1 class="useful_text">Contactenos</h1>

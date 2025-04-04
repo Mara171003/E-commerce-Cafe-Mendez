@@ -1,0 +1,98 @@
+﻿
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago SINPE MÓVIL</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="payment-page">
+        <h1 class="payment-title">Pago SINPE MÓVIL</h1>
+        <div class="payment-details">
+            <p>Paga al <strong>+506 88566227</strong></p>
+            <p>A nombre de <strong>John Wilson Méndez Hernández</strong></p>
+            <p>Costo de envío: <strong>₡2500</strong></p>
+            <p>Enviar comprobante al siguiente enlace:</p>
+            <a href="https://wa.link/z89r8d" target="_blank" class="btn-success">Enviar Comprobante</a>
+            <button type="button" id="descargarPdfButton" class="btn-primary">Descargar PDF</button>
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+    :root {
+        --dark-brown: #232126;
+        --light-gray: #CCD4D9;
+        --cream: #E0D2D0;
+        --gold: #D9A362;
+        --copper: #A65526;
+        --rust: #733729;
+        --dark-rust: #5c281c;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--light-gray); /* Fondo claro */
+    }
+
+    .payment-page {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background: var(--cream); /* Fondo crema */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .payment-title {
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: var(--gold); /* Título dorado */
+        text-align: center;
+    }
+
+    .payment-details {
+        line-height: 1.8;
+        color: var(--dark-brown); /* Texto oscuro */
+    }
+
+        .payment-details strong {
+            color: var(--copper); /* Destacar texto con cobre */
+        }
+
+    .btn-success {
+        display: inline-block;
+        background: var(--rust); /* Fondo óxido */
+        color: var(--cream); /* Texto crema */
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-right: 10px;
+        transition: background 0.3s ease;
+    }
+
+        .btn-success:hover {
+            background: var(--dark-rust); /* Óxido más oscuro en hover */
+        }
+
+    .btn-primary {
+        display: inline-block;
+        background: var(--gold); /* Fondo dorado */
+        color: var(--dark-brown); /* Texto marrón oscuro */
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background: var(--copper); /* Fondo cobre en hover */
+        }
+
+</style>

@@ -37,21 +37,26 @@
 
     /* Estilo para la imagen */
     .producto-img-container {
+        width: 100%;
+        height: 200px; /* Altura fija para mantener uniformidad */
         overflow: hidden;
-        text-align: center;
-        padding: 15px;
-        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--cream); /* Fondo claro opcional */
+        border-bottom: 1px solid var(--light-gray); /* Línea de separación estética */
     }
 
+    /* Ajusta las imágenes para que se vean completas */
     .producto-img {
-        width: 200px;
-        height: 150px;
-        object-fit: cover;
-        transition: transform 0.5s ease;
+        width: auto; /* Ajusta el ancho automáticamente */
+        height: 100%; /* La altura siempre llena el contenedor */
+        object-fit: contain; /* Asegura que la imagen completa sea visible */
+        transition: transform 0.5s ease; /* Efecto al pasar el mouse */
     }
 
     .producto-card:hover .producto-img {
-        transform: scale(1.08);
+        transform: scale(1.05);
     }
 
     /* Estilos para la información del producto */
