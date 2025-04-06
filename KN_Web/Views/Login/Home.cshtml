@@ -231,9 +231,12 @@
     {
         <div class="form-group">
             <label for="idCategoria">Filtrar por categoría:</label>
+            @{
+                var categorias = ViewBag.Categorias as List<KN_Web.BaseDatos.tCategoria> ?? new List<KN_Web.BaseDatos.tCategoria>();
+            }
             <select name="idCategoria" id="idCategoria" class="form-control filter-select" onchange="this.form.submit();">
                 <option value="0">Todas las categorías</option>
-                @foreach (var cat in ViewBag.Categorias as List<KN_Web.BaseDatos.tCategoria>)
+                @foreach (var cat in categorias)
                 {
                     <option value="@cat.IdCategoria">@cat.Descripcion</option>
                 }

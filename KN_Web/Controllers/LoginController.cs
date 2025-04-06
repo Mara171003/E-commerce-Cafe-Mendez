@@ -61,7 +61,8 @@ namespace KN_Web.Controllers
                 }
             }
 
-            // Si no hay sesión ni cookie válida, mostrar la vista de login
+            // Si no hay sesión ni cookie válida, asignar las categorías para la vista
+            ViewBag.Categorias = productoM.ConsultarCategorias();
             return View();
         }
 

@@ -27,15 +27,21 @@
                     </a>
                 </li>
             </ul>
+        </nav>
 
+        <!-- AQUI SE RENDERIZA EL CONTENIDO DE LA VISTA -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
 
-            <footer class="main-footer">
-                <strong>Copyright &copy; @DateTime.Now.Year </strong> All rights reserved.
-            </footer>
+        <footer class="main-footer">
+            <strong>Copyright &copy; @DateTime.Now.Year</strong> All rights reserved.
+        </footer>
 
-            <aside class="control-sidebar control-sidebar-dark">
-            </aside>
+        <aside class="control-sidebar control-sidebar-dark">
+        </aside>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/root/plugins/jquery/jquery.min.js"></script>
     <script src="~/root/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -43,4 +49,5 @@
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.3/sweetalert2.min.js"></script>
-    <script>
+</body>
+</html>
