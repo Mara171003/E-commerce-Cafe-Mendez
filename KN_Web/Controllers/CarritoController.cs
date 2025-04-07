@@ -4,12 +4,8 @@ using KN_Web.BaseDatos;
 using KN_Web.Entidades;
 using KN_Web.Models;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace KN_Web.Controllers
@@ -17,7 +13,8 @@ namespace KN_Web.Controllers
     public class CarritoController : Controller
     {
         CarritoModel carritoM = new CarritoModel();
-
+        private readonly MARTES_BDEntities1 db = new MARTES_BDEntities1();
+ 
         [HttpGet]
         public ActionResult ConsultarCarrito()
         {

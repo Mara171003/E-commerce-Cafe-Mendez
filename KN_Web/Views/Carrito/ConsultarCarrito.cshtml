@@ -101,10 +101,9 @@
                 <a href="https://wa.link/z89r8d" target="_blank" class="btn btn-success">
                     Enviar Comprobante
                 </a>
-                <a><button type="button" id="descargarPdfButton" class="btn btn-primary">Descargar PDF</button> </a>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <a href="@Url.Action("GenerarPdf", "Carrito")" class="btn btn-outline-primary" target="_blank">
+                    Generar PDF
+                </a>
             </div>
         </div>
     </div>
@@ -136,6 +135,14 @@
 
 <script src="~/root/plugins/jquery/jquery.min.js"></script>
 <script>
+    $('#botonPagar').on('click', function () {
+        procesarPago();
+    });
+
+    function procesarPago() {
+        $('#pagoModal').modal('show');
+    }
+
     $(document).ready(function () {
         $("#tablaCarrito").DataTable({
             language: {
@@ -173,24 +180,24 @@
     }
 
     function aumentarCantidad(idProducto, precio) {
-        var cantidadCell = document.getElementById('cantidad-' + idProducto);
-        var cantidadActual = parseInt(cantidadCell.innerText);
-        cantidadCell.innerText = cantidadActual + 1;
-        cantidadCell.style.backgroundColor = "#d4edda";
+    var cantidadCell = document.getElementById('cantidad-' + idProducto);
+    var cantidadActual = parseInt(cantidadCell.innerText);
+    cantidadCell.innerText = cantidadActual + 1;
+    cantidadCell.style.backgroundColor = "#d4edda";
 
-        calcularTotales(idProducto, precio, cantidadActual + 1);
+    calcularTotales(idProducto, precio, cantidadActual + 1); 
+}
+
+function disminuirCantidad(idProducto, precio) {
+    var cantidadCell = document.getElementById('cantidad-' + idProducto);
+    var cantidadActual = parseInt(cantidadCell.innerText);
+    if (cantidadActual > 1) {
+        cantidadCell.innerText = cantidadActual - 1;
+        cantidadCell.style.backgroundColor = "#f8d7da";
+
+        calcularTotales(idProducto, precio, cantidadActual - 1); 
     }
-
-    function disminuirCantidad(idProducto, precio) {
-        var cantidadCell = document.getElementById('cantidad-' + idProducto);
-        var cantidadActual = parseInt(cantidadCell.innerText);
-        if (cantidadActual > 1) {
-            cantidadCell.innerText = cantidadActual - 1;
-            cantidadCell.style.backgroundColor = "#f8d7da";
-
-            calcularTotales(idProducto, precio, cantidadActual - 1);
-        }
-    }
+}
 
     function actualizarCantidad(idProducto) {
         var cantidadCell = document.getElementById('cantidad-' + idProducto);
@@ -214,18 +221,6 @@
                 location.reload();
             }
         });
-    }
-    function procesarPago() {
-    const idFactura = '@Model.DatosCarrito.FirstOrDefault()?.IdFactura';
-    if (idFactura && idFactura !== "undefined") {
-        const modal = new bootstrap.Modal(document.getElementById('pagoModal'));
-        modal.show();
-
-        document.getElementById('descargarPdfButton').onclick = function() {
-            window.location.href = `/Carrito/DescargarPDF?id=${idFactura}`;
-        };
-    } else {
-        alert("No se encontró ID de factura. Por favor, verifica el carrito.");
     }
 
 </script>
