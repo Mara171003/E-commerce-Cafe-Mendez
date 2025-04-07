@@ -1,0 +1,473 @@
+﻿@model List<KN_Web.BaseDatos.tProducto>
+@{
+    ViewBag.Title = "ProdutoExterno";
+    Layout = "~/Views/Shared/_LayoutExternal.cshtml";
+}
+
+<html lang="es-mx">
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Café Méndez</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="~/root/dist/css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="~/root/dist/css/style.css">
+    <!-- Responsive -->
+    <link rel="stylesheet" href="~/root/dist/css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="~/root/dist/img/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="~/root/dist/css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets -->
+    <link rel="stylesheet" href="~/root/dist/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/root/dist/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+</head>
+<body>
+
+    <!--header section start -->
+    <div class="header_section">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="logo">
+                    <a href="@Url.Action("InterfazVisita", "External")">
+                        <img src="~/root/dist/img/CafeLogo.jpg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "InterfazVisita" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Inicio", "InterfazVisita", "External", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "productos" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Productos", "productos", "External", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "About" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Acerca de Nosotros", "About", "External", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Gallery" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Galeria", "Gallery", "External", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Contactenos", "Contact", "External", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Login")">
+                                <i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!--header section end -->
+    <!-- about section start -->
+    <style>
+        /* Estilos para la cuadrícula de productos */
+        .productos-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+            background-color: white;
+        }
+
+        .producto-item {
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        /* Estilos para cada tarjeta de producto */
+        .producto-card {
+            height: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background-color: #fff;
+            border: 1px solid #CCD4D9;
+        }
+
+            .producto-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+
+        /* Estilo para la imagen */
+        .producto-img-container {
+            width: 100%;
+            height: 200px; /* Altura fija para mantener uniformidad */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--cream); /* Fondo claro opcional */
+            border-bottom: 1px solid var(--light-gray); /* Línea de separación estética */
+        }
+
+        /* Ajusta las imágenes para que se vean completas */
+        .producto-img {
+            width: auto; /* Ajusta el ancho automáticamente */
+            height: 100%; /* La altura siempre llena el contenedor */
+            object-fit: contain; /* Asegura que la imagen completa sea visible */
+            transition: transform 0.5s ease; /* Efecto al pasar el mouse */
+        }
+
+        .producto-card:hover .producto-img {
+            transform: scale(1.05);
+        }
+
+        /* Estilos para la información del producto */
+        .producto-info {
+            padding: 0;
+        }
+
+        .producto-title {
+            font-weight: 600;
+            color: #232126;
+            transition: color 0.3s ease;
+        }
+
+        .producto-card:hover .producto-title {
+            color: #A65526;
+        }
+
+        .list-group-item {
+            border-left: none;
+            border-right: none;
+            transition: background-color 0.3s ease;
+            background-color: white;
+        }
+
+        .producto-card:hover .list-group-item {
+            background-color: white;
+        }
+
+        .producto-price {
+            color: #733729;
+            font-weight: bold;
+        }
+
+        /* Estilos para los botones */
+        .btn-favorito {
+            transition: all 0.3s ease;
+            color: #232126;
+            border-color: #D9A362;
+        }
+
+            .btn-favorito:hover {
+                background-color: #D9A362;
+                color: #232126;
+            }
+
+        .btn-agregar {
+            transition: all 0.3s ease;
+            background-color: #D9A362;
+            border-color: #D9A362;
+            color: #232126;
+        }
+
+            .btn-agregar:hover {
+                background-color: #A65526;
+                border-color: #A65526;
+                color: white;
+                transform: scale(1.05);
+            }
+
+        .cantidad-input {
+            border-radius: 5px;
+            border: 1px solid #CCD4D9;
+            transition: all 0.3s ease;
+        }
+
+            .cantidad-input:focus {
+                border-color: #D9A362;
+                box-shadow: 0 0 0 0.25rem rgba(217, 163, 98, 0.25);
+            }
+
+        /* Estilo para productos agotados */
+        .producto-agotado {
+            font-size: 14pt;
+            color: #5c281c;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Mejoras para la búsqueda y filtros */
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            border-radius: 20px 0 0 20px;
+            border: 1px solid #CCD4D9;
+            padding-left: 15px;
+            transition: all 0.3s ease;
+            background-color: white;
+            color: #232126;
+        }
+
+            .search-box:focus {
+                box-shadow: 0 0 0 0.25rem rgba(217, 163, 98, 0.25);
+                border-color: #D9A362;
+            }
+
+        .search-btn {
+            border-radius: 0 20px 20px 0;
+            background-color: #A65526;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+            .search-btn:hover {
+                background-color: #733729;
+            }
+
+        .filter-container {
+            margin-bottom: 20px;
+        }
+
+        .filter-select {
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border: 1px solid #CCD4D9;
+            color: #232126;
+        }
+
+            .filter-select:focus {
+                border-color: #D9A362;
+                box-shadow: 0 0 0 0.25rem rgba(217, 163, 98, 0.25);
+            }
+
+        /* Estilos generales para la página */
+        body {
+            background-color: white;
+            color: #232126;
+        }
+
+        .card-body {
+            background-color: white;
+        }
+
+        /* Otros elementos */
+        label {
+            color: #232126;
+            font-weight: 500;
+        }
+
+        .swal2-popup {
+            border: 2px solid #D9A362;
+        }
+
+        .swal2-confirm {
+            background-color: #A65526 !important;
+        }
+
+            .swal2-confirm:hover {
+                background-color: #733729 !important;
+            }
+    </style>
+
+
+    <!-- Listado de productos -->
+    <div class="productos-container">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12 producto-item">
+                <div class="producto-card">
+                    <div class="producto-img-container">
+                        <img class="producto-img" src="@item.Imagen" alt="@item.Descripcion" />
+                    </div>
+                    <div class="card-body producto-info">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h5 class="card-title producto-title">@item.Descripcion</h5></li>
+                            <li class="list-group-item">Categoría: @item.tCategoria.Descripcion</li>
+                            <li class="list-group-item">Inventario: @item.Inventario</li>
+                            <li class="list-group-item">Precio: <span class="producto-price">¢ @item.Precio.ToString("N2")</span></li>
+                        </ul>
+                    </div>
+                    @if (item.Inventario > 0)
+                    {
+                        <div class="card-body row" style="margin-top:10px;">
+                            <div class="col-2"></div>
+                            <div class="col-3">
+                                <input id="prd-@item.IdProducto" type="number" class="form-control cantidad-input" style="text-align:center" value="1" min="1" max="@item.Inventario" onkeypress="return ValidarNumeros(event)">
+                            </div>
+                            <div class="col-5">
+                                <a onclick="AgregarProducto(@item.IdProducto, @item.Inventario);" class="card-link btn btn-outline-primary btn-agregar">Añadir</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card-body row" style="margin-top:10px;">
+                            <div class="col-4"></div>
+                            <div class="col-4">
+                                <p class="card-link producto-agotado">Agotado</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+      
+    }
+        <!-- about section end -->
+        <!-- footer section start -->
+        <div class="footer_section layout_padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <h3 class="useful_text">Acerca de nosotros</h3>
+                        <p class="footer_text">Directo de la zona de los Santos hasta su mesa</p>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <h3 class="useful_text">Menu</h3>
+                        <div class="footer_menu">
+                            <ul>
+                                <ul>
+                                    <ul>
+                                        <li>@Html.ActionLink("Inicio", "InterfazVisita", "External")</li>
+                                        <li>@Html.ActionLink("Acerca de Nosotros", "About", "External")</li>
+                                        <li>@Html.ActionLink("Galeria", "Gallery", "External")</li>
+                                        <li>@Html.ActionLink("Contactenos", "Contact", "External")</li>
+                                    </ul>
+
+
+                                </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <h1 class="useful_text">Politicas de compra y Envios</h1>
+                        <div class="footer_menu">
+                            <ul>
+                                <li>@Html.ActionLink("Politicas de Devoulcion", "Politicas", "External")</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-3 col-sm-6">
+                        <h1 class="useful_text">Contactenos</h1>
+                        <div class="location_text">
+                            <ul>
+                                <li>
+
+                                    <p class="fa fa-map-marker" aria-hidden="true"></p><span class="padding_left_10">Direccion:Los Santos, Santa Maria de Dota </span>
+                                    </a>
+                                </li>
+                                <li>
+
+                                    <p>📱 <strong>WhatsApp:</strong> <a href="https://api.whatsapp.com/send/?phone=%2B50688566227&text&type=phone_number&app_absent=0" target="_blank">+506 8856-6227</a></p>
+
+                                </li>
+                                <li>
+
+                                    <p class="fa fa-envelope" aria-hidden="true"></p><span class="padding_left_10">Email : demo@gmail.com</span>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer section end -->
+        <!-- Javascript files-->
+        <script src="@Url.Content(" ~ /root/dist/js/popper.min.js")"></script>
+        <script src="@Url.Content(" ~ /root/dist/js/bootstrap.bundle.min.js")"></script>
+        <script src="@Url.Content(" ~ /root/dist/js/plugin.js")"></script>
+        <!-- sidebar -->
+        <script src="@Url.Content(" ~ /root/dist/js/jquery.mCustomScrollbar.concat.min.js")"></script>
+        <script src="@Url.Content(" ~ /root/dist/js/custom.js")"></script>
+
+        <script>
+            (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "y-804SD1Jx2UKBVv6UmOQ"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+        </script>
+
+
+        <script>
+            (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "y-804SD1Jx2UKBVv6UmOQ"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+
+            function ValidarNumeros(evt) {
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                return (charCode >= 48 && charCode <= 57);
+            }
+
+            function AgregarProducto(IdProducto, Inventario) {
+                let cantidadIngresada = $("#prd-" + IdProducto).val();
+
+                if (cantidadIngresada > Inventario) {
+                    MostrarMensaje("Información", "Debe ingresar una cantidad inferior al inventario", "info");
+                    return;
+                }
+
+                if (cantidadIngresada <= 0) {
+                    MostrarMensaje("Información", "Debe ingresar una cantidad válida", "info");
+                    return;
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Login/RegistrarCarrito',
+                    dataType: 'json',
+                    data: {
+                        "IdProducto": IdProducto,
+                        "Cantidad": cantidadIngresada
+                    },
+                    success: function (data) {
+                        MostrarMensaje("Información", "Producto añadido correctamente", "success");
+                    }
+                });
+            }
+
+
+                                                        }
+
+            function MostrarMensaje(titulo, mensaje, icono) {
+                Swal.fire({
+                    title: titulo,
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    confirmButtonText: "Aceptar",
+                    text: mensaje,
+                    icon: icono
+                }).then((result) => {
+                    // Si no estamos en la vista Busqueda, redirige a Home
+                    if (result.isConfirmed && window.location.pathname.toLowerCase().indexOf("busqueda") === -1) {
+                        window.location.href = '/Login/Home';
+                    }
+                });
+            }
+
+            // Agregar animación inicial a las tarjetas de productos
+            $(document).ready(function () {
+                $(".producto-item").each(function (index) {
+                    $(this).css({
+                        "opacity": "0",
+                        "transform": "translateY(20px)"
+                    });
+
+                    setTimeout(() => {
+                        $(this).animate({
+                            "opacity": "1"
+                        }, 400);
+                        $(this).css("transform", "translateY(0)");
+                    }, 100 * index);
+                });
+            });
+        </script>
+    </body>
+</html>

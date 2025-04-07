@@ -43,27 +43,32 @@
     <div class="header_section">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="logo"><a href="index.html"><img src="~/root/dist/img/CafeLogo.jpg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;"></a></div>
-
+                <div class="logo">
+                    <a href="@Url.Action("InterfazVisita", "External")">
+                        <img src="~/root/dist/img/CafeLogo.jpg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
+                    </a>
+                </div>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Home</a>
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "InterfazVisita" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Inicio", "InterfazVisita", "External", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "productos" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Productos", "productos", "External", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "About" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Acerca de Nosotros", "About", "External", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Gallery" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Galeria", "Gallery", "External", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Contactenos", "Contact", "External", null, new { @class = "nav-link" })
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="gallery.html">Gallery</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="services.html">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            <a class="nav-link" href="@Url.Action("Index", "Login")">
+                                <i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesión
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -133,7 +138,7 @@
                         <div class="about_taital">Acerca de nosotros</div>
                         <p class="about_text">Café producido en las altas montañas de la zona de los Santos</p>
                         <p class="about_text">Somos una familia apasionada por el café, ubicada en la hermosa región de Los Santos de Tarrazú, Costa Rica. Amamos lo que hacemos y por eso cultivamos y seleccionamos cuidadosamente los mejores granos de café, respetando las tradiciones y el medio ambiente. Nuestro compromiso es ofrecer un café de calidad excepcional, lleno de sabor y aroma, que refleja el amor y dedicación de nuestra familia. ¡Adquirí nuestros productos y descubre la magia del café costarricense!</p>
-                        <div class="read_bt"><a href="@Url.Action("About", "Login")">Ver más</a></div>
+                        <div class="read_bt"><a href="@Url.Action("About", "External")">Ver más</a></div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -184,7 +189,7 @@
                     </div>
                 </div>
             </div>
-            <div class="seemore_bt"><a href="@Url.Action("Gallery", "Login")">Ver Más</a></div>
+            <div class="seemore_bt"><a href="@Url.Action("Gallery", "External")">Ver Más</a></div>
         </div>
     </div>
     <!-- gallery section end -->
@@ -229,7 +234,7 @@
                             </div>
                             <h3 class="decorate_text">🌱 Experiencias y Degustaciones</h3>
                             <p class="tation_text">Sumérgete en el mundo del café con experiencias únicas. Ofrecemos degustaciones y recorridos en nuestra finca para conocer el proceso de producción, desde la cosecha hasta la taza. Ideal para amantes del café y quienes buscan una conexión auténtica con la cultura cafetalera.</p>
-                            <div class="readmore_bt"><a href="@Url.Action("Contact", "Login")"> Agendar Visita</a></div>
+                            <div class="readmore_bt"><a href="@Url.Action("Contact", "External")"> Agendar Visita</a></div>
                         </div>
                     </div>
                 </div>
@@ -379,22 +384,16 @@
             <div class="row">
                 <div class="col-md-6 padding_0">
                     <div class="mail_section">
-                        <div class="email_text">
-                            <div class="form-group">
-                                <input type="text" class="email-bt" placeholder="Nombre" name="nombre" style="width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="email-bt" placeholder="Email" name="Email" style="width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="email-bt" placeholder="Numero de Telefono" name="telefono" style="width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;">
-                            </div>
-                            <div class="form-group">
-                                <textarea class="massage-bt" placeholder="Mensaje" rows="5" id="Mensaje" name="Mensaje" style="width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;"></textarea>
-                            </div>
-                            <div class="send_btn">
-                                <div class="main_bt"><a href="#" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Enviar</a></div>
-                            </div>
+                        <div class="contact-info">
+                            <p>📍 <strong>Ubicación:</strong> Dota, Costa Rica</p>
+                            <p>📧 <strong>Correo:</strong> <a href="mailto:contacto@tucafe.com">cafeMendez@gmail.com</a></p>
+                            <p>📱 <strong>WhatsApp:</strong> <a href="https://api.whatsapp.com/send/?phone=%2B50688566227&text&type=phone_number&app_absent=0" target="_blank" style="color: blue;">+506 8856-6227</a></p>
+                            <p>📷 <strong>Instagram:</strong> <a href="https://www.instagram.com/p/CZtNF4FuLwN/?img_index=1" target="_blank">CafeMendezCR</a></p>
+                            <p class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "Login" ? "active" : "")">
+                                <button style="background-color: black; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">
+                                    @Html.ActionLink("Contactenos Aqui", "Contact", "Login", null, new { style = "color: white; text-decoration: none;" })
+                                </button>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -422,10 +421,10 @@
                         <ul>
                             <ul>
                                 <ul>
-                                    <li>@Html.ActionLink("Inicio", "homepage", "Login")</li>
-                                    <li>@Html.ActionLink("Acerca de Nosotros", "About", "Login")</li>
-                                    <li>@Html.ActionLink("Galeria", "Gallery", "Login")</li>
-                                    <li>@Html.ActionLink("Contactenos", "Contact", "Login")</li>
+                                    <li>@Html.ActionLink("Inicio", "InterfazVisita", "External")</li>
+                                    <li>@Html.ActionLink("Acerca de Nosotros", "About", "External")</li>
+                                    <li>@Html.ActionLink("Galeria", "Gallery", "External")</li>
+                                    <li>@Html.ActionLink("Contactenos", "Contact", "External")</li>
                                 </ul>
 
 
@@ -434,32 +433,37 @@
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <h1 class="useful_text">Politicas de compra y Envios</h1>
-                    <p class="dummy_text">Envios y Devoluciones </p>
-                    <p class="dummy_text">Pagos<a href="@Url.Action("Pago", "Carrito")"> </a> </p>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <h1 class="useful_text">Contactenos</h1>
-                    <div class="location_text">
+                    <div class="footer_menu">
                         <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-map-marker" aria-hidden="true"></i><span class="padding_left_10">Direccion:Los Santos, Santa Maria de Dota </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">Telefono: +01 1234567890</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">Email : demo@gmail.com</span>
-                                </a>
-                            </li>
+                            <li>@Html.ActionLink("Politicas de Devoulcion", "Politicas", "External")</li>
                         </ul>
                     </div>
                 </div>
-            </div>
+
+          
+                    <div class="col-lg-3 col-sm-6">
+                        <h1 class="useful_text">Contactenos</h1>
+                        <div class="location_text">
+                            <ul>
+                                <li>
+
+                                    <p class="fa fa-map-marker" aria-hidden="true"></p><span class="padding_left_10">Direccion:Los Santos, Santa Maria de Dota </span>
+                                    </a>
+                                </li>
+                                <li>
+
+                                    <p>📱 <strong>WhatsApp:</strong> <a href="https://api.whatsapp.com/send/?phone=%2B50688566227&text&type=phone_number&app_absent=0" target="_blank">+506 8856-6227</a></p>
+
+                                </li>
+                                <li>
+
+                                    <p class="fa fa-envelope" aria-hidden="true"></p><span class="padding_left_10">Email : demo@gmail.com</span>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
     <!-- footer section end -->

@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "About";
+    Layout = "~/Views/Shared/_LayoutExternal.cshtml";
 }
 
 <html lang="es-mx">
@@ -34,6 +35,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
 </head>
 <body>
+
+    <!--header section start -->
     <div class="header_section">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -42,19 +45,29 @@
                         <img src="~/root/dist/img/CafeLogo.jpg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
                     </a>
                 </div>
+
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
-
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "About" && ViewContext.RouteData.Values["controller"].ToString() == "Login" ? "active" : "")">
-                            @Html.ActionLink("Acerca de Nosotros", "About", "Login", null, new { @class = "nav-link" })
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "InterfazVisita" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Inicio", "InterfazVisita", "External", null, new { @class = "nav-link" })
                         </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Gallery" && ViewContext.RouteData.Values["controller"].ToString() == "Login" ? "active" : "")">
-                            @Html.ActionLink("Galeria", "Gallery", "Login", null, new { @class = "nav-link" })
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "productos" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Productos", "productos", "External", null, new { @class = "nav-link" })
                         </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "Login" ? "active" : "")">
-                            @Html.ActionLink("Contactenos", "Contact", "Login", null, new { @class = "nav-link" })
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "About" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Acerca de Nosotros", "About", "External", null, new { @class = "nav-link" })
                         </li>
-
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Gallery" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Galeria", "Gallery", "External", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                            @Html.ActionLink("Contactenos", "Contact", "External", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Login")">
+                                <i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesión
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -95,18 +108,28 @@
                     <h3 class="useful_text">Menu</h3>
                     <div class="footer_menu">
                         <ul>
-                            <li>@Html.ActionLink("Inicio", "homepage", "Login")</li>
-                            <li>@Html.ActionLink("Acerca de Nosotros", "About", "Login")</li>
-                            <li>@Html.ActionLink("Galeria", "Gallery", "Login")</li>
-                            <li>@Html.ActionLink("Contactenos", "Contact", "Login")</li>
-                        </ul>
+                            <ul>
+                                <ul>
+                                    <li>@Html.ActionLink("Inicio", "InterfazVisita", "External")</li>
+                                    <li>@Html.ActionLink("Acerca de Nosotros", "About", "External")</li>
+                                    <li>@Html.ActionLink("Galeria", "Gallery", "External")</li>
+                                    <li>@Html.ActionLink("Contactenos", "Contact", "External")</li>
+                                </ul>
+
+
+                            </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <h1 class="useful_text">Politicas de compra y Envios</h1>
-                    <p class="dummy_text">Envios y Devoluciones </p>
-                    <p class="dummy_text">Pagos </p>
+                    <div class="footer_menu">
+                        <ul>
+                            <li>@Html.ActionLink("Politicas de Devoulcion", "Politicas", "External")</li>
+                        </ul>
+                    </div>
                 </div>
+
+
                 <div class="col-lg-3 col-sm-6">
                     <h1 class="useful_text">Contactenos</h1>
                     <div class="location_text">

@@ -288,6 +288,12 @@ namespace KN_Web.Controllers
 
             return View();
 
+        }
+        public ActionResult Politicas()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
 
         }
     }

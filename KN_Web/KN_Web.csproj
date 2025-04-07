@@ -387,6 +387,7 @@
     <Compile Include="Models\FavoritosModel.cs" />
     <Compile Include="Models\FiltroSeguridad.cs" />
     <Compile Include="Models\GeneralModel.cs" />
+    <Compile Include="Models\ProdExternoModel.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\ProductoViewModel.cs" />
     <Compile Include="Models\RolModel.cs" />
@@ -424,6 +425,19 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="ILLink\ILLink.Descriptors.LibraryBuild.xml" />
+    <Content Include="ImgProductos\12.jpg" />
+    <Content Include="ImgProductos\12.png" />
+    <Content Include="ImgProductos\13.jpg" />
+    <Content Include="ImgProductos\13.png" />
+    <Content Include="ImgProductos\15.jpg" />
+    <Content Include="ImgProductos\15.png" />
+    <Content Include="ImgProductos\16.jpg" />
+    <Content Include="ImgProductos\16.png" />
+    <Content Include="ImgProductos\17.jpg" />
+    <Content Include="ImgProductos\17.png" />
+    <Content Include="ImgProductos\2.jpg" />
+    <Content Include="ImgProductos\prensa.jpg" />
+    <Content Include="ImgProductos\x.jpg" />
     <Content Include="Password.html" />
     <Content Include="root\dist\css\adminlte.css" />
     <Content Include="root\dist\css\adminlte.min.css" />
@@ -483,6 +497,9 @@
     <Content Include="root\dist\img\fondoLogin.jpeg" />
     <Content Include="root\dist\img\footer-logo.png" />
     <Content Include="root\dist\img\g1.png" />
+    <Content Include="root\dist\img\g10.png" />
+    <Content Include="root\dist\img\g11.png" />
+    <Content Include="root\dist\img\g12.png" />
     <Content Include="root\dist\img\g2.png" />
     <Content Include="root\dist\img\g3.png" />
     <Content Include="root\dist\img\g4.png" />
@@ -701,6 +718,12 @@
     <Content Include="Views\Login\_ProductosPartial.cshtml" />
     <Content Include="Views\External\InterfazVisita.cshtml" />
     <Content Include="Views\Shared\_LayoutExternal.cshtml" />
+    <Content Include="Views\External\About.cshtml" />
+    <Content Include="Views\External\Contact.cshtml" />
+    <Content Include="Views\External\Gallery.cshtml" />
+    <Content Include="Views\External\Politicas.cshtml" />
+    <Content Include="Views\External\productos.cshtml" />
+    <Content Include="Views\Login\Politicas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

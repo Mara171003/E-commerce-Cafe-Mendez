@@ -31,10 +31,12 @@
             <ul class="navbar-nav ml-auto d-flex align-items-center">
                 <!-- Carrito -->
                 <li class="nav-item d-flex align-items-center">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="ml-2">
-                        @(Session["Cantidad"] != null ? Session["Cantidad"].ToString() : "0")
-                    </span>
+                    <a href="@Url.Action("ConsultarCarrito","Carrito")" class="nav-link d-flex align-items-center">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="ml-2">
+                            @(Session["Cantidad"] != null ? Session["Cantidad"].ToString() : "0")
+                        </span>
+                    </a>
                 </li>
 
                 <!-- Espaciado entre carrito y usuario -->
@@ -145,6 +147,25 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item has-treeview">
+                            <a href="@Url.Action("Home", "Login")" class="nav-link">
+                                <i class="fa-solid fa-warehouse"></i>
+                                <p>
+                                Productos
+                                </p>
+                            </a>
+                        </li>
+                 
+                        <li class="nav-item has-treeview">
+                            <a href="@Url.Action("homepage","Login")" class="nav-link">
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                                <p>
+                                Inicio
+                                </p>
+                            </a>
+                        </li>
+
+
                     </ul>
                 </nav>
             </div>
@@ -159,9 +180,7 @@
             </section>
         </div>
 
-        <footer class="main-footer">
-            <strong>Copyright &copy; @DateTime.Now.Year </strong> All rights reserved.
-        </footer>
+ 
 
         <aside class="control-sidebar control-sidebar-dark">
         </aside>
