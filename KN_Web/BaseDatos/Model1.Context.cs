@@ -435,5 +435,14 @@ namespace KN_Web.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ValidarExistencias1_Result>("ValidarExistencias1", consecutivoParameter);
         }
+    
+        public virtual int sp_EliminarProducto(Nullable<int> idProducto)
+        {
+            var idProductoParameter = idProducto.HasValue ?
+                new ObjectParameter("IdProducto", idProducto) :
+                new ObjectParameter("IdProducto", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminarProducto", idProductoParameter);
+        }
     }
 }

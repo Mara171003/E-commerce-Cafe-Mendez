@@ -1,6 +1,7 @@
 ﻿using KN_Web.BaseDatos;
 using KN_Web.Entidades;
 using System.Collections.Generic;
+using System.Data.Entity; // Asegúrate de tener esta using statement
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -65,7 +66,7 @@ namespace KN_Web.Models
             }
         }
 
-            public int RegistrarProducto(tProducto prd)
+        public int RegistrarProducto(tProducto prd)
         {
             using (var context = new MARTES_BDEntities1())
             {
@@ -96,6 +97,17 @@ namespace KN_Web.Models
             }
 
             return (rowsAffected > 0);
+        }
+
+        // Función para eliminar producto usando el Stored Procedure a través de Entity Framework
+        public bool EliminarProducto(int idProducto)
+        {
+            using (var context = new MARTES_BDEntities1())
+            {
+                var resultado = context.Database.ExecuteSqlCommand("EXEC sp_EliminarProducto @IdProducto",
+                    new SqlParameter("@IdProducto", idProducto));
+                return resultado > 0;
+            }
         }
     }
 }

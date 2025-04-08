@@ -169,18 +169,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tMaestro_tUsuario">
-          <End Role="tUsuario" Type="Self.tUsuario" Multiplicity="1" />
-          <End Role="tMaestro" Type="Self.tMaestro" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tUsuario">
-              <PropertyRef Name="Consecutivo" />
-            </Principal>
-            <Dependent Role="tMaestro">
-              <PropertyRef Name="Consecutivo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tProducto_tCategoria">
           <End Role="tCategoria" Type="Self.tCategoria" Multiplicity="1" />
           <End Role="tProducto" Type="Self.tProducto" Multiplicity="*" />
@@ -252,15 +240,9 @@
           <Parameter Name="Consecutivo" Type="int" Mode="In" />
           <Parameter Name="IdProducto" Type="int" Mode="In" />
         </Function>
-        <Function Name="EliminarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdUsuario" Type="int" Mode="In" />
-        </Function>
         <Function Name="IniciarSesion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Correo" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="ObtenerFacturaPorId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="IdFactura" Type="int" Mode="In" />
         </Function>
         <Function Name="PagarCarrito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Consecutivo" Type="int" Mode="In" />
@@ -282,6 +264,9 @@
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="Correo" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_EliminarProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdProducto" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_FiltrarProductosPorCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdCategoria" Type="int" Mode="In" />
@@ -325,10 +310,6 @@
           <AssociationSet Name="FK_tFavoritos_tUsuario" Association="Self.FK_tFavoritos_tUsuario">
             <End Role="tUsuario" EntitySet="tUsuario" />
             <End Role="tFavoritos" EntitySet="tFavoritos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tMaestro_tUsuario" Association="Self.FK_tMaestro_tUsuario">
-            <End Role="tUsuario" EntitySet="tUsuario" />
-            <End Role="tMaestro" EntitySet="tMaestro" />
           </AssociationSet>
           <AssociationSet Name="FK_tProducto_tCategoria" Association="Self.FK_tProducto_tCategoria">
             <End Role="tCategoria" EntitySet="tCategoria" />
@@ -508,7 +489,10 @@
             <End Role="tUsuario" EntitySet="tUsuario" />
           </AssociationSet>
           <FunctionImport Name="ValidarExistencias1" ReturnType="Collection(MARTES_BDModel.ValidarExistencias1_Result)">
-            <Parameter Name="Consecutivo" Mode="In" Type="Int32" />
+          <Parameter Name="Consecutivo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_EliminarProducto">
+            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="ConsultarCarrito_Result">
@@ -943,7 +927,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="EliminarUsuarios1" FunctionName="MARTES_BDModel.Store.EliminarUsuarios" />
           <FunctionImportMapping FunctionImportName="sp_FiltrarProductosPorCategoria1" FunctionName="MARTES_BDModel.Store.sp_FiltrarProductosPorCategoria">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MARTES_BDModel.sp_FiltrarProductosPorCategoria1_Result">
@@ -954,18 +937,6 @@
                 <ScalarProperty Name="Imagen" ColumnName="Imagen" />
                 <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
                 <ScalarProperty Name="Categoria" ColumnName="Categoria" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ObtenerFacturaPorId" FunctionName="MARTES_BDModel.Store.ObtenerFacturaPorId">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="MARTES_BDModel.ObtenerFacturaPorId_Result">
-                <ScalarProperty Name="IdMaestro" ColumnName="IdMaestro" />
-                <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
-                <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
-                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
-                <ScalarProperty Name="Impuesto" ColumnName="Impuesto" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1079,6 +1050,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_EliminarProducto" FunctionName="MARTES_BDModel.Store.sp_EliminarProducto" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

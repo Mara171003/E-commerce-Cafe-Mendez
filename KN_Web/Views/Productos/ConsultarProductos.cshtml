@@ -1,7 +1,7 @@
 ﻿@model List<KN_Web.BaseDatos.tProducto>
 
 @{
-    ViewBag.Title = "ConsultarUsuarios";
+    ViewBag.Title = "ConsultarProductos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -32,7 +32,7 @@
             <a class="btn btn-outline-primary" href="@Url.Action("RegistrarProducto","Productos")"> <i class="fa fa-plus"></i>  Registrar </a>
         </div>
 
-        <br/>
+        <br />
 
         <table id="tablaProductos" class="table table-bordered table-hover">
             <thead>
@@ -44,6 +44,7 @@
                     <th>Imagen</th>
                     <th>Categoría</th>
                     <th>Cambiar Información</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -60,6 +61,11 @@
                             <a class="btn btn-primary" href="@Url.Action("ActualizarProducto","Productos", new { Consecutivo = item.IdProducto })">
                                 <i class="fa fa-tag"></i>
                             </a>
+                        </td>
+                        <td style="text-align:center">
+                            <button class="btn btn-danger btn-eliminar" data-id="@item.IdProducto">
+                                <i class="fa fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                 }
@@ -78,6 +84,31 @@
             },
             columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4, 5] }]
         });
-    })
 
+        // Evento click para el botón de eliminar
+        $(".btn-eliminar").on("click", function () {
+            var idProducto = $(this).data("id");
+            if (confirm("¿Está seguro que desea eliminar este producto?")) {
+                // Realizar la petición AJAX para eliminar el producto
+                $.ajax({
+                    url: '@Url.Action("EliminarProducto", "Productos")',
+                    type: 'POST',
+                    data: { id: idProducto },
+                    success: function (data) {
+                        if (data.success) {
+                            // Recargar la página o actualizar la tabla dinámicamente
+                            window.location.reload(); // Recarga la página para reflejar los cambios
+                            // O podrías usar DataTables para eliminar la fila sin recargar
+                            // $("#tablaProductos").DataTable().row($(this).parents('tr')).remove().draw();
+                        } else {
+                            alert("No se pudo eliminar el producto: " + data.message);
+                        }
+                    },
+                    error: function () {
+                        alert("Ocurrió un error al intentar eliminar el producto.");
+                    }
+                });
+            }
+        });
+    })
 </script>

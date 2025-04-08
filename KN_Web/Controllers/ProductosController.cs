@@ -92,6 +92,14 @@ namespace KN_Web.Controllers
             }
         }
 
+        // Nueva acción para eliminar el producto
+        [HttpPost]
+        public JsonResult EliminarProducto(int id)
+        {
+            bool resultado = productoM.EliminarProducto(id);
+            return Json(new { success = resultado, message = resultado ? "" : "Error al eliminar el producto." });
+        }
+
         private void CargarCategorias()
         {
             var categorias = productoM.ConsultarCategorias();

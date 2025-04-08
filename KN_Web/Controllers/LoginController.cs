@@ -129,7 +129,7 @@ namespace KN_Web.Controllers
                 Response.Cookies.Add(cookieRol);
             }
 
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("InterfazVisita", "External");
         }
 
         // Registro de usuarios desde fuera del sistema - GET
@@ -295,6 +295,10 @@ namespace KN_Web.Controllers
 
             return View();
 
+        }
+        public ActionResult InterfazVisita()
+        {
+            return View();
         }
     }
 }
