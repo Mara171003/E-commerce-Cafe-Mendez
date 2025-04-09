@@ -726,6 +726,7 @@
     <Content Include="Views\External\Politicas.cshtml" />
     <Content Include="Views\External\productos.cshtml" />
     <Content Include="Views\Login\Politicas.cshtml" />
+    <Content Include="Views\Usuario\_PedidosUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

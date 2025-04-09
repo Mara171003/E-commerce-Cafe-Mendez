@@ -77,5 +77,11 @@ namespace KN_Web.Controllers
                 return View("ConsultarUsuarios", usuariosActuales);
             }
         }
+        [HttpGet]
+        public ActionResult ConsultarPedidosUsuario(int idUsuario)
+        {
+            var pedidos = usuarioM.ObtenerPedidosPorUsuario(idUsuario);
+            return PartialView("_PedidosUsuario", pedidos);
+        }
     }
 }

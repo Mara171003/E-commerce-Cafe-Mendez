@@ -1,0 +1,26 @@
+﻿
+@model List<KN_Web.BaseDatos.tMaestro>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID Pedido</th>
+            <th>Fecha</th>
+            <th>Subtotal</th>
+            <th>Impuesto</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pedido in Model)
+        {
+            <tr>
+                <td>@pedido.IdMaestro</td>
+                <td>@pedido.FechaCompra.ToString("dd/MM/yyyy")</td>
+                <td>@pedido.SubTotal.ToString("C")</td>
+                <td>@pedido.Impuesto.ToString("C")</td>
+                <td>@pedido.Total.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>

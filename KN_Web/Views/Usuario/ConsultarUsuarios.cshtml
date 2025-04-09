@@ -22,6 +22,7 @@
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th>Estado</th>
+                    <th>Pedido</th>
                     <th>Cambiar Estado</th>
                     <th>Cambiar Información</th>
                     <th>Eliminar</th>
@@ -42,6 +43,12 @@
                         {
                             <td>Inactivo</td>
                         }
+                        <td style="text-align:center">
+                            <button type="button" class="btn btn-success AbrirModalPedidos" data-toggle="modal" data-target="#ModalPedidosUsuario"
+                                    data-id="@item.Consecutivo">
+                                Ver Pedido
+                            </button>
+                        </td>
                         <td style="text-align:center">
                             <button type="button" class="btn btn-primary AbrirModal" data-toggle="modal" data-target="#ModalUsuarios"
                                     data-id="@item.Consecutivo" data-name="@item.Nombre">
@@ -91,6 +98,27 @@
     </div>
 </div>
 
+<div class="modal fade" id="ModalPedidosUsuario" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     aria-labelledby="modalPedidosLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPedidosLabel">Pedidos del Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="PedidosUsuario"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="ModalEliminarUsuario" data-backdrop="static" data-keyboard="false" tabindex="-1"
      aria-labelledby="modalEliminarLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -126,7 +154,7 @@
             language: {
                 url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'
             },
-            columnDefs: [{ type: 'string', target: [0, 1, 2, 3] }]
+            columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4] }]
         });
     })
 
@@ -145,4 +173,21 @@
         $("#ModalEliminarUsuario #Consecutivo").val(consecutivo);
         $("#NombreEliminar").text(nombre);
     });
+
+    $(".AbrirModalPedidos").click(function () {
+    var idUsuario = $(this).data('id');
+
+    // Llama al controlador para obtener los pedidos
+    $.ajax({
+        url: '@Url.Action("ConsultarPedidosUsuario", "Usuario")',
+        type: 'GET',
+        data: { idUsuario: idUsuario },
+        success: function (data) {
+            $("#PedidosUsuario").html(data);
+        },
+        error: function () {
+            alert("Ocurrió un error al cargar los pedidos del usuario.");
+        }
+    });
+});
 </script>

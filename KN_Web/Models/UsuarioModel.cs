@@ -167,5 +167,14 @@ namespace KN_Web.Models
                 return false;
             }
         }
+        public List<tMaestro> ObtenerPedidosPorUsuario(int idUsuario)
+        {
+            using (var context = new MARTES_BDEntities1())
+            {
+                return context.tMaestro
+                    .Where(m => m.Consecutivo == idUsuario)
+                    .ToList();
+            }
+        }
     }
 }
