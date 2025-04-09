@@ -78,9 +78,17 @@
             <div class="col-3">
                 <p style="font-size:14pt; margin-top:2%">El monto a cancelar es de: ¢<b id="granTotal">@decimal.Parse(Session["Total"].ToString()).ToString("N2")</b></p>
             </div>
-            <button type="button" class="btn btn-outline-primary" style="width:200px" onclick="procesarPago()">
-                Pagar
-            </button>
+            <div>
+                @if (Session["Total"].ToString() != "0")
+                {
+                    using (Html.BeginForm("PagarCarrito", "Carrito"))
+                    {
+                        <button type="submit" class="btn btn-outline-primary" style="width:200px" onclick="procesarPago()">
+                            Pagar
+                        </button>
+                    }
+                }
+            </div>
         </div>
 
     </div>
