@@ -34,13 +34,13 @@ namespace KN_Web.Controllers
         [HttpPost]
         public ActionResult PagarCarrito()
         {
-            var datos = carritoM.ValidarExistencias();
+            var datos = carritoM.ValidarExistencias1();
 
             //Es porque no hay existencias inclumpliendose
             if (datos.Count() <= 0)
             {
                 carritoM.PagarCarrito();
-                return RedirectToAction("Home", "Login");
+                return RedirectToAction("ConsultarFacturas", "Carrito");
             }
             else
             {

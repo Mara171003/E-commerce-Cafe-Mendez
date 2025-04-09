@@ -31,12 +31,12 @@ namespace KN_Web.Models
             }
         }
 
-        public List<ValidarExistencias_Result> ValidarExistencias()
+        public List<ValidarExistencias1_Result> ValidarExistencias1()
         {
             using (var context = new MARTES_BDEntities1())
             {
                 int Consecutivo = int.Parse(HttpContext.Current.Session["ConsecutivoUsuario"].ToString());
-                return context.ValidarExistencias(Consecutivo).ToList();
+                return context.ValidarExistencias1(Consecutivo).ToList();
             }
         }
 

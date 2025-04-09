@@ -24,6 +24,7 @@
           <Property Name="IdProducto" Type="int" Nullable="false" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
           <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Imagen" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="tCategoria">
           <Key>
@@ -75,6 +76,7 @@
           <Property Name="Precio" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Imagen" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="IdCategoria" Type="int" Nullable="false" />
+          <Property Name="StockMinimo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tRol">
           <Key>
@@ -169,6 +171,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tMaestro_tUsuario">
+          <End Role="tUsuario" Type="Self.tUsuario" Multiplicity="1" />
+          <End Role="tMaestro" Type="Self.tMaestro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUsuario">
+              <PropertyRef Name="Consecutivo" />
+            </Principal>
+            <Dependent Role="tMaestro">
+              <PropertyRef Name="Consecutivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tProducto_tCategoria">
           <End Role="tCategoria" Type="Self.tCategoria" Multiplicity="1" />
           <End Role="tProducto" Type="Self.tProducto" Multiplicity="*" />
@@ -240,6 +254,9 @@
           <Parameter Name="Consecutivo" Type="int" Mode="In" />
           <Parameter Name="IdProducto" Type="int" Mode="In" />
         </Function>
+        <Function Name="EliminarUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUsuario" Type="int" Mode="In" />
+        </Function>
         <Function Name="IniciarSesion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Correo" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
@@ -310,6 +327,10 @@
           <AssociationSet Name="FK_tFavoritos_tUsuario" Association="Self.FK_tFavoritos_tUsuario">
             <End Role="tUsuario" EntitySet="tUsuario" />
             <End Role="tFavoritos" EntitySet="tFavoritos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tMaestro_tUsuario" Association="Self.FK_tMaestro_tUsuario">
+            <End Role="tUsuario" EntitySet="tUsuario" />
+            <End Role="tMaestro" EntitySet="tMaestro" />
           </AssociationSet>
           <AssociationSet Name="FK_tProducto_tCategoria" Association="Self.FK_tProducto_tCategoria">
             <End Role="tCategoria" EntitySet="tCategoria" />
@@ -492,7 +513,10 @@
           <Parameter Name="Consecutivo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_EliminarProducto">
-            <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+          <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="EliminarUsuarios2">
+            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="ConsultarCarrito_Result">
@@ -607,6 +631,7 @@
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="tProducto" Relationship="MARTES_BDModel.FK_tCarrito_tProducto" FromRole="tCarrito" ToRole="tProducto" />
           <NavigationProperty Name="tUsuario" Relationship="MARTES_BDModel.FK_tCarrito_tUsuario" FromRole="tCarrito" ToRole="tUsuario" />
+          <Property Name="Imagen" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tCategoria">
           <Key>
@@ -669,6 +694,7 @@
           <NavigationProperty Name="tCategoria" Relationship="MARTES_BDModel.FK_tProducto_tCategoria" FromRole="tProducto" ToRole="tCategoria" />
           <NavigationProperty Name="tDetalle" Relationship="MARTES_BDModel.FK_tDetalle_tProducto" FromRole="tProducto" ToRole="tDetalle" />
           <NavigationProperty Name="tFavoritos" Relationship="MARTES_BDModel.FK_tFavoritos_tProducto" FromRole="tProducto" ToRole="tFavoritos" />
+          <Property Name="StockMinimo" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="tRol">
           <Key>
@@ -954,6 +980,7 @@
           <EntitySetMapping Name="tCarrito">
             <EntityTypeMapping TypeName="MARTES_BDModel.tCarrito">
               <MappingFragment StoreEntitySet="tCarrito">
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
@@ -1009,6 +1036,7 @@
           <EntitySetMapping Name="tProducto">
             <EntityTypeMapping TypeName="MARTES_BDModel.tProducto">
               <MappingFragment StoreEntitySet="tProducto">
+                <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
                 <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
                 <ScalarProperty Name="Imagen" ColumnName="Imagen" />
                 <ScalarProperty Name="Precio" ColumnName="Precio" />
@@ -1051,6 +1079,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_EliminarProducto" FunctionName="MARTES_BDModel.Store.sp_EliminarProducto" />
+          <FunctionImportMapping FunctionImportName="EliminarUsuarios2" FunctionName="MARTES_BDModel.Store.EliminarUsuarios" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

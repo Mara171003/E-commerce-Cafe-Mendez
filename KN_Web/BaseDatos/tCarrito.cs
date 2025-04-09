@@ -19,6 +19,7 @@ namespace KN_Web.BaseDatos
         public int IdProducto { get; set; }
         public int Cantidad { get; set; }
         public System.DateTime Fecha { get; set; }
+        public string Imagen { get; set; }
     
         public virtual tProducto tProducto { get; set; }
         public virtual tUsuario tUsuario { get; set; }
