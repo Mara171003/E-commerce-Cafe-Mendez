@@ -453,5 +453,20 @@ namespace KN_Web.BaseDatos
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EliminarUsuarios2", idUsuarioParameter);
         }
+    
+        public virtual ObjectResult<ConsultarRotacionInventario_Result> ConsultarRotacionInventario()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarRotacionInventario_Result>("ConsultarRotacionInventario");
+        }
+    
+        public virtual ObjectResult<ConsultarVentasPorCategoria_Result> ConsultarVentasPorCategoria()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarVentasPorCategoria_Result>("ConsultarVentasPorCategoria");
+        }
+    
+        public virtual ObjectResult<ConsultarVentasPorProducto_Result> ConsultarVentasPorProducto()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarVentasPorProducto_Result>("ConsultarVentasPorProducto");
+        }
     }
 }

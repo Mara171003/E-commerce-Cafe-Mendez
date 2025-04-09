@@ -246,7 +246,10 @@
           <Parameter Name="Consecutivo" Type="int" Mode="In" />
         </Function>
         <Function Name="ConsultarProductos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ConsultarRotacionInventario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ConsultarVentasMensuales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ConsultarVentasPorCategoria" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ConsultarVentasPorProducto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="EliminarFavorito" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdFavorito" Type="int" Mode="In" />
         </Function>
@@ -516,8 +519,11 @@
           <Parameter Name="IdProducto" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="EliminarUsuarios2">
-            <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+          <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="ConsultarRotacionInventario" ReturnType="Collection(MARTES_BDModel.ConsultarRotacionInventario_Result)" />
+          <FunctionImport Name="ConsultarVentasPorCategoria" ReturnType="Collection(MARTES_BDModel.ConsultarVentasPorCategoria_Result)" />
+          <FunctionImport Name="ConsultarVentasPorProducto" ReturnType="Collection(MARTES_BDModel.ConsultarVentasPorProducto_Result)" />
           </EntityContainer>
         <ComplexType Name="ConsultarCarrito_Result">
           <Property Type="Int32" Name="IdCarrito" Nullable="false" />
@@ -835,6 +841,25 @@
           <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="250" />
           <Property Type="Int32" Name="Inventario" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="ConsultarRotacionInventario_Result">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="Producto" Nullable="false" MaxLength="250" />
+          <Property Type="Int32" Name="Inventario" Nullable="false" />
+          <Property Type="Int32" Name="TotalVentas" Nullable="true" />
+          <Property Type="Int32" Name="InventarioActual" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ConsultarVentasPorCategoria_Result">
+          <Property Type="Int32" Name="IdCategoria" Nullable="false" />
+          <Property Type="String" Name="Categoria" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="TotalCantidad" Nullable="true" />
+          <Property Type="Decimal" Name="TotalVentas" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="ConsultarVentasPorProducto_Result">
+          <Property Type="Int32" Name="IdProducto" Nullable="false" />
+          <Property Type="String" Name="Producto" Nullable="false" MaxLength="250" />
+          <Property Type="Int32" Name="TotalCantidad" Nullable="true" />
+          <Property Type="Decimal" Name="TotalVentas" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1080,6 +1105,37 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_EliminarProducto" FunctionName="MARTES_BDModel.Store.sp_EliminarProducto" />
           <FunctionImportMapping FunctionImportName="EliminarUsuarios2" FunctionName="MARTES_BDModel.Store.EliminarUsuarios" />
+          <FunctionImportMapping FunctionImportName="ConsultarRotacionInventario" FunctionName="MARTES_BDModel.Store.ConsultarRotacionInventario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MARTES_BDModel.ConsultarRotacionInventario_Result">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Producto" ColumnName="Producto" />
+                <ScalarProperty Name="Inventario" ColumnName="Inventario" />
+                <ScalarProperty Name="TotalVentas" ColumnName="TotalVentas" />
+                <ScalarProperty Name="InventarioActual" ColumnName="InventarioActual" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarVentasPorCategoria" FunctionName="MARTES_BDModel.Store.ConsultarVentasPorCategoria">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MARTES_BDModel.ConsultarVentasPorCategoria_Result">
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="TotalCantidad" ColumnName="TotalCantidad" />
+                <ScalarProperty Name="TotalVentas" ColumnName="TotalVentas" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ConsultarVentasPorProducto" FunctionName="MARTES_BDModel.Store.ConsultarVentasPorProducto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MARTES_BDModel.ConsultarVentasPorProducto_Result">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Producto" ColumnName="Producto" />
+                <ScalarProperty Name="TotalCantidad" ColumnName="TotalCantidad" />
+                <ScalarProperty Name="TotalVentas" ColumnName="TotalVentas" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
