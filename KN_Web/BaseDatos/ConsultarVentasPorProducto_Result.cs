@@ -10,17 +10,12 @@
 namespace KN_Web.BaseDatos
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tCarrito
+    public partial class ConsultarVentasPorProducto_Result
     {
-        public int IdCarrito { get; set; }
-        public int Consecutivo { get; set; }
         public int IdProducto { get; set; }
-        public int Cantidad { get; set; }
-        public System.DateTime Fecha { get; set; }
-    
-        public virtual tProducto tProducto { get; set; }
-        public virtual tUsuario tUsuario { get; set; }
+        public string Producto { get; set; }
+        public Nullable<int> TotalCantidad { get; set; }
+        public Nullable<decimal> TotalVentas { get; set; }
     }
 }
