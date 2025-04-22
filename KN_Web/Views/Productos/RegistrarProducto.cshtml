@@ -29,6 +29,11 @@
                 @Html.TextBoxFor(m => m.Descripcion, new { @type = "text", @class = "form-control", @placeholder = "Descripción" })
             </div>
 
+            @Html.Label("Presentacion")
+            <div class="input-group mb-3">
+                @Html.TextBoxFor(m => m.presentacion, new { @type = "text", @class = "form-control", @placeholder = "Presentacion" })
+            </div>
+
             @Html.Label("Inventario")
             <div class="input-group mb-3">
                 @Html.TextBoxFor(m => m.@Inventario, new { @type = "text", @class = "form-control", @placeholder = "Inventario" })

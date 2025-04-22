@@ -25,44 +25,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
 </head>
 <body>
-    <!--header section start -->
-    <div class="header_section">
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="logo">
-                    <a href="@Url.Action("InterfazVisita", "External")">
-                        <img src="~/root/dist/img/CafeLogo.jpg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
-                    </a>
-                </div>
 
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "InterfazVisita" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Inicio", "InterfazVisita", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "productos" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Productos", "productos", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "About" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Acerca de Nosotros", "About", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Gallery" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Galeria", "Gallery", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Contactenos", "Contact", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "Login")">
-                                <i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <!--header section end -->
+
+    <style>
+    </style>
 
 
     <div class="about_section layout_padding">
@@ -71,114 +37,55 @@
                 <div class="col-md-12">
                     <div class="about_taital_main">
                         <div class="about_taital">Políticas de Devolución</div>
-                        <br />
-                        <p class="about_text">En Café Méndez, nos esforzamos por asegurar su completa satisfacción con cada compra. Sin embargo, entendemos que en ocasiones pueden surgir situaciones que requieran una devolución. Las siguientes políticas se basan en la legislación de protección al consumidor de Costa Rica y están diseñadas para ser justas y transparentes.</p>
+                        <div class="policy_content">
+                            <p class="about_text">En Café Méndez, nos esforzamos por asegurar su completa satisfacción con cada compra. Sin embargo, entendemos que en ocasiones pueden surgir situaciones que requieran una devolución. Las siguientes políticas se basan en la legislación de protección al consumidor de Costa Rica y están diseñadas para ser justas y transparentes.</p>
 
-                        <h3>Derecho de Retracto (Según la legislación costarricense)</h3>
-                        <p class="about_text">De acuerdo con la ley de Costa Rica, usted tiene derecho a retractarse de su compra dentro de un plazo de 30 dias contados a partir de la recepción del producto, sin necesidad de justificación y sin penalización alguna, salvo los costos directos de devolución del bien.</p>
-                        <p class="about_text">Para ejercer este derecho, deberá notificarnos su decisión de retractarse a través de un medio verificable (por ejemplo, correo electrónico o mensaje de Whatsapp dentro del plazo indicado.</p>
-                        <br />
-                        <h3>Condiciones Generales para Devoluciones</h3>
-                        <br />
-                        <p class="about_text">Además del derecho de retracto, aceptamos devoluciones bajo las siguientes condiciones:</p>
-                        <ul>
-                            <li><strong>Productos Defectuosos o Dañados:</strong> Si recibe un producto con defectos de fabricación o dañado durante el envío, por favor contáctenos dentro de los 48 horas siguientes a la recepción para coordinar el reemplazo o el reembolso. Es posible que le solicitemos evidencia fotográfica del daño o defecto.</li>
-                            <li><strong>Error en el Envío:</strong> Si recibe un producto diferente al que ordenó, contáctenos inmediatamente para corregir el error y coordinar el envío del producto correcto o el reembolso.</li>
-                            <li><strong>Otras Razones (Sujeto a evaluación):</strong> En casos excepcionales, podríamos considerar devoluciones por otras razones. Por favor, póngase en contacto con nuestro servicio al cliente para evaluar su situación particular.</li>
-                        </ul>
-                        <br />
-                        <h3>Proceso de Devolución</h3>
-                        <ol>
-                            <li><strong>Notificación:</strong> Porfavor dirigase a la seccion de ¨Contactenos¨ ya sea por medio del formulario o Whatsapp dentro del plazo correspondiente, indicando el motivo de la devolución y su número de pedido.</li>
-                            <li><strong>Evaluación:</strong> Nuestro equipo evaluará su solicitud y le proporcionará las instrucciones específicas para la devolución.</li>
-                            <li><strong>Envío del Producto:</strong> Si la devolución es aprobada, deberá enviar el producto de vuelta a la dirección que le indiquemos. Los costos de envío de la devolución podrían ser cubiertos por Café Méndez en caso de defecto o error nuestro, pero en caso de retracto, generalmente correrán por su cuenta (verifique la legislación específica).</li>
-                            <li><strong>Inspección:</strong> Una vez que recibamos el producto, lo inspeccionaremos para verificar su estado. Para ser elegible para un reembolso o reemplazo, el producto debe estar en su estado original, sin usar y con su embalaje original (en la medida de lo posible).</li>
-                            <li><strong>Reembolso o Reemplazo:</strong> Si la devolución es aprobada, procesaremos su reembolso o enviaremos el producto de reemplazo dentro de un plazo de 7-10 días hábiles. Los reembolsos se realizarán a través del mismo método de pago utilizado en la compra original, a menos que se acuerde otro método.</li>
-                        </ol>
-                        <br />
-                        <h3>Excepciones</h3>
-                        <p class="about_text">Por favor, tenga en cuenta que podrían existir excepciones a nuestra política de devoluciones, tales como:</p>
-                        <ul>
-                            <li>Productos perecederos (como café una vez abierto y manipulado incorrectamente) a menos que estén defectuosos al recibirlos.</li>
-                            <li>Productos personalizados o hechos a medida.</li>
-                            <li>Productos que por su naturaleza no puedan ser devueltos por razones de higiene o salud.</li>
-                        </ul>
-                        <br />
-                        <h3>Contacto</h3>
-                        <p class="about_text">Si tiene alguna pregunta sobre nuestras políticas de devolución, no dude en contactarnos a través de:</p>
-                        <ul>
-                            <li><strong>Correo Electrónico:</strong> [**Tu correo electrónico de atención al cliente**]</li>
-                            <li><strong>Teléfono:</strong> [**Tu número de teléfono de atención al cliente**]</li>
-                            <li><strong>Formulario de Contacto:</strong> [**Enlace a tu formulario de contacto**]</li>
-                        </ul>
-                        <br />
-                        <p class="about_text">Agradecemos su comprensión y confianza en Café Méndez.</p>
+                            <h3>Derecho de Retracto</h3>
+                            <p class="about_text">De acuerdo con la ley de Costa Rica, usted tiene derecho a retractarse de su compra dentro de un plazo de 30 días contados a partir de la recepción del producto, sin necesidad de justificación y sin penalización alguna, salvo los costos directos de devolución del bien.</p>
+                            <p class="about_text">Para ejercer este derecho, deberá notificarnos su decisión de retractarse a través de un medio verificable (por ejemplo, correo electrónico o mensaje de WhatsApp) dentro del plazo indicado.</p>
 
-                    </div>
-                    <br />
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-<!-- footer section start -->
-<div class="footer_section layout_padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-sm-6">
-                <h3 class="useful_text">Acerca de nosotros</h3>
-                <p class="footer_text">Directo de la zona de los Santos hasta su mesa</p>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <h3 class="useful_text">Menu</h3>
-                <div class="footer_menu">
-                    <ul>
-                        <ul>
-                            <ul>
-                                <li>@Html.ActionLink("Inicio", "InterfazVisita", "External")</li>
-                                <li>@Html.ActionLink("Acerca de Nosotros", "About", "External")</li>
-                                <li>@Html.ActionLink("Galeria", "Gallery", "External")</li>
-                                <li>@Html.ActionLink("Contactenos", "Contact", "External")</li>
+                            <h3>Condiciones Generales para Devoluciones</h3>
+                            <p class="about_text">Además del derecho de retracto, aceptamos devoluciones bajo las siguientes condiciones:</p>
+                            <ul class="policy_list">
+                                <li><strong>Productos Defectuosos o Dañados:</strong> Si recibe un producto con defectos de fabricación o dañado durante el envío, contáctenos dentro de las 48 horas siguientes a la recepción para coordinar el reemplazo o el reembolso. Es posible que le solicitemos evidencia fotográfica del daño o defecto.</li>
+                                <li><strong>Error en el Envío:</strong> Si recibe un producto diferente al que ordenó, contáctenos inmediatamente para corregir el error y coordinar el envío del producto correcto o el reembolso.</li>
+                                <li><strong>Otras Razones:</strong> En casos excepcionales, podríamos considerar devoluciones por otras razones. Por favor, póngase en contacto con nuestro servicio al cliente para evaluar su situación particular.</li>
                             </ul>
 
+                            <h3>Proceso de Devolución</h3>
+                            <ol class="policy_list">
+                                <li><strong>Notificación:</strong> Diríjase a la sección de "Contáctenos" ya sea por medio del formulario o WhatsApp dentro del plazo correspondiente, indicando el motivo de la devolución y su número de pedido.</li>
+                                <li><strong>Evaluación:</strong> Nuestro equipo evaluará su solicitud y le proporcionará las instrucciones específicas para la devolución.</li>
+                                <li><strong>Envío del Producto:</strong> Si la devolución es aprobada, deberá enviar el producto de vuelta a la dirección que le indiquemos. Los costos de envío de la devolución podrían ser cubiertos por Café Méndez en caso de defecto o error nuestro, pero en caso de retracto, generalmente correrán por su cuenta.</li>
+                                <li><strong>Inspección:</strong> Una vez que recibamos el producto, lo inspeccionaremos para verificar su estado. Para ser elegible para un reembolso o reemplazo, el producto debe estar en su estado original, sin usar y con su embalaje original (en la medida de lo posible).</li>
+                                <li><strong>Reembolso o Reemplazo:</strong> Si la devolución es aprobada, procesaremos su reembolso o enviaremos el producto de reemplazo dentro de un plazo de 7-10 días hábiles. Los reembolsos se realizarán a través del mismo método de pago utilizado en la compra original, a menos que se acuerde otro método.</li>
+                            </ol>
 
-                        </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <h1 class="useful_text">Politicas de compra y Envios</h1>
-                <div class="footer_menu">
-                    <ul>
-                        <li>@Html.ActionLink("Politicas de Devoulcion", "Politicas", "External")</li>
-                    </ul>
-                </div>
-            </div>
+                            <h3>Excepciones</h3>
+                            <p class="about_text">Por favor, tenga en cuenta que podrían existir excepciones a nuestra política de devoluciones, tales como:</p>
+                            <ul class="policy_list">
+                                <li>Productos perecederos (como café una vez abierto y manipulado incorrectamente) a menos que estén defectuosos al recibirlos.</li>
+                                <li>Productos personalizados o hechos a medida.</li>
+                                <li>Productos que por su naturaleza no puedan ser devueltos por razones de higiene o salud.</li>
+                            </ul>
 
+                            <h3>Contacto</h3>
+                            <p class="about_text">Si tiene alguna pregunta sobre nuestras políticas de devolución, no dude en contactarnos a través de:</p>
+                            <ul class="policy_list">
+                                <li><strong>Correo Electrónico:</strong> <a href="mailto:contacto@tucafe.com">contacto@gmail.com</a></li>
+                                <li><strong>Teléfono:</strong> <a href="tel:+50688888888">+506 8888-8888</a></li>
+                                <li><strong>WhatsApp:</strong> <a href="https://api.whatsapp.com/send/?phone=%2B50688566227&text&type=phone_number&app_absent=0" target="_blank">+506 8856-6227</a></li>
+                                <li>
+                                    <strong>Formulario de Contacto:</strong> <button style="background-color: black; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">
+                                        @Html.ActionLink("Contáctenos Aquí", "Contact", "External", null, new { style = "color: white; text-decoration: none;" })
+                                    </button>
+                            </ul>
 
-            <div class="col-lg-3 col-sm-6">
-                <h1 class="useful_text">Contactenos</h1>
-                <div class="location_text">
-                    <ul>
-                        <li>
-
-                            <p class="fa fa-map-marker" aria-hidden="true"></p><span class="padding_left_10">Direccion:Los Santos, Santa Maria de Dota </span>
-                            </a>
-                        </li>
-                        <li>
-
-                            <p>📱 <strong>WhatsApp:</strong> <a href="https://api.whatsapp.com/send/?phone=%2B50688566227&text&type=phone_number&app_absent=0" target="_blank">+506 8856-6227</a></p>
-
-                        </li>
-                        <li>
-
-                            <p class="fa fa-envelope" aria-hidden="true"></p><span class="padding_left_10">Email : demo@gmail.com</span>
-
-                        </li>
-                    </ul>
+                            <p class="about_text">Agradecemos su comprensión y confianza en Café Méndez.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- footer section end -->
-</html>
+

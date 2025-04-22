@@ -10,3 +10,184 @@
     padding-left: 25px;
     padding-right: 25px;
 }
+
+/* Estilos para la sección de políticas */
+.about_section {
+    padding: 30px 0; /* Reducir padding vertical */
+}
+
+.about_taital_main {
+    max-width: 800px; /* Limitar el ancho del contenido */
+    margin: 0 auto; /* Centrar el contenido */
+    padding: 0 15px; /* Padding lateral para móviles */
+}
+
+.about_taital {
+    font-size: 28px; /* Tamaño del título */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.policy_content {
+    font-size: 16px; /* Tamaño de fuente más compacto */
+    line-height: 1.6; /* Altura de línea para mejor legibilidad */
+    text-align: justify; /* Justificar el texto */
+    color: #333; /* Color de texto oscuro para mejor contraste */
+}
+
+.about_text {
+    margin-bottom: 15px; /* Espacio entre párrafos */
+}
+
+h3 {
+    font-size: 20px; /* Tamaño de encabezados más pequeño */
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.policy_list {
+    padding-left: 20px; /* Indentación de listas */
+    margin-bottom: 15px; /* Espacio después de listas */
+}
+
+    .policy_list li {
+        margin-bottom: 8px; /* Espacio entre ítems de la lista */
+        line-height: 1.5;
+    }
+
+    .policy_list a {
+        color: #007bff; /* Color para enlaces */
+        text-decoration: none;
+    }
+
+        .policy_list a:hover {
+            text-decoration: underline;
+        }
+
+}
+
+.about_taital {
+    font-size: 24px;
+}
+
+.policy_content {
+    font-size: 14px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+}
+
+/* Estilos para el header */
+.header_section {
+    background-color: #000 !important; /* Fondo negro forzado */
+    padding: 10px 0; /* Reducir padding vertical */
+}
+
+.navbar {
+    background-color: #000 !important; /* Fondo negro para la navbar */
+    padding: 0 15px; /* Ajustar padding de la navbar */
+}
+
+.navbar-brand img {
+    width: 90px; /* Tamaño del logo */
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.navbar-nav .nav-link {
+    color: #fff !important; /* Letras blancas para los enlaces */
+    font-size: 16px;
+    padding: 10px 15px; /* Espaciado entre enlaces */
+    transition: color 0.3s ease;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #ccc !important; /* Color al pasar el cursor */
+    }
+
+.navbar-nav .active .nav-link {
+    color: #007bff !important; /* Color para el enlace activo */
+}
+
+.navbar-toggler {
+    background-color: transparent; /* Fondo transparente para el botón */
+    border: 2px solid #fff; /* Borde blanco */
+    padding: 5px 10px; /* Tamaño más pequeño */
+}
+
+.navbar-toggler-icon {
+    width: 24px; /* Tamaño del ícono */
+    height: 24px;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); /* Ícono blanco */
+    background-size: cover;
+}
+
+
+
+.navbar-nav .nav-link {
+    padding: 8px 10px; /* Reducir espaciado en móviles */
+    font-size: 14px;
+}
+
+.navbar-brand img {
+    width: 60px; /* Reducir tamaño del logo en móviles */
+    height: 60px;
+}
+
+/* Asegura que el iframe sea responsivo */
+.map-responsive {
+    position: relative;
+    padding-bottom: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+    .map-responsive iframe {
+        display: block;
+        width: 100%;
+        height: 450px;
+        border: 0;
+    }
+
+/* Ajusta el espaciado del texto */
+.contact-info {
+    margin: 0;
+    padding: 0 15px;
+}
+
+/* Reduce el espacio entre columnas */
+.row {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+    .row > div {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+/* Centrar el formulario y añadir espacio superior */
+.email_text {
+    margin-top: 20px; /* Espacio entre la fila superior y el formulario */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Espacio entre campos del formulario */
+}
+
+/* Asegurar que el contenedor del formulario esté centrado */
+.col-md-6 {
+    margin: 0 auto;
+}
+
+/* Estilo para el título */
+.contact_text {
+    text-align: center;
+    margin-bottom: 20px;
+}
+

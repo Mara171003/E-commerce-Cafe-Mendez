@@ -505,6 +505,7 @@
     <Content Include="root\dist\img\credit\visa.png" />
     <Content Include="root\dist\img\default-150x150.png" />
     <Content Include="root\dist\img\fb-icon.png" />
+    <Content Include="root\dist\img\fondo.jpg" />
     <Content Include="root\dist\img\fondoLogin.jpeg" />
     <Content Include="root\dist\img\footer-logo.png" />
     <Content Include="root\dist\img\g1.png" />
@@ -657,6 +658,7 @@
     <Content Include="root\dist\js\bootstrap.bundle.min.js.map" />
     <Content Include="root\dist\js\bootstrap.js.map" />
     <Content Include="root\dist\js\bootstrap.min.js.map" />
+    <None Include="Properties\PublishProfiles\cafeMendez - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

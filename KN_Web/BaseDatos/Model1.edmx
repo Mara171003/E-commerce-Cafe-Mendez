@@ -76,6 +76,7 @@
           <Property Name="Imagen" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="IdCategoria" Type="int" Nullable="false" />
           <Property Name="StockMinimo" Type="int" Nullable="false" />
+          <Property Name="presentacion" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="tRol">
           <Key>
@@ -205,6 +206,7 @@
           <Parameter Name="Imagen" Type="varchar" Mode="In" />
           <Parameter Name="IdCategoria" Type="int" Mode="In" />
           <Parameter Name="IdProducto" Type="int" Mode="In" />
+          <Parameter Name="presentacion" Type="varchar" Mode="In" />
         </Function>
         <Function Name="ActualizarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Identificacion" Type="varchar" Mode="In" />
@@ -340,6 +342,7 @@
             <Parameter Name="Imagen" Mode="In" Type="String" />
             <Parameter Name="IdCategoria" Mode="In" Type="Int32" />
             <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+            <Parameter Name="presentacion" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ActualizarUsuario">
             <Parameter Name="Identificacion" Mode="In" Type="String" />
@@ -680,6 +683,7 @@
           <NavigationProperty Name="tDetalle" Relationship="MARTES_BDModel.FK_tDetalle_tProducto" FromRole="tProducto" ToRole="tDetalle" />
           <NavigationProperty Name="tFavoritos" Relationship="MARTES_BDModel.FK_tFavoritos_tProducto" FromRole="tProducto" ToRole="tFavoritos" />
           <Property Name="StockMinimo" Type="Int32" Nullable="false" />
+          <Property Name="presentacion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tRol">
           <Key>
@@ -1039,6 +1043,7 @@
           <EntitySetMapping Name="tProducto">
             <EntityTypeMapping TypeName="MARTES_BDModel.tProducto">
               <MappingFragment StoreEntitySet="tProducto">
+                <ScalarProperty Name="presentacion" ColumnName="presentacion" />
                 <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
                 <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
                 <ScalarProperty Name="Imagen" ColumnName="Imagen" />

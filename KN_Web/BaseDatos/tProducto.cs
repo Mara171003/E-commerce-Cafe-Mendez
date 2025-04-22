@@ -29,6 +29,7 @@ namespace KN_Web.BaseDatos
         public string Imagen { get; set; }
         public int IdCategoria { get; set; }
         public int StockMinimo { get; set; }
+        public string presentacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tCarrito> tCarrito { get; set; }

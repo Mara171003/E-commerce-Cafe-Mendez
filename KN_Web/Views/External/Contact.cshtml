@@ -38,49 +38,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
 </head>
 <body>
-    <!--header section start -->
-    <div class="header_section">
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="logo">
-                    <a href="@Url.Action("InterfazVisita", "External")">
-                        <img src="~/root/dist/img/CafeLogo.jpg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
-                    </a>
-                </div>
 
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "InterfazVisita" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Inicio", "InterfazVisita", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "productos" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Productos", "productos", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "About" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Acerca de Nosotros", "About", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Gallery" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Galeria", "Gallery", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Contactenos", "Contact", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "Login")">
-                                <i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <!--header section end -->
     <!-- contact section start -->
-    <div class="contact_section_2 layout_padding">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6 padding_0">
+    <div class="contact_section layout_padding">
+        <div class="container">
+            <h1 class="contact_text">Envíenos un Mensaje</h1>
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="col-md-5">
+                    <div class="mail_section">
+                        <div class="contact-info">
+                            <p>📍 <strong>Ubicación:</strong> Dota, Costa Rica</p>
+                            <p>📧 <strong>Correo:</strong> <a href="mailto:contacto@tucafe.com">contacto@gmail.com</a></p>
+                            <p>📞 <strong>Teléfono:</strong> <a href="tel:+50688888888">+506 8888-8888</a></p>
+                            <p>📷 <strong>Instagram:</strong> <a href="https://www.instagram.com/p/CZtNF4FuLwN/?img_index=1" target="_blank">CafeMendezCR</a></p>
+                            <p class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "Login" ? "active" : "")">
+                                <button style="background-color: black; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">
+                                    @Html.ActionLink("Contáctenos Aquí", "Contact", "External", null, new { style = "color: white; text-decoration: none;" })
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="map-responsive">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40357.367328336535!2d-84.00638016139146!3d9.654799422882636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1179bc4733f29%3A0xa6bb565b039dcb83!2zU2FudGEgTWFyw61hIGRlIERvdGEsIFNhbiBKb3PDqSwgU2FudGEgTWFyw SWE!5e1!3m2!1ses-419!2scr!4v1742876159198!5m2!1ses-419!2scr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+            <!-- Formulario centrado -->
+            <div class="row justify-content-center">
+                <div class="col-md-6">
                     <div class="mail_section">
                         <div class="email_text">
                             @using (Html.BeginForm("Index", "Contacto", FormMethod.Post, new { id = "contactoForm" }))
@@ -98,100 +85,17 @@
                                     @Html.TextAreaFor(m => m.Mensaje, new { @class = "massage-bt", placeholder = "Mensaje", rows = "5", style = "width: 100%; padding: 10px; border: 1px solid #ccc; background-color: #fff; border-radius: 5px; color: #000;" })
                                 </div>
                                 <div class="send_btn">
-                                    <button type="submit" class="main_bt" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Enviar</button>
+                                    <button type="submit" class="main_bt" style="padding: 10px 20px; background-color: #000; color: #fff; text-decoration: none; border-radius: 5px;">Enviar</button>
                                 </div>
                             }
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-6 padding_0">
-                    <div class="map-responsive">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d40357.367328336535!2d-84.00638016139146!3d9.654799422882636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1179bc4733f29%3A0xa6bb565b039dcb83!2zU2FudGEgTWFyw61hIGRlIERvdGEsIFNhbiBKb3PDqSwgU2FudGEgTWFyw61h!5e1!3m2!1ses-419!2scr!4v1742876159198!5m2!1ses-419!2scr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-
-    <div class="contact_section layout_padding">
-        <div class="container">
-            <h1>Contáctenos</h1>
-            <p>¿Tienes preguntas o quieres saber más sobre nuestro café? ¡Nos encantaría escucharte!</p>
-
-            <div class="contact-info">
-                <p>📍 <strong>Ubicación:</strong> Dota, Costa Rica</p>
-                <p>📧 <strong>Correo:</strong> <a href="mailto:contacto@tucafe.com">contacto@gmail.com</a></p>
-                <p>📞 <strong>Teléfono:</strong> <a href="tel:+50688888888">+506 8888-8888</a></p>
-                <p>📷 <strong>Instagram:</strong> <a href="https://www.instagram.com/p/CZtNF4FuLwN/?img_index=1" target="_blank">CafeMendezCR</a></p>
-            </div>
-        </div>
-    </div>
-
-
     <!-- contact section end -->
-    <!-- footer section start -->
-    <div class="footer_section layout_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-sm-6">
-                    <h3 class="useful_text">Acerca de nosotros</h3>
-                    <p class="footer_text">Directo de la zona de los Santos hasta su mesa</p>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <h3 class="useful_text">Menu</h3>
-                    <div class="footer_menu">
-                        <ul>
-                            <ul>
-                                <ul>
-                                    <li>@Html.ActionLink("Inicio", "InterfazVisita", "External")</li>
-                                    <li>@Html.ActionLink("Acerca de Nosotros", "About", "External")</li>
-                                    <li>@Html.ActionLink("Galeria", "Gallery", "External")</li>
-                                    <li>@Html.ActionLink("Contactenos", "Contact", "External")</li>
-                                </ul>
 
-
-                            </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <h1 class="useful_text">Politicas de compra y Envios</h1>
-                    <div class="footer_menu">
-                        <ul>
-                            <li>@Html.ActionLink("Politicas de Devoulcion", "Politicas", "External")</li>
-                        </ul>
-                    </div>
-                </div>
-
-
-                <div class="col-lg-3 col-sm-6">
-                    <h1 class="useful_text">Contactenos</h1>
-                    <div class="location_text">
-                        <ul>
-                            <li>
-
-                                <p class="fa fa-map-marker" aria-hidden="true"></p><span class="padding_left_10">Direccion:Los Santos, Santa Maria de Dota </span>
-                                </a>
-                            </li>
-                            <li>
-
-                                <p>📱 <strong>WhatsApp:</strong> <a href="https://api.whatsapp.com/send/?phone=%2B50688566227&text&type=phone_number&app_absent=0" target="_blank">+506 8856-6227</a></p>
-
-                            </li>
-                            <li>
-
-                                <p class="fa fa-envelope" aria-hidden="true"></p><span class="padding_left_10">Email : demo@gmail.com</span>
-
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- footer section end -->
-    <!-- copyright section end -->
-    <!-- Javascript files-->
     <!-- Javascript files-->
     <script src="@Url.Content("~/root/dist/js/popper.min.js")"></script>
     <script src="@Url.Content("~/root/dist/js/bootstrap.bundle.min.js")"></script>

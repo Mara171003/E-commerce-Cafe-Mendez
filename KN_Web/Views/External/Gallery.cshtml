@@ -39,44 +39,8 @@
 
 
 <body>
-    <!--header section start -->
-    <div class="header_section">
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="logo">
-                    <a href="@Url.Action("InterfazVisita", "External")">
-                        <img src="~/root/dist/img/CafeLogo.jpg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "InterfazVisita" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Inicio", "InterfazVisita", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "productos" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Productos", "productos", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "About" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Acerca de Nosotros", "About", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Gallery" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Galeria", "Gallery", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Contactenos", "Contact", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "Login")">
-                                <i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <!--header section end -->
-    <!--header section end -->
+  
+    <!--Gallery section start -->
     <div class="gallery_section layout_padding">
         <div class="container">
             <div class="row">
@@ -258,66 +222,7 @@
                 text-decoration: none;
             }
     </style>
-    <!-- footer section start -->
-    <div class="footer_section layout_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-sm-6">
-                    <h3 class="useful_text">Acerca de nosotros</h3>
-                    <p class="footer_text">Directo de la zona de los Santos hasta su mesa</p>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <h3 class="useful_text">Menu</h3>
-                    <div class="footer_menu">
-                        <ul>
-                            <ul>
-                                <ul>
-                                    <li>@Html.ActionLink("Inicio", "InterfazVisita", "External")</li>
-                                    <li>@Html.ActionLink("Acerca de Nosotros", "About", "External")</li>
-                                    <li>@Html.ActionLink("Galeria", "Gallery", "External")</li>
-                                    <li>@Html.ActionLink("Contactenos", "Contact", "External")</li>
-                                </ul>
 
-
-                            </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <h1 class="useful_text">Politicas de compra y Envios</h1>
-                    <div class="footer_menu">
-                        <ul>
-                            <li>@Html.ActionLink("Politicas de Devolucion", "Politicas", "External")</li>
-                        </ul>
-                    </div>
-                </div>
-
-
-                <div class="col-lg-3 col-sm-6">
-                    <h1 class="useful_text">Contactenos</h1>
-                    <div class="location_text">
-                        <ul>
-                            <li>
-
-                                <p class="fa fa-map-marker" aria-hidden="true"></p><span class="padding_left_10">Direccion:Los Santos, Santa Maria de Dota </span>
-                                </a>
-                            </li>
-                            <li>
-
-                                <p>📱 <strong>WhatsApp:</strong> <a href="https://api.whatsapp.com/send/?phone=%2B50688566227&text&type=phone_number&app_absent=0" target="_blank">+506 8856-6227</a></p>
-
-                            </li>
-                            <li>
-
-                                <p class="fa fa-envelope" aria-hidden="true"></p><span class="padding_left_10">Email : demo@gmail.com</span>
-
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- footer section end -->
     <!-- Javascript files-->
     <script src="@Url.Content("~/root/dist/js/popper.min.js")"></script>
     <script src="@Url.Content("~/root/dist/js/bootstrap.bundle.min.js")"></script>

@@ -39,60 +39,26 @@
 
 
 <body>
-    <!--header section start -->
-    <div class="header_section">
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="logo">
-                    <a href="@Url.Action("InterfazVisita", "External")">
-                        <img src="~/root/dist/img/CafeLogo.jpg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "InterfazVisita" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Inicio", "InterfazVisita", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "productos" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Productos", "productos", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "About" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Acerca de Nosotros", "About", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Gallery" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Galeria", "Gallery", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Contactenos", "Contact", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "Login")">
-                                <i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <!--header section end -->
+
     <!-- banner section start -->
-    <div class="banner_section" style="background-image: url('../../root/dist/img/banner-bg.png'); background-size: contain; background-position: center; background-repeat: no-repeat;">
-        <div class="container" style="padding-top: 100px; padding-bottom: 100px;">
+    <div class="banner_section" style="background-image: url('../../root/dist/img/fondo.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; width: 100%; min-height: 400px;">
+        <div class="container" style="padding-top: 80px; padding-bottom: 80px;">
             <div id="main_slider" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="banner_taital">
-                                    <h1 class="coffee_text" style="color: black;">Café Mendez</h1>
-                                    <h1 class="coffee_text" style="color: black;">De las altas montañas de Dota</h1>
-                                    <p class="there_text" style="color: black;">
-                                        Café Méndez se cultiva en las montañas de la Zona de los Santos, directamente de sus productores.
-                                        Para el disfrute de los amantes del café de alta calidad.
-                                    </p>
+                                    <div class="text-container">
+                                        <h1 class="coffee_text" style="color: #fff;">Café Méndez</h1>
+                                        <h1 class="coffee_text" style="color: #fff;">De las altas montañas de Dota</h1>
+                                        <p class="there_text" style="color: #fff;">
+                                            Café Méndez se cultiva en las montañas de la Zona de los Santos, directamente de sus productores.
+                                            Para el disfrute de los amantes del café de alta calidad.
+                                        </p>
+                                    </div>
                                     <div class="learnmore_bt">
-                                        <a href="@Url.Action("Home", "Login")" style="white-space: nowrap; display: inline-block;">Ver Productos</a>
+                                        <a href="@Url.Action("Home", "Login")" style="white-space: nowrap; display: inline-block; background-color: #000; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Ver Productos</a>
                                     </div>
                                 </div>
                             </div>
@@ -103,21 +69,21 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="banner_taital">
-                                    <h1 class="coffee_text" style="color: black;">Café Mendez</h1>
-                                    <h1 class="coffee_text" style="color: black;">De las altas montañas de Dota</h1>
-                                    <p class="there_text" style="color: black;">
-                                        Nació como un proyecto en donde a los amantes del café se les pudiera ofrecer la experiencia de degustar un café calidad de exportación,
-                                        donde se le pudiera dar trazabilidad desde la finca a la taza; a un valor razonable, sin intermediarios.
-                                    </p>
-                                    <br />
+                                    <div class="text-container">
+                                        <h1 class="coffee_text" style="color: #fff;">Café Méndez</h1>
+                                        <h1 class="coffee_text" style="color: #fff;">De las altas montañas de Dota</h1>
+                                        <p class="there_text" style="color: #fff;">
+                                            Nació como un proyecto en donde a los amantes del café se les pudiera ofrecer la experiencia de degustar un café calidad de exportación,
+                                            donde se le pudiera dar trazabilidad desde la finca a la taza; a un valor razonable, sin intermediarios.
+                                        </p>
+                                    </div>
                                     <div class="learnmore_bt">
-                                        <a href="@Url.Action("Home", "Login")" style="white-space: nowrap; display: inline-block;">Ver Productos</a>
+                                        <a href="@Url.Action("Home", "Login")" style="white-space: nowrap; display: inline-block; background-color: #000; color: #fff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Ver Productos</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
                     <i class="fa fa-angle-left"></i>
@@ -129,6 +95,129 @@
         </div>
     </div>
     <!-- banner section end -->
+
+    <style>
+    /* Estilos para el banner */
+    .banner_section {
+        width: 100%;
+        min-height: 400px; /* Altura mínima para escritorio */
+        background-size: cover !important; /* Asegura que la imagen cubra todo */
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        display: flex;
+        align-items: center; /* Centrar verticalmente el contenido */
+    }
+
+    .banner_taital {
+        text-align: center; /* Centrar texto */
+        max-width: 800px; /* Limitar ancho del contenido */
+        margin: 0 auto;
+    }
+
+    .text-container {
+        display: inline-block; /* Ajustar al contenido */
+        background-color: rgba(0, 0, 0, 0.8) !important; /* Fondo negro con opacidad */
+        padding: 30px; /* Más padding para cubrir todo el texto */
+        border-radius: 10px; /* Bordes redondeados */
+        margin-bottom: 20px; /* Espacio entre texto y botón */
+        width: auto; /* Ancho automático según contenido */
+        max-width: 90%; /* Limitar ancho máximo */
+        box-sizing: border-box; /* Incluir padding en el tamaño */
+        text-align: center !important; /* Centrar todo el texto dentro del contenedor */
+    }
+
+    .coffee_text {
+        font-size: 3.5rem; /* Tamaño grande para escritorio */
+        font-weight: bold;
+        color: #fff !important; /* Texto blanco */
+        margin-bottom: 10px;
+        line-height: 1.2;
+    }
+
+    .there_text {
+        font-size: 1.2rem; /* Tamaño para párrafos */
+        color: #fff !important; /* Texto blanco */
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+
+    .learnmore_bt a {
+        font-size: 1rem;
+        background-color: #000; /* Fondo negro para el botón */
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .learnmore_bt a:hover {
+        background-color: #333; /* Color más oscuro al pasar el cursor */
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+        width: 5%; /* Reducir ancho de los controles */
+        opacity: 0.7;
+    }
+
+    .carousel-control-prev i, .carousel-control-next i {
+        font-size: 2rem; /* Tamaño de las flechas */
+        color: black;
+    }
+
+    /* Responsividad para pantallas medianas */
+
+
+        .coffee_text {
+            font-size: 2.5rem; /* Reducir tamaño de títulos */
+        }
+
+        .there_text {
+            font-size: 1rem;
+        }
+
+        .text-container {
+            padding: 20px; /* Reducir padding */
+            max-width: 95%; /* Ajustar ancho máximo */
+        }
+
+        .container {
+            padding-top: 60px; /* Reducir padding */
+            padding-bottom: 60px;
+        }
+    }
+
+    /* Responsividad para pantallas pequeñas */
+
+
+        .coffee_text {
+            font-size: 1.8rem; /* Títulos más pequeños */
+        }
+
+        .there_text {
+            font-size: 0.9rem; /* Párrafos más pequeños */
+        }
+
+        .text-container {
+            padding: 15px; /* Reducir padding aún más */
+            max-width: 100%; /* Usar todo el ancho disponible */
+        }
+
+        .learnmore_bt a {
+            font-size: 0.9rem;
+            padding: 8px 15px; /* Botón más pequeño */
+        }
+
+        .container {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .carousel-control-prev i, .carousel-control-next i {
+            font-size: 1.5rem; /* Flechas más pequeñas */
+        }
+    }
+    </style>
     <!-- about section start -->
     <div class="about_section layout_padding">
         <div class="container">
@@ -407,66 +496,6 @@
         </div>
     </div>
     <!-- contact section end -->
-    <!-- footer section start -->
-    <div class="footer_section layout_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-sm-6">
-                    <h3 class="useful_text">Acerca de nosotros</h3>
-                    <p class="footer_text">Directo de la zona de los Santos hasta su mesa</p>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <h3 class="useful_text">Menu</h3>
-                    <div class="footer_menu">
-                        <ul>
-                            <ul>
-                                <ul>
-                                    <li>@Html.ActionLink("Inicio", "InterfazVisita", "External")</li>
-                                    <li>@Html.ActionLink("Acerca de Nosotros", "About", "External")</li>
-                                    <li>@Html.ActionLink("Galeria", "Gallery", "External")</li>
-                                    <li>@Html.ActionLink("Contactenos", "Contact", "External")</li>
-                                </ul>
-
-
-                            </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <h1 class="useful_text">Politicas de compra y Envios</h1>
-                    <div class="footer_menu">
-                        <ul>
-                            <li>@Html.ActionLink("Politicas de Devoulcion", "Politicas", "External")</li>
-                        </ul>
-                    </div>
-                </div>
-
-          
-                    <div class="col-lg-3 col-sm-6">
-                        <h1 class="useful_text">Contactenos</h1>
-                        <div class="location_text">
-                            <ul>
-                                <li>
-
-                                    <p class="fa fa-map-marker" aria-hidden="true"></p><span class="padding_left_10">Direccion:Los Santos, Santa Maria de Dota </span>
-                                    </a>
-                                </li>
-                                <li>
-
-                                    <p>📱 <strong>WhatsApp:</strong> <a href="https://api.whatsapp.com/send/?phone=%2B50688566227&text&type=phone_number&app_absent=0" target="_blank">+506 8856-6227</a></p>
-
-                                </li>
-                                <li>
-
-                                    <p class="fa fa-envelope" aria-hidden="true"></p><span class="padding_left_10">Email : demo@gmail.com</span>
-
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </div>
-    <!-- footer section end -->
     <!-- Javascript files-->
     <script src="@Url.Content("~/root/dist/js/popper.min.js")"></script>
     <script src="@Url.Content("~/root/dist/js/bootstrap.bundle.min.js")"></script>

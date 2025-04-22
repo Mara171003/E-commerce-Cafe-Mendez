@@ -39,10 +39,12 @@
                 <tr>
                     <th>Producto</th>
                     <th>Descripción</th>
+                    <th>Presentación</th>
                     <th>Inventario</th>
                     <th>Precio</th>
                     <th>Imagen</th>
                     <th>Categoría</th>
+
                     <th>Cambiar Información</th>
                     <th>Eliminar</th>
                 </tr>
@@ -53,6 +55,7 @@
                     <tr>
                         <td>@item.IdProducto</td>
                         <td>@item.Descripcion</td>
+                        <td>@item.presentacion</td>
                         <td>@item.Inventario</td>
                         <td>@item.Precio</td>
                         <td><img class="card-img-top" src="@item.Imagen" style="width: 125px; height:80px; margin-top:20px"></td>
@@ -82,7 +85,7 @@
             language: {
                 url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'
             },
-            columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4, 5] }]
+            columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4, 5, 6] }] // Añade el índice de la nueva columna
         });
 
         // Evento click para el botón de eliminar

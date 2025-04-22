@@ -60,7 +60,8 @@ namespace KN_Web.Models
                         Precio = p.Precio,
                         Imagen = p.Imagen,
                         IdCategoria = p.IdCategoria,
-                        Categoria = p.tCategoria != null ? p.tCategoria.Descripcion : ""
+                        Categoria = p.tCategoria != null ? p.tCategoria.Descripcion : "",
+                        presentacion = p.presentacion
                     })
                     .ToList();
             }
@@ -93,7 +94,15 @@ namespace KN_Web.Models
 
             using (var context = new MARTES_BDEntities1())
             {
-                rowsAffected = context.ActualizarProducto(prd.Descripcion, prd.Inventario, prd.Precio, prd.Imagen, prd.IdCategoria, prd.IdProducto);
+                rowsAffected = context.ActualizarProducto(
+                    prd.Descripcion,
+                    prd.Inventario,
+                    prd.Precio,
+                    prd.Imagen,
+                    prd.IdCategoria,
+                    prd.IdProducto,
+                    prd.presentacion // Se agrega el valor de Presentacion
+                );
             }
 
             return (rowsAffected > 0);

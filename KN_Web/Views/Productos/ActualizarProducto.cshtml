@@ -3,6 +3,17 @@
 @{
     ViewBag.Title = "ActualizarProducto";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Lista de opciones para la presentación
+    List<SelectListItem> presentaciones = new List<SelectListItem>
+{
+        new SelectListItem { Text = "340 Gramos", Value = "340 Gramos" },
+        new SelectListItem { Text = "500 Gramos", Value = "500 Gramos" },
+        new SelectListItem { Text = "1000 Gramos", Value = "1000 Gramos" }
+    };
+
+    // Pasar la lista al ViewBag
+    ViewBag.Presentaciones = presentaciones;
 }
 
 <br>
@@ -26,22 +37,27 @@
         {
             @Html.HiddenFor(m => m.IdProducto)
 
-            @Html.Label("Descripción")
+            @Html.LabelFor(m => m.Descripcion)
             <div class="input-group mb-3">
                 @Html.TextBoxFor(m => m.Descripcion, new { @type = "text", @class = "form-control", @placeholder = "Descripción" })
             </div>
 
-            @Html.Label("Inventario")
+            @Html.LabelFor(m => m.presentacion)
+            <div class="input-group mb-3">
+                @Html.DropDownListFor(m => m.presentacion, ViewBag.Presentaciones as List<SelectListItem>, new { @class = "form-control" })
+            </div>
+
+            @Html.LabelFor(m => m.Inventario)
             <div class="input-group mb-3">
                 @Html.TextBoxFor(m => m.@Inventario, new { @type = "text", @class = "form-control", @placeholder = "Inventario" })
             </div>
 
-            @Html.Label("Precio")
+            @Html.LabelFor(m => m.Precio)
             <div class="input-group mb-3">
                 @Html.TextBoxFor(m => m.Precio, new { @type = "text", @class = "form-control", @placeholder = "Precio" })
             </div>
 
-            @Html.Label("Categoría")
+            @Html.LabelFor(m => m.IdCategoria)
             <div class="input-group mb-3">
                 @Html.DropDownListFor(m => m.IdCategoria, ViewBag.Categorias as List<SelectListItem>, new { @class = "form-control" })
             </div>

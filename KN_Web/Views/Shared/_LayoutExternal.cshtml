@@ -3,10 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Café Mendez</title>
-
+    <title>@ViewBag.Title - Café Méndez</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="~/root/dist/css/adminlte.css" rel="stylesheet" />
+ 
     <link href="~/root/dist/css/styles.css" rel="stylesheet" />
     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -14,15 +13,106 @@
     <link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.3/sweetalert2.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
-    <link href="~/root/dist/css/alt/StylesLayout.css" rel="stylesheet" />
+   
 </head>
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
+        <!-- Header Section -->
+        <div class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <a class="navbar-brand" href="@Url.Action("InterfazVisita", "External")">
+                        <img src="~/root/dist/img/CafeLogo.jpg" style="border-radius: 50%; width: 80px; height: 80px; object-fit: cover;" alt="Café Méndez Logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "InterfazVisita" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                                @Html.ActionLink("Inicio", "InterfazVisita", "External", null, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "productos" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                                @Html.ActionLink("Productos", "productos", "External", null, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "About" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                                @Html.ActionLink("Acerca de Nosotros", "About", "External", null, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Gallery" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                                @Html.ActionLink("Galería", "Gallery", "External", null, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
+                                @Html.ActionLink("Contáctenos", "Contact", "External", null, new { @class = "nav-link" })
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Login")">
+                                    <i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesión
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Contenido Principal -->
         <div class="content-wrapper">
-            @RenderBody()
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer_section layout_padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <h3 class="useful_text">Acerca de nosotros</h3>
+                        <p class="footer_text">Directo de la zona de los Santos hasta su mesa</p>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <h3 class="useful_text">Menú</h3>
+                        <div class="footer_menu">
+                            <ul>
+                                <li>@Html.ActionLink("Inicio", "InterfazVisita", "External")</li>
+                                <li>@Html.ActionLink("Acerca de Nosotros", "About", "External")</li>
+                                <li>@Html.ActionLink("Galería", "Gallery", "External")</li>
+                                <li>@Html.ActionLink("Contáctenos", "Contact", "External")</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <h3 class="useful_text">Políticas de Compra y Envíos</h3>
+                        <div class="footer_menu">
+                            <ul>
+                                <li>@Html.ActionLink("Políticas de Devolución", "Politicas", "External")</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <h3 class="useful_text">Contáctenos</h3>
+                        <div class="location_text">
+                            <ul>
+                                <li>
+                                    <p class="fa fa-map-marker" aria-hidden="true"></p>
+                                    <span class="padding_left_10">Dirección: Los Santos, Santa María de Dota</span>
+                                </li>
+                                <li>
+                                    <p>📱 <strong>WhatsApp:</strong> <a href="https://api.whatsapp.com/send/?phone=%2B50688566227&text&type=phone_number&app_absent=0" target="_blank">+506 8856-6227</a></p>
+                                </li>
+                                <li>
+                                    <p class="fa fa-envelope" aria-hidden="true"></p>
+                                    <span class="padding_left_10">Email: contacto@gmail.com</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/root/plugins/jquery/jquery.min.js"></script>
     <script src="~/root/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

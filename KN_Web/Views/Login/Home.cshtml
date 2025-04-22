@@ -258,9 +258,11 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><h5 class="card-title producto-title">@item.Descripcion</h5></li>
                         <li class="list-group-item">Categoría: @item.tCategoria.Descripcion</li>
+                        <li class="list-group-item">Presentación: @item.presentacion</li>
                         <li class="list-group-item">Inventario: @item.Inventario</li>
                         <li class="list-group-item">Precio: <span class="producto-price">¢ @item.Precio.ToString("N2")</span></li>
                     </ul>
+       
 
                     <!-- Botón de estrella para agregar a favoritos -->
                     <div class="row" style="margin-top:10px;">

@@ -37,44 +37,7 @@
 </head>
 <body>
 
-    <!--header section start -->
-    <div class="header_section">
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="logo">
-                    <a href="@Url.Action("InterfazVisita", "External")">
-                        <img src="~/root/dist/img/CafeLogo.jpg" style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "InterfazVisita" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Inicio", "InterfazVisita", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "productos" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Productos", "productos", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "About" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Acerca de Nosotros", "About", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Gallery" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Galeria", "Gallery", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "External" ? "active" : "")">
-                            @Html.ActionLink("Contactenos", "Contact", "External", null, new { @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "Login")">
-                                <i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <!--header section end -->
+   
     <!-- about section start -->
     <style>
         /* Estilos para la cuadrícula de productos */
@@ -280,9 +243,6 @@
                 background-color: #733729 !important;
             }
     </style>
-
-
-    <!-- Listado de productos -->
     <div class="productos-container">
         @foreach (var item in Model)
         {
@@ -296,6 +256,7 @@
                             <li class="list-group-item"><h5 class="card-title producto-title">@item.Descripcion</h5></li>
                             <li class="list-group-item">Categoría: @item.tCategoria.Descripcion</li>
                             <li class="list-group-item">Inventario: @item.Inventario</li>
+                            <li class="list-group-item">Presentacion: @item.presentacion</li>
                             <li class="list-group-item">Precio: <span class="producto-price">¢ @item.Precio.ToString("N2")</span></li>
                         </ul>
                     </div>
@@ -307,7 +268,7 @@
                                 <input id="prd-@item.IdProducto" type="number" class="form-control cantidad-input" style="text-align:center" value="1" min="1" max="@item.Inventario" onkeypress="return ValidarNumeros(event)">
                             </div>
                             <div class="col-5">
-                                <a onclick="AgregarProducto(@item.IdProducto, @item.Inventario);" class="card-link btn btn-outline-primary btn-agregar">Añadir</a>
+                                <a onclick="mostrarVentanaEmergente();" class="card-link btn btn-outline-primary btn-agregar">Añadir</a>
                             </div>
                         </div>
                     }
@@ -322,152 +283,150 @@
                     }
                 </div>
             </div>
-      
-    }
-        <!-- about section end -->
-        <!-- footer section start -->
-        <div class="footer_section layout_padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-6">
-                        <h3 class="useful_text">Acerca de nosotros</h3>
-                        <p class="footer_text">Directo de la zona de los Santos hasta su mesa</p>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <h3 class="useful_text">Menu</h3>
-                        <div class="footer_menu">
-                            <ul>
-                                <ul>
-                                    <ul>
-                                        <li>@Html.ActionLink("Inicio", "InterfazVisita", "External")</li>
-                                        <li>@Html.ActionLink("Acerca de Nosotros", "About", "External")</li>
-                                        <li>@Html.ActionLink("Galeria", "Gallery", "External")</li>
-                                        <li>@Html.ActionLink("Contactenos", "Contact", "External")</li>
-                                    </ul>
+        }
+    </div>
 
-
-                                </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <h1 class="useful_text">Politicas de compra y Envios</h1>
-                        <div class="footer_menu">
-                            <ul>
-                                <li>@Html.ActionLink("Politicas de Devoulcion", "Politicas", "External")</li>
-                            </ul>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-3 col-sm-6">
-                        <h1 class="useful_text">Contactenos</h1>
-                        <div class="location_text">
-                            <ul>
-                                <li>
-
-                                    <p class="fa fa-map-marker" aria-hidden="true"></p><span class="padding_left_10">Direccion:Los Santos, Santa Maria de Dota </span>
-                                    </a>
-                                </li>
-                                <li>
-
-                                    <p>📱 <strong>WhatsApp:</strong> <a href="https://api.whatsapp.com/send/?phone=%2B50688566227&text&type=phone_number&app_absent=0" target="_blank">+506 8856-6227</a></p>
-
-                                </li>
-                                <li>
-
-                                    <p class="fa fa-envelope" aria-hidden="true"></p><span class="padding_left_10">Email : demo@gmail.com</span>
-
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div id="miVentanaEmergente" class="ventana-emergente">
+        <div class="contenido-ventana-emergente">
+            <span class="cerrar-ventana-emergente" onclick="cerrarVentanaEmergente()">&times;</span>
+            <p>Estimado Cliente, para poder comprar en nuestra página lo invitamos a iniciar Sesion o registrarse en nuestra página Web, tambien puede escribirnos por Whatsapp, y será un gusto atenderle</p>
+            <p><a href="https://api.whatsapp.com/send/?phone=%2B50688566227&text&type=phone_number&app_absent=0" target="_blank" style="color: green; text-decoration: underline;">Iniciar Chat: +506 8856-6227</a></p>
+    
         </div>
-        <!-- footer section end -->
-        <!-- Javascript files-->
-        <script src="@Url.Content(" ~ /root/dist/js/popper.min.js")"></script>
-        <script src="@Url.Content(" ~ /root/dist/js/bootstrap.bundle.min.js")"></script>
-        <script src="@Url.Content(" ~ /root/dist/js/plugin.js")"></script>
-        <!-- sidebar -->
-        <script src="@Url.Content(" ~ /root/dist/js/jquery.mCustomScrollbar.concat.min.js")"></script>
-        <script src="@Url.Content(" ~ /root/dist/js/custom.js")"></script>
+    </div>
 
-        <script>
-            (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "y-804SD1Jx2UKBVv6UmOQ"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
-        </script>
+    <style>
+        /* Estilos para la ventana emergente */
+        .ventana-emergente {
+            display: none; /* Oculta la ventana inicialmente */
+            position: fixed; /* Posición fija para que aparezca sobre todo */
+            z-index: 1; /* Asegura que esté encima de otros elementos */
+            left: 0;
+            top: 0;
+            width: 100%; /* Ancho completo de la pantalla */
+            height: 100%; /* Alto completo de la pantalla */
+            overflow: auto; /* Permite desplazamiento si el contenido es grande */
+            background-color: rgba(0,0,0,0.4); /* Fondo semi-transparente */
+        }
+
+        .contenido-ventana-emergente {
+            background-color: #fefefe;
+            margin: 15% auto; /* Centra la ventana */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Ancho del contenido de la ventana */
+        }
+
+        .cerrar-ventana-emergente {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .cerrar-ventana-emergente:hover,
+            .cerrar-ventana-emergente:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+    </style>
+
+    <script>
+        function mostrarVentanaEmergente() {
+            document.getElementById("miVentanaEmergente").style.display = "block";
+        }
+
+        function cerrarVentanaEmergente() {
+            document.getElementById("miVentanaEmergente").style.display = "none";
+        }
+    </script>
+
+    <!-- about section end -->
+    
+    <!-- Javascript files-->
+    <script src="@Url.Content(" ~ /root/dist/js/popper.min.js")"></script>
+    <script src="@Url.Content(" ~ /root/dist/js/bootstrap.bundle.min.js")"></script>
+    <script src="@Url.Content(" ~ /root/dist/js/plugin.js")"></script>
+    <!-- sidebar -->
+    <script src="@Url.Content(" ~ /root/dist/js/jquery.mCustomScrollbar.concat.min.js")"></script>
+    <script src="@Url.Content(" ~ /root/dist/js/custom.js")"></script>
+
+    <script>
+        (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "y-804SD1Jx2UKBVv6UmOQ"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+    </script>
 
 
-        <script>
-            (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "y-804SD1Jx2UKBVv6UmOQ"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+    <script>
+        (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "y-804SD1Jx2UKBVv6UmOQ"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
 
-            function ValidarNumeros(evt) {
-                var charCode = (evt.which) ? evt.which : evt.keyCode;
-                return (charCode >= 48 && charCode <= 57);
+        function ValidarNumeros(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            return (charCode >= 48 && charCode <= 57);
+        }
+
+        function AgregarProducto(IdProducto, Inventario) {
+            let cantidadIngresada = $("#prd-" + IdProducto).val();
+
+            if (cantidadIngresada > Inventario) {
+                MostrarMensaje("Información", "Debe ingresar una cantidad inferior al inventario", "info");
+                return;
             }
 
-            function AgregarProducto(IdProducto, Inventario) {
-                let cantidadIngresada = $("#prd-" + IdProducto).val();
+            if (cantidadIngresada <= 0) {
+                MostrarMensaje("Información", "Debe ingresar una cantidad válida", "info");
+                return;
+            }
 
-                if (cantidadIngresada > Inventario) {
-                    MostrarMensaje("Información", "Debe ingresar una cantidad inferior al inventario", "info");
-                    return;
+            $.ajax({
+                type: 'POST',
+                url: '/Login/RegistrarCarrito',
+                dataType: 'json',
+                data: {
+                    "IdProducto": IdProducto,
+                    "Cantidad": cantidadIngresada
+                },
+                success: function (data) {
+                    MostrarMensaje("Información", "Producto añadido correctamente", "success");
                 }
-
-                if (cantidadIngresada <= 0) {
-                    MostrarMensaje("Información", "Debe ingresar una cantidad válida", "info");
-                    return;
-                }
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/Login/RegistrarCarrito',
-                    dataType: 'json',
-                    data: {
-                        "IdProducto": IdProducto,
-                        "Cantidad": cantidadIngresada
-                    },
-                    success: function (data) {
-                        MostrarMensaje("Información", "Producto añadido correctamente", "success");
-                    }
-                });
-            }
-
-
-                                                        }
-
-            function MostrarMensaje(titulo, mensaje, icono) {
-                Swal.fire({
-                    title: titulo,
-                    showDenyButton: false,
-                    showCancelButton: false,
-                    confirmButtonText: "Aceptar",
-                    text: mensaje,
-                    icon: icono
-                }).then((result) => {
-                    // Si no estamos en la vista Busqueda, redirige a Home
-                    if (result.isConfirmed && window.location.pathname.toLowerCase().indexOf("busqueda") === -1) {
-                        window.location.href = '/Login/Home';
-                    }
-                });
-            }
-
-            // Agregar animación inicial a las tarjetas de productos
-            $(document).ready(function () {
-                $(".producto-item").each(function (index) {
-                    $(this).css({
-                        "opacity": "0",
-                        "transform": "translateY(20px)"
-                    });
-
-                    setTimeout(() => {
-                        $(this).animate({
-                            "opacity": "1"
-                        }, 400);
-                        $(this).css("transform", "translateY(0)");
-                    }, 100 * index);
-                });
             });
-        </script>
-    </body>
+        }
+
+
+                                                            }
+
+        function MostrarMensaje(titulo, mensaje, icono) {
+            Swal.fire({
+                title: titulo,
+                showDenyButton: false,
+                showCancelButton: false,
+                confirmButtonText: "Aceptar",
+                text: mensaje,
+                icon: icono
+            }).then((result) => {
+                // Si no estamos en la vista Busqueda, redirige a Home
+                if (result.isConfirmed && window.location.pathname.toLowerCase().indexOf("busqueda") === -1) {
+                    window.location.href = '/Login/Home';
+                }
+            });
+        }
+
+        // Agregar animación inicial a las tarjetas de productos
+        $(document).ready(function () {
+            $(".producto-item").each(function (index) {
+                $(this).css({
+                    "opacity": "0",
+                    "transform": "translateY(20px)"
+                });
+
+                setTimeout(() => {
+                    $(this).animate({
+                        "opacity": "1"
+                    }, 400);
+                    $(this).css("transform", "translateY(0)");
+                }, 100 * index);
+            });
+        });
+    </script>
+</body>
 </html>

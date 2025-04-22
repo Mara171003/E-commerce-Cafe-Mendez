@@ -50,7 +50,7 @@ namespace KN_Web.BaseDatos
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarImagenProducto", idProductoParameter, imagenParameter);
         }
     
-        public virtual int ActualizarProducto(string descripcion, Nullable<int> inventario, Nullable<decimal> precio, string imagen, Nullable<int> idCategoria, Nullable<int> idProducto)
+        public virtual int ActualizarProducto(string descripcion, Nullable<int> inventario, Nullable<decimal> precio, string imagen, Nullable<int> idCategoria, Nullable<int> idProducto, string presentacion)
         {
             var descripcionParameter = descripcion != null ?
                 new ObjectParameter("Descripcion", descripcion) :
@@ -76,7 +76,11 @@ namespace KN_Web.BaseDatos
                 new ObjectParameter("IdProducto", idProducto) :
                 new ObjectParameter("IdProducto", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarProducto", descripcionParameter, inventarioParameter, precioParameter, imagenParameter, idCategoriaParameter, idProductoParameter);
+            var presentacionParameter = presentacion != null ?
+                new ObjectParameter("presentacion", presentacion) :
+                new ObjectParameter("presentacion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarProducto", descripcionParameter, inventarioParameter, precioParameter, imagenParameter, idCategoriaParameter, idProductoParameter, presentacionParameter);
         }
     
         public virtual int ActualizarUsuario(string identificacion, string nombre, string correo, Nullable<byte> idRol, Nullable<int> consecutivo)

@@ -1,27 +1,165 @@
-﻿
+﻿﻿
 @{
     ViewBag.Title = "ConsultarDatos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
+<div class="container mt-5">
+    <h2 class="text-primary">Reportes Administrativos</h2>
+    <hr />
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
-        </div>
-        <div class="card-body">
-            <div class="chart-area">
-                <div class="chartjs-size-monitor">
-                <div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                
-                <canvas id="myAreaChart" width="541" height="320" style="display: block; width: 541px; height: 320px;" class="chartjs-render-monitor"></canvas>
+    <div class="row">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Ventas Menuales</h6>
+            </div> <div class="card-body">
+                <div class="chart-area">
+                    <div class="chartjs-size-monitor">
+                        <div class="chartjs-size-monitor-expand">
+                            <div class="">
+                            </div>
+                        </div>
+                        <div class="chartjs-size-monitor-shrink">
+                            <div class="">
+                            </div>
+                        </div>
+                    </div>
+                    <canvas id="myAreaChart" width="541" height="320" style="display: block; width: 541px; height: 320px;" class="chartjs-render-monitor">
+                    </canvas>
+                </div>
             </div>
         </div>
     </div>
 
+    <div class="row mb-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Ventas por Producto</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-bar">
+                    <canvas id="ventasPorProductoChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Rotación de Inventario</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-line">
+                    <canvas id="rotacionInventarioChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Ventas por Categoría</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-pie">
+                    <canvas id="ventasPorCategoriaChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="~/root/plugins/jquery/jquery.min.js"></script>
 <script src="~/root/dist/js/Chart.js"></script>
 <script src="~/root/dist/js/chart-area-demo.js"></script>
+<script>
+    $(document).ready(function () {
+
+        // Ventas por Producto
+        $.ajax({
+            url: '@Url.Action("ConsultarDatosVentasPorProducto", "Datos")',
+            type: 'POST',
+            success: function (data) {
+                var labels = data.map(item => item.Producto);
+                var ventas = data.map(item => item.TotalVentas);
+
+                var ctx = document.getElementById("ventasPorProductoChart").getContext("2d");
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Ventas ($)",
+                            backgroundColor: "rgba(78, 115, 223, 1)",
+                            data: ventas
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        scales: {
+                            xAxes: [{ gridLines: { display: false } }],
+                            yAxes: [{ ticks: { beginAtZero: true } }]
+                        }
+                    }
+                });
+            }
+        });
+
+        // Rotación de Inventario
+        $.ajax({
+            url: '@Url.Action("ConsultarDatosRotacionInventario", "Datos")',
+            type: 'POST',
+            success: function (data) {
+                var labels = data.map(item => item.Producto);
+                var rotacion = data.map(item => item.TotalVentas);
+
+                var ctx = document.getElementById("rotacionInventarioChart").getContext("2d");
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Rotación",
+                            borderColor: "rgba(78, 115, 223, 1)",
+                            data: rotacion
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        scales: {
+                            xAxes: [{ gridLines: { display: false } }],
+                            yAxes: [{ ticks: { beginAtZero: true } }]
+                        }
+                    }
+                });
+            }
+        });
+
+        // Ventas por Categoría
+        $.ajax({
+            url: '@Url.Action("ConsultarDatosVentasPorCategoria", "Datos")',
+            type: 'POST',
+            success: function (data) {
+                var labels = data.map(item => item.Categoria);
+                var ventas = data.map(item => item.TotalVentas);
+
+                var ctx = document.getElementById("ventasPorCategoriaChart").getContext("2d");
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: ventas,
+                            backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc"]
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+        });
+    });
+</script>
