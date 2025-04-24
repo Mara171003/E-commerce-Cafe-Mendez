@@ -1,28 +1,23 @@
 ﻿@model List<KN_Web.BaseDatos.tProducto>
 
 <style>
-    /* Estilos para la cuadrícula de productos */
-    .productos-container {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0 -10px;
-        background-color: white;
-    }
-
     .producto-item {
         padding: 10px;
         transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
     }
 
     /* Estilos para cada tarjeta de producto */
     .producto-card {
-        height: 100%;
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
         background-color: #fff;
         border: 1px solid #CCD4D9;
+        max-width: 400px;
+        width: 110%;
+        margin: auto;
     }
 
         .producto-card:hover {
@@ -30,31 +25,21 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-    /* Estilo para la imagen */
     .producto-img-container {
-        width: 100%;
-        height: 200px; /* Altura fija para mantener uniformidad */
+        height: 200px;
         overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: var(--cream); /* Fondo claro opcional */
-        border-bottom: 1px solid var(--light-gray); /* Línea de separación estética */
     }
 
-    /* Ajusta las imágenes para que se vean completas */
     .producto-img {
-        width: auto; /* Ajusta el ancho automáticamente */
-        height: 100%; /* La altura siempre llena el contenedor */
-        object-fit: contain; /* Asegura que la imagen completa sea visible */
-        transition: transform 0.5s ease; /* Efecto al pasar el mouse */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .producto-card:hover .producto-img {
         transform: scale(1.05);
     }
 
-    /* Estilos para la información del producto */
     .producto-info {
         padding: 0;
     }
@@ -72,11 +57,6 @@
     .list-group-item {
         border-left: none;
         border-right: none;
-        transition: background-color 0.3s ease;
-        background-color: white;
-    }
-
-    .producto-card:hover .list-group-item {
         background-color: white;
     }
 
@@ -85,7 +65,6 @@
         font-weight: bold;
     }
 
-    /* Estilos para los botones */
     .btn-favorito {
         transition: all 0.3s ease;
         color: #232126;
@@ -122,7 +101,6 @@
             box-shadow: 0 0 0 0.25rem rgba(217, 163, 98, 0.25);
         }
 
-    /* Estilo para productos agotados */
     .producto-agotado {
         font-size: 14pt;
         color: #5c281c;
@@ -130,66 +108,9 @@
         animation: pulse 1.5s infinite;
     }
 
-    /* Mejoras para la búsqueda y filtros */
-    .search-container {
-        margin-bottom: 20px;
-    }
-
-    .search-box {
-        border-radius: 20px 0 0 20px;
-        border: 1px solid #CCD4D9;
-        padding-left: 15px;
-        transition: all 0.3s ease;
-        background-color: white;
-        color: #232126;
-    }
-
-        .search-box:focus {
-            box-shadow: 0 0 0 0.25rem rgba(217, 163, 98, 0.25);
-            border-color: #D9A362;
-        }
-
-    .search-btn {
-        border-radius: 0 20px 20px 0;
-        background-color: #A65526;
-        color: white;
-        transition: all 0.3s ease;
-    }
-
-        .search-btn:hover {
-            background-color: #733729;
-        }
-
-    .filter-container {
-        margin-bottom: 20px;
-    }
-
-    .filter-select {
-        border-radius: 5px;
-        transition: all 0.3s ease;
-        border: 1px solid #CCD4D9;
-        color: #232126;
-    }
-
-        .filter-select:focus {
-            border-color: #D9A362;
-            box-shadow: 0 0 0 0.25rem rgba(217, 163, 98, 0.25);
-        }
-
-    /* Estilos generales para la página */
     body {
         background-color: white;
         color: #232126;
-    }
-
-    .card-body {
-        background-color: white;
-    }
-
-    /* Otros elementos */
-    label {
-        color: #232126;
-        font-weight: 500;
     }
 
     .swal2-popup {
@@ -205,15 +126,12 @@
         }
 </style>
 
-
 <div class="filter-container">
     @using (Html.BeginForm("Filtrar", "Login", FormMethod.Get, new { id = "formFiltro" }))
     {
         <div class="form-group">
             <label for="idCategoria">Filtrar por categoría:</label>
-            @{
-                var categorias = ViewBag.Categorias as List<KN_Web.BaseDatos.tCategoria> ?? new List<KN_Web.BaseDatos.tCategoria>();
-            }
+            @{ var categorias = ViewBag.Categorias as List<KN_Web.BaseDatos.tCategoria> ?? new List<KN_Web.BaseDatos.tCategoria>(); }
             <select name="idCategoria" id="idCategoria" class="form-control filter-select" onchange="this.form.submit();">
                 <option value="0">Todas las categorías</option>
                 @foreach (var cat in categorias)
@@ -226,10 +144,10 @@
 </div>
 
 <!-- Listado de productos -->
-<div class="productos-container">
+<div class="row gx-4 gy-4 justify-content-center align-items-start productos-container">
     @foreach (var item in Model)
     {
-        <div class="col-lg-4 col-md-6 col-sm-12 producto-item">
+        <div class="col-sm-12 col-md-6 col-lg-4 producto-item">
             <div class="producto-card">
                 <div class="producto-img-container">
                     <img class="producto-img" src="@item.Imagen" alt="@item.Descripcion" />
@@ -242,35 +160,27 @@
                         <li class="list-group-item">Inventario: @item.Inventario</li>
                         <li class="list-group-item">Precio: <span class="producto-price">¢ @item.Precio.ToString("N2")</span></li>
                     </ul>
-
-
-                    <!-- Botón de estrella para agregar a favoritos -->
-                    <div class="row" style="margin-top:10px;">
+                    <div class="row mt-2">
                         <div class="col-12 text-right">
-                            <a onclick="AgregarAFavorito(@item.IdProducto)" class="btn btn-outline-warning btn-favorito" title="Agregar a favoritos">
-                                <i class="fa fa-star"></i>
-                            </a>
+                            <a onclick="AgregarAFavorito(@item.IdProducto)" class="btn btn-outline-warning btn-favorito"><i class="fa fa-star"></i></a>
                         </div>
                     </div>
-
                     @if (item.Inventario > 0)
                     {
-                        <div class="card-body row" style="margin-top:10px;">
-                            <div class="col-2"></div>
-                            <div class="col-3">
-                                <input id="prd-@item.IdProducto" type="number" class="form-control cantidad-input" style="text-align:center" value="1" min="1" max="@item.Inventario" onkeypress="return ValidarNumeros(event)">
+                        <div class="row mt-3">
+                            <div class="col-4 offset-2">
+                                <input id="prd-@item.IdProducto" type="number" class="form-control cantidad-input text-center" value="1" min="1" max="@item.Inventario" onkeypress="return ValidarNumeros(event)" />
                             </div>
                             <div class="col-5">
-                                <a onclick="AgregarProducto(@item.IdProducto, @item.Inventario);" class="card-link btn btn-outline-primary btn-agregar">Añadir</a>
+                                <a onclick="AgregarProducto(@item.IdProducto, @item.Inventario);" class="btn btn-outline-primary btn-agregar">Añadir</a>
                             </div>
                         </div>
                     }
                     else
                     {
-                        <div class="card-body row" style="margin-top:10px;">
-                            <div class="col-4"></div>
-                            <div class="col-4">
-                                <p class="card-link producto-agotado">Agotado</p>
+                        <div class="row mt-3">
+                            <div class="col-12 text-center">
+                                <p class="producto-agotado">Agotado</p>
                             </div>
                         </div>
                     }
@@ -279,6 +189,8 @@
         </div>
     }
 </div>
+
+
 
 <script>
     function ValidarNumeros(evt) {
@@ -344,8 +256,4 @@
             }
         });
     }
-
-
-
-
 </script>
