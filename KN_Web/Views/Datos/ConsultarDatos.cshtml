@@ -1,81 +1,201 @@
-﻿﻿
-@{
+﻿@{
     ViewBag.Title = "ConsultarDatos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-5">
-    <h2 class="text-primary">Reportes Administrativos</h2>
+<div class="container mt-5 p-4 shadow" style="border-radius: 10px; background-color: #f8f9fc;">
+    <h2 class="text-primary mb-4">Reportes Administrativos</h2>
     <hr />
 
-    <div class="row">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Ventas Menuales</h6>
-            </div> <div class="card-body">
-                <div class="chart-area">
-                    <div class="chartjs-size-monitor">
-                        <div class="chartjs-size-monitor-expand">
-                            <div class="">
-                            </div>
-                        </div>
-                        <div class="chartjs-size-monitor-shrink">
-                            <div class="">
-                            </div>
-                        </div>
+    <!-- Fila 1: Ventas Mensuales y Ventas por Producto -->
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3">
+            <div class="card shadow">
+                <div class="card-header py-3" style="background: linear-gradient(to right, #4e73df, #1cc88a); color: white; border-radius: 5px;">
+                    <h6 class="m-0 font-weight-bold">Ventas Mensuales</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myAreaChart"></canvas>
                     </div>
-                    <canvas id="myAreaChart" width="541" height="320" style="display: block; width: 541px; height: 320px;" class="chartjs-render-monitor">
-                    </canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow">
+                <div class="card-header py-3" style="background: linear-gradient(to right, #4e73df, #36b9cc); color: white; border-radius: 5px;">
+                    <h6 class="m-0 font-weight-bold">Ventas por Producto</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-bar">
+                        <canvas id="ventasPorProductoChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row mb-5">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Ventas por Producto</h6>
+    <!-- Fila 2: Rotación de Inventario y Ventas por Categoría -->
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="card shadow">
+                <div class="card-header py-3" style="background: linear-gradient(to right, #36b9cc, #1cc88a); color: white; border-radius: 5px;">
+                    <h6 class="m-0 font-weight-bold">Rotación de Inventario</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-line">
+                        <canvas id="rotacionInventarioChart"></canvas>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <div class="chart-bar">
-                    <canvas id="ventasPorProductoChart"></canvas>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow">
+                <div class="card-header py-3" style="background: linear-gradient(to right, #1cc88a, #4e73df); color: white; border-radius: 5px;">
+                    <h6 class="m-0 font-weight-bold">Ventas por Categoría</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-pie">
+                        <canvas id="ventasPorCategoriaChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row mb-5">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Rotación de Inventario</h6>
-            </div>
-            <div class="card-body">
-                <div class="chart-line">
-                    <canvas id="rotacionInventarioChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
+    <script src="~/root/plugins/jquery/jquery.min.js"></script>
+    <script src="~/root/dist/js/Chart.js"></script>
+    <script>
+    // Formato de números
+    function number_format(number, decimals, dec_point, thousands_sep) {
+        number = (number + '').replace(',', '').replace(' ', '');
+        var n = !isFinite(+number) ? 0 : +number,
+            prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+            sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+            dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+            s = '',
+            toFixedFix = function(n, prec) {
+                var k = Math.pow(10, prec);
+                return '' + Math.round(n * k) / k;
+            };
+        s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+        if (s[0].length > 3) {
+            s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+        }
+        if ((s[1] || '').length < prec) {
+            s[1] = s[1] || '';
+            s[1] += new Array(prec - s[1].length + 1).join('0');
+        }
+        return s.join(dec);
+    }
 
-    <div class="row mb-5">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Ventas por Categoría</h6>
-            </div>
-            <div class="card-body">
-                <div class="chart-pie">
-                    <canvas id="ventasPorCategoriaChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    // Ventas Mensuales
+    var ctx = document.getElementById("myAreaChart");
+    $.ajax({
+        url: '/Datos/ConsultarDatosVentasMensuales',
+        type: "POST",
+        success: function(datos) {
+            var arregloTotales = [];
+            var arregloMeses = [];
+            $.each(datos, function(index) {
+                arregloTotales.push(datos[index].TotalMes);
+                arregloMeses.push(datos[index].Mes);
+            });
 
-<script src="~/root/plugins/jquery/jquery.min.js"></script>
-<script src="~/root/dist/js/Chart.js"></script>
-<script src="~/root/dist/js/chart-area-demo.js"></script>
-<script>
+            var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: arregloMeses,
+                    datasets: [{
+                        label: "Ventas",
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(78, 115, 223, 0.05)",
+                        borderColor: "rgba(78, 115, 223, 1)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: arregloTotales,
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 10,
+                            right: 25,
+                            top: 25,
+                            bottom: 0
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            time: {
+                                unit: 'date'
+                            },
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 7
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                maxTicksLimit: 5,
+                                padding: 10,
+                                callback: function(value, index, values) {
+                                    return number_format(value);
+                                }
+                            },
+                            gridLines: {
+                                color: "rgb(234, 236, 244)",
+                                zeroLineColor: "rgb(234, 236, 244)",
+                                drawBorder: false,
+                                borderDash: [2],
+                                zeroLineBorderDash: [2]
+                            }
+                        }],
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        titleMarginBottom: 10,
+                        titleFontColor: '#6e707e',
+                        titleFontSize: 14,
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        intersect: false,
+                        mode: 'index',
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function(tooltipItem, chart) {
+                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+
     $(document).ready(function () {
+        // Configuración global de animaciones para gráficos
+        Chart.defaults.global.animation.duration = 1500;
 
         // Ventas por Producto
         $.ajax({
@@ -92,11 +212,12 @@
                         labels: labels,
                         datasets: [{
                             label: "Ventas ($)",
-                            backgroundColor: "rgba(78, 115, 223, 1)",
+                            backgroundColor: "rgba(78, 115, 223, 0.8)",
                             data: ventas
                         }]
                     },
                     options: {
+                        responsive: true,
                         maintainAspectRatio: false,
                         scales: {
                             xAxes: [{ gridLines: { display: false } }],
@@ -123,10 +244,12 @@
                         datasets: [{
                             label: "Rotación",
                             borderColor: "rgba(78, 115, 223, 1)",
+                            fill: false,
                             data: rotacion
                         }]
                     },
                     options: {
+                        responsive: true,
                         maintainAspectRatio: false,
                         scales: {
                             xAxes: [{ gridLines: { display: false } }],
@@ -156,10 +279,11 @@
                         }]
                     },
                     options: {
+                        responsive: true,
                         maintainAspectRatio: false
                     }
                 });
             }
         });
     });
-</script>
+    </script>
