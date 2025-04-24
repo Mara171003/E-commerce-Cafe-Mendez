@@ -51,11 +51,7 @@
                             <p>📧 <strong>Correo:</strong> <a href="mailto:contacto@tucafe.com">contacto@gmail.com</a></p>
                             <p>📞 <strong>Teléfono:</strong> <a href="tel:+50688888888">+506 8888-8888</a></p>
                             <p>📷 <strong>Instagram:</strong> <a href="https://www.instagram.com/p/CZtNF4FuLwN/?img_index=1" target="_blank">CafeMendezCR</a></p>
-                            <p class="nav-item @(ViewContext.RouteData.Values["action"].ToString() == "Contact" && ViewContext.RouteData.Values["controller"].ToString() == "Login" ? "active" : "")">
-                                <button style="background-color: black; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">
-                                    @Html.ActionLink("Contáctenos Aquí", "Contact", "External", null, new { style = "color: white; text-decoration: none;" })
-                                </button>
-                            </p>
+                            
                         </div>
                     </div>
                 </div>

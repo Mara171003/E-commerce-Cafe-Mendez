@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@ViewBag.Title - Café Méndez</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
- 
+
     <link href="~/root/dist/css/styles.css" rel="stylesheet" />
     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
@@ -13,7 +13,47 @@
     <link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.3/sweetalert2.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
-   
+
+    <style>
+        .footer_section {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: #333;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+            .footer_section .footer_column {
+                flex: 1; /* Distribuir equitativamente el espacio */
+                margin: 10px;
+            }
+
+            .footer_section h3 {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+
+            .footer_section ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+
+                .footer_section ul li {
+                    margin: 5px 0;
+                }
+
+            .footer_section .location_text p {
+                margin: 10px 0;
+            }
+
+            .footer_section .fa {
+                color: #fff;
+                margin-right: 10px;
+            }
+    </style>
+
 </head>
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">

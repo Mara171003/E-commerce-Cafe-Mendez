@@ -11,11 +11,11 @@
 <br>
 <style>
     .card-img-top {
-        width: 100px; /* Ancho pequeño */
-        height: 100px; /* Altura pequeña */
-        object-fit: contain; /* Muestra la imagen completa manteniendo sus proporciones */
-        border-radius: 5px; /* Bordes redondeados para estética */
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* Agrega un ligero sombreado */
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        border-radius: 5px;
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
     }
 </style>
 <div class="row">
@@ -28,8 +28,13 @@
             </div>
         }
 
-        <div>
-            <a class="btn btn-outline-primary" href="@Url.Action("RegistrarProducto","Productos")"> <i class="fa fa-plus"></i>  Registrar </a>
+        <div class="mb-4">
+            <a class="btn btn-outline-primary" href="@Url.Action("RegistrarProducto","Productos")">
+                <i class="fa fa-plus"></i> Registrar
+            </a>
+            <label for="stockThreshold" class="ml-4">Stock mínimo:</label>
+            <input type="number" id="stockThreshold" class="form-control d-inline-block" style="width: 120px;" placeholder="Ej. 10">
+            <button class="btn btn-warning ml-2" id="btnFiltrarStock">Filtrar</button>
         </div>
 
         <br />
@@ -44,7 +49,6 @@
                     <th>Precio</th>
                     <th>Imagen</th>
                     <th>Categoría</th>
-
                     <th>Cambiar Información</th>
                     <th>Eliminar</th>
                 </tr>
@@ -52,13 +56,15 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
+                    <tr class="fila-producto" data-inventario="@item.Inventario">
                         <td>@item.IdProducto</td>
                         <td>@item.Descripcion</td>
                         <td>@item.presentacion</td>
                         <td>@item.Inventario</td>
                         <td>@item.Precio</td>
-                        <td><img class="card-img-top" src="@item.Imagen" style="width: 125px; height:80px; margin-top:20px"></td>
+                        <td>
+                            <img class="card-img-top" src="@item.Imagen" style="width: 125px; height:80px;">
+                        </td>
                         <td>@item.tCategoria.Descripcion</td>
                         <td style="text-align:center">
                             <a class="btn btn-primary" href="@Url.Action("ActualizarProducto","Productos", new { Consecutivo = item.IdProducto })">
@@ -72,9 +78,14 @@
                         </td>
                     </tr>
                 }
+                @if (Model.Count == 0)
+                {
+                    <tr>
+                        <td colspan="9" style="text-align:center">No hay productos disponibles.</td>
+                    </tr>
+                }
             </tbody>
         </table>
-
     </div>
 </div>
 
@@ -84,25 +95,33 @@
         $("#tablaProductos").DataTable({
             language: {
                 url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'
-            },
-            columnDefs: [{ type: 'string', target: [0, 1, 2, 3, 4, 5, 6] }] // Añade el índice de la nueva columna
+            }
+        });
+
+        // Filtrar productos según el valor de inventario definido
+        $("#btnFiltrarStock").on("click", function () {
+            const threshold = parseInt($("#stockThreshold").val()) || 0; // Obtiene el valor ingresado o usa 0 como predeterminado
+            $(".fila-producto").each(function () {
+                const inventario = $(this).data("inventario");
+                if (inventario < threshold) {
+                    $(this).show(); // Mostrar productos con inventario bajo
+                } else {
+                    $(this).hide(); // Ocultar productos con inventario suficiente
+                }
+            });
         });
 
         // Evento click para el botón de eliminar
         $(".btn-eliminar").on("click", function () {
             var idProducto = $(this).data("id");
             if (confirm("¿Está seguro que desea eliminar este producto?")) {
-                // Realizar la petición AJAX para eliminar el producto
                 $.ajax({
                     url: '@Url.Action("EliminarProducto", "Productos")',
                     type: 'POST',
                     data: { id: idProducto },
                     success: function (data) {
                         if (data.success) {
-                            // Recargar la página o actualizar la tabla dinámicamente
-                            window.location.reload(); // Recarga la página para reflejar los cambios
-                            // O podrías usar DataTables para eliminar la fila sin recargar
-                            // $("#tablaProductos").DataTable().row($(this).parents('tr')).remove().draw();
+                            window.location.reload();
                         } else {
                             alert("No se pudo eliminar el producto: " + data.message);
                         }
@@ -113,5 +132,5 @@
                 });
             }
         });
-    })
+    });
 </script>
